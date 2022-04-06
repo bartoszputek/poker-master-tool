@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
+
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
@@ -38,6 +40,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      VERSION: JSON.stringify(require("./package.json").version)
+    }),
     new Dotenv(),
     new CopyPlugin({
       patterns: [

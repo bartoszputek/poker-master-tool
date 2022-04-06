@@ -1,4 +1,4 @@
-import { CARDS } from '../../constants';
+import { CARDS, APP_VERSION } from '../../constants';
 import Mapper from '../../utils/Mapper';
 import BoardView from './BoardView';
 import DeathCardsView from './DeathCardsView';
@@ -6,6 +6,8 @@ import PlayersView from './PlayersView';
 
 export default class View {
   cardsElements = CARDS.map((card) => document.getElementById(card));
+
+  versionElement = document.getElementById('version');
 
   playersView = new PlayersView();
 
@@ -17,6 +19,7 @@ export default class View {
     this.playersView.init(callback);
     this.boardView.init(callback);
     this.deathCardsView.init(callback);
+    this.versionElement.innerText = `v${APP_VERSION}`;
   }
 
   initCardIcons(addCard) {
