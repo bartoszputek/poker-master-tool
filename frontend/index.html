@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Poker Master Tool is a calculator for odds and poker hands in Texas Hold'em.">
+  <title>Poker Master Tool</title>
+  <link rel="icon" href="assets/favicon/favicon.ico" sizes="any">
+  <link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <div class="app" id="app">
+    <div class="menu">
+      <div class="card-picker" id="card-picker">
+        <div class="card-picker-column">
+          <div class="card-picker-row">
+            <button aria-label="2c" class="card-icon" id="2c" style="background-image: url(assets/img/2C.svg);"></button>
+            <button aria-label="3c" class="card-icon" id="3c" style="background-image: url(assets/img/3C.svg);"></button>
+            <button aria-label="4c" class="card-icon" id="4c" style="background-image: url(assets/img/4C.svg);"></button>
+            <button aria-label="5c" class="card-icon" id="5c" style="background-image: url(assets/img/5C.svg);"></button>
+            <button aria-label="6c" class="card-icon" id="6c" style="background-image: url(assets/img/6C.svg);"></button>
+            <button aria-label="7c" class="card-icon" id="7c" style="background-image: url(assets/img/7C.svg);"></button>
+            <button aria-label="8c" class="card-icon" id="8c" style="background-image: url(assets/img/8C.svg);"></button>
+            <button aria-label="9c" class="card-icon" id="9c" style="background-image: url(assets/img/9C.svg);"></button>
+            <button aria-label="Tc" class="card-icon" id="Tc" style="background-image: url(assets/img/TC.svg);"></button>
+            <button aria-label="Jc" class="card-icon" id="Jc" style="background-image: url(assets/img/JC.svg);"></button>
+            <button aria-label="Qc" class="card-icon" id="Qc" style="background-image: url(assets/img/QC.svg);"></button>
+            <button aria-label="Kc" class="card-icon" id="Kc" style="background-image: url(assets/img/KC.svg);"></button>
+            <button aria-label="Ac" class="card-icon" id="Ac" style="background-image: url(assets/img/AC.svg);"></button>
+          </div>
+          <div class="card-picker-row">
+            <button aria-label="2h" class="card-icon" id="2h" style="background-image: url(assets/img/2H.svg);"></button>
+            <button aria-label="3h" class="card-icon" id="3h" style="background-image: url(assets/img/3H.svg);"></button>
+            <button aria-label="4h" class="card-icon" id="4h" style="background-image: url(assets/img/4H.svg);"></button>
+            <button aria-label="5h" class="card-icon" id="5h" style="background-image: url(assets/img/5H.svg);"></button>
+            <button aria-label="6h" class="card-icon" id="6h" style="background-image: url(assets/img/6H.svg);"></button>
+            <button aria-label="7h" class="card-icon" id="7h" style="background-image: url(assets/img/7H.svg);"></button>
+            <button aria-label="8h" class="card-icon" id="8h" style="background-image: url(assets/img/8H.svg);"></button>
+            <button aria-label="9h" class="card-icon" id="9h" style="background-image: url(assets/img/9H.svg);"></button>
+            <button aria-label="Th" class="card-icon" id="Th" style="background-image: url(assets/img/TH.svg);"></button>
+            <button aria-label="Jh" class="card-icon" id="Jh" style="background-image: url(assets/img/JH.svg);"></button>
+            <button aria-label="Qh" class="card-icon" id="Qh" style="background-image: url(assets/img/QH.svg);"></button>
+            <button aria-label="Kh" class="card-icon" id="Kh" style="background-image: url(assets/img/KH.svg);"></button>
+            <button aria-label="Ah" class="card-icon" id="Ah" style="background-image: url(assets/img/AH.svg);"></button>
+          </div>
+        </div>
+        <div class="card-picker-column">
+          <div class="card-picker-row">
+            <button aria-label="2s" class="card-icon" id="2s" style="background-image: url(assets/img/2S.svg);"></button>
+            <button aria-label="3s" class="card-icon" id="3s" style="background-image: url(assets/img/3S.svg);"></button>
+            <button aria-label="4s" class="card-icon" id="4s" style="background-image: url(assets/img/4S.svg);"></button>
+            <button aria-label="5s" class="card-icon" id="5s" style="background-image: url(assets/img/5S.svg);"></button>
+            <button aria-label="6s" class="card-icon" id="6s" style="background-image: url(assets/img/6S.svg);"></button>
+            <button aria-label="7s" class="card-icon" id="7s" style="background-image: url(assets/img/7S.svg);"></button>
+            <button aria-label="8s" class="card-icon" id="8s" style="background-image: url(assets/img/8S.svg);"></button>
+            <button aria-label="9s" class="card-icon" id="9s" style="background-image: url(assets/img/9S.svg);"></button>
+            <button aria-label="Ts" class="card-icon" id="Ts" style="background-image: url(assets/img/TS.svg);"></button>
+            <button aria-label="Js" class="card-icon" id="Js" style="background-image: url(assets/img/JS.svg);"></button>
+            <button aria-label="Qs" class="card-icon" id="Qs" style="background-image: url(assets/img/QS.svg);"></button>
+            <button aria-label="Ks" class="card-icon" id="Ks" style="background-image: url(assets/img/KS.svg);"></button>
+            <button aria-label="As" class="card-icon" id="As" style="background-image: url(assets/img/AS.svg);"></button> 
+          </div>
+          <div class="card-picker-row">
+            <button aria-label="2d" class="card-icon" id="2d" style="background-image: url(assets/img/2D.svg);"></button>
+            <button aria-label="3d" class="card-icon" id="3d" style="background-image: url(assets/img/3D.svg);"></button>
+            <button aria-label="4d" class="card-icon" id="4d" style="background-image: url(assets/img/4D.svg);"></button>
+            <button aria-label="5d" class="card-icon" id="5d" style="background-image: url(assets/img/5D.svg);"></button>
+            <button aria-label="6d" class="card-icon" id="6d" style="background-image: url(assets/img/6D.svg);"></button>
+            <button aria-label="7d" class="card-icon" id="7d" style="background-image: url(assets/img/7D.svg);"></button>
+            <button aria-label="8d" class="card-icon" id="8d" style="background-image: url(assets/img/8D.svg);"></button>
+            <button aria-label="9d" class="card-icon" id="9d" style="background-image: url(assets/img/9D.svg);"></button>
+            <button aria-label="Td" class="card-icon" id="Td" style="background-image: url(assets/img/TD.svg);"></button>
+            <button aria-label="Jd" class="card-icon" id="Jd" style="background-image: url(assets/img/JD.svg);"></button>
+            <button aria-label="Qd" class="card-icon" id="Qd" style="background-image: url(assets/img/QD.svg);"></button>
+            <button aria-label="Kd" class="card-icon" id="Kd" style="background-image: url(assets/img/KD.svg);"></button>
+            <button aria-label="Ad" class="card-icon" id="Ad" style="background-image: url(assets/img/ARD.svg);"></button>         
+          </div>
+        </div>
+      </div>
+      <button id="reset" class="reset-button">Reset</button>
+    </div>
+    <div class="row row-1">
+      <div class="player" id="player-1">
+        <div class="card-container">
+          <button aria-label="Player 1 card 1" class="card"></button>
+          <button aria-label="Player 1 card 2" class="card"></button>
+        </div>
+        <div>Hero</div>
+        <div class="player-results hide" id="player-1-results">
+          <div>Win: <span id="player-1-wins"></span>%</div>
+          <div>Lose: <span id="player-1-loses"></span>%</div>
+          <div>Draw: <span id="player-1-draws"></span>%</div>
+        </div>           
+      </div>
+      <div class="player" id="player-2">
+        <div class="card-container">
+          <button aria-label="Player 2 card 1" class="card"></button>
+          <button aria-label="Player 2 card 2" class="card"></button>
+        </div>
+        <div>Player 2</div>
+        <div class="player-results hide" id="player-2-results">
+          <div>Win: <span id="player-2-wins"></span>%</div>
+          <div>Lose: <span id="player-2-loses"></span>%</div>
+          <div>Draw: <span id="player-2-draws"></span>%</div>
+        </div>         
+      </div>
+      <div class="player" id="player-3">
+        <div class="card-container">
+          <button aria-label="Player 3 card 1" class="card"></button>
+          <button aria-label="Player 3 card 2" class="card"></button>
+        </div>
+        <div>Player 3</div>
+        <div class="player-results hide" id="player-3-results">
+          <div>Win: <span id="player-3-wins"></span>%</div>
+          <div>Lose: <span id="player-3-loses"></span>%</div>
+          <div>Draw: <span id="player-3-draws"></span>%</div>
+        </div>    
+      </div>
+    </div>
+    <div class="row row-2">
+      <div class="player" id="player-4">
+        <div class="card-container">
+          <button aria-label="Player 4 card 1" class="card"></button>
+          <button aria-label="Player 4 card 2" class="card"></button>
+        </div>
+        <div>Player 4</div>
+        <div class="player-results hide" id="player-4-results">
+          <div>Win: <span id="player-4-wins"></span>%</div>
+          <div>Lose: <span id="player-4-loses"></span>%</div>
+          <div>Draw: <span id="player-4-draws"></span>%</div>
+        </div>        
+      </div>
+      <div class="board" id="board">
+        <button aria-label="Board card 1" class="card"></button>
+        <button aria-label="Board card 2" class="card"></button>
+        <button aria-label="Board card 3" class="card"></button>
+        <button aria-label="Board card 4" class="card"></button>
+        <button aria-label="Board card 5" class="card"></button>
+      </div>
+      <div class="player" id="player-5">
+        <div class="card-container">
+          <button aria-label="Player 5 card 1" class="card"></button>
+          <button aria-label="Player 5 card 2" class="card"></button>
+        </div>
+        <div>Player 5</div>
+        <div class="player-results hide" id="player-5-results">
+          <div>Win: <span id="player-5-wins"></span>%</div>
+          <div>Lose: <span id="player-5-loses"></span>%</div>
+          <div>Draw: <span id="player-5-draws"></span>%</div>
+        </div>
+      </div>
+    </div>
+    <div class="row row-3">
+      <div class="player" id="player-6">
+        <div class="card-container">
+          <button aria-label="Player 6 card 1" class="card"></button>
+          <button aria-label="Player 6 card 2" class="card"></button>
+        </div>
+        <div>Player 6</div>
+        <div class="player-results hide" id="player-6-results">
+          <div>Win: <span id="player-6-wins"></span>%</div>
+          <div>Lose: <span id="player-6-loses"></span>%</div>
+          <div>Draw: <span id="player-6-draws"></span>%</div>
+        </div>
+      </div>
+      <div class="player" id="player-7">
+        <div class="card-container">
+          <button aria-label="Player 7 card 1" class="card"></button>
+          <button aria-label="Player 7 card 2" class="card"></button>
+        </div>
+        <div>Player 7</div>
+        <div class="player-results hide" id="player-7-results">
+          <div>Win: <span id="player-7-wins"></span>%</div>
+          <div>Lose: <span id="player-7-loses"></span>%</div>
+          <div>Draw: <span id="player-7-draws"></span>%</div>
+        </div>
+      </div>
+      <div class="player" id="player-8">
+        <div class="card-container">
+          <button aria-label="Player 8 card 1" class="card"></button>
+          <button aria-label="Player 8 card 2" class="card"></button>
+        </div>
+        <div>Player 8</div>
+        <div class="player-results hide" id="player-8-results">
+          <div>Win: <span id="player-8-wins"></span>%</div>
+          <div>Lose: <span id="player-8-loses"></span>%</div>
+          <div>Draw: <span id="player-8-draws"></span>%</div>
+        </div>        
+      </div>
+      <div class="player" id="player-9">
+        <div class="card-container">
+          <button aria-label="Player 9 card 1" class="card"></button>
+          <button aria-label="Player 9 card 2" class="card"></button>
+        </div>
+        <div>Player 9</div>
+        <div class="player-results hide" id="player-9-results">
+          <div>Win: <span id="player-9-wins"></span>%</div>
+          <div>Lose: <span id="player-9-loses"></span>%</div>
+          <div>Draw: <span id="player-9-draws"></span>%</div>
+        </div>         
+      </div>   
+    </div>
+    <div class="death-cards-container">
+      <h2>Death cards</h2>
+      <div id="death-cards" class="death-cards">
+          <button aria-label="Death cards card 1" class="card"></button>
+          <button aria-label="Death cards card 2" class="card"></button>
+          <button aria-label="Death cards card 3" class="card"></button>
+          <button aria-label="Death cards card 4" class="card"></button>
+          <button aria-label="Death cards card 5" class="card"></button>
+          <button aria-label="Death cards card 6" class="card"></button>
+          <button aria-label="Death cards card 7" class="card"></button>
+          <button aria-label="Death cards card 8" class="card"></button>
+      </div>
+    </div>
+    <div class="results">
+      <h2>Results</h2>
+      <div class="combinations">Combinations: <span id="results-combinations">0</span></div>
+      <table id="results-table">
+        <tr>
+          <td class="hand-cell-header">&nbsp;</td>
+          <th>Hero</th>
+          <th>Player 2</th>
+          <th>Player 3</th>
+          <th>Player 4</th>
+          <th>Player 5</th>
+          <th>Player 6</th>
+          <th>Player 7</th>
+          <th>Player 8</th>
+          <th>Player 9</th>
+        </tr>
+        <tr>
+          <th class="hand-cell-header">High card</th>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+        </tr>
+        <tr>
+          <th class="hand-cell-header">One pair</th>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+        </tr>
+        <tr>
+          <th class="hand-cell-header">Two pairs</th>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+        </tr>
+        <tr>
+          <th class="hand-cell-header">Three of a Kind</th>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+        </tr>
+        <tr>
+          <th class="hand-cell-header">Straight</th>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+        </tr>   
+        <tr>
+          <th class="hand-cell-header">Flush</th>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+        </tr>    
+        <tr>
+          <th class="hand-cell-header">Full house</th>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+        </tr>      
+        <tr>
+          <th class="hand-cell-header">Quads</th>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+        </tr>   
+        <tr>
+          <th class="hand-cell-header">Straight flush</th>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+          <td>0.00%</td>
+        </tr>                     
+      </table>
+    </div>
+  </div>
+</body>
+</html>

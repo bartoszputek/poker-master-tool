@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  poker-master-tool:
+    build: ./
+    image: poker-master-tool
+    ports:
+      - "3000:3000"
+    volumes: 
+      - ./logs:/usr/src/app/logs
