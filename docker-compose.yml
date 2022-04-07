@@ -4,6 +4,8 @@ services:
   poker-master-tool:
     build: ./
     image: poker-master-tool
+    env_file:
+      - ./.env
     ports:
       - "3000:3000"
     volumes: 

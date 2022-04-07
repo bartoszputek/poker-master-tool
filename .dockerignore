@@ -5,3 +5,7 @@ coverage
 build
 logs
 public
+.env
+.env.example
+.gitignore
+.vscode
