@@ -48,6 +48,9 @@ class App {
 
   public listen(port: number) {
     this.express.listen(port);
+
+    // eslint-disable-next-line no-console
+    console.log(`App is listening on http://localhost:${port}`);
   }
 }
 
