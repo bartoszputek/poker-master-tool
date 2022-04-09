@@ -17,7 +17,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           cd ${{ secrets.SSH_BUILD_PATH }}
-          git fetch --all
-          git reset --hard origin/master
+          git fetch
+          git reset --hard origin/main
           cd ../..
           docker-compose up -d --build poker-master-tool
