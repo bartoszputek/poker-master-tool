@@ -4,6 +4,7 @@ services:
   poker-master-tool:
     build: ./
     image: poker-master-tool
+    restart: always
     env_file:
       - ./.env
     ports:

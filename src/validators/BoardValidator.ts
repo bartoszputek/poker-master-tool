@@ -12,6 +12,10 @@ export default class BoardValidator implements IValidator {
   ) {}
 
   public validate(board: ISerializedBoard): boolean {
+    if (!board) {
+      throw new ValidationError('Board object does not exist in request body', board);
+    }
+
     const { communityCards, players, deathCards } = board;
 
     this.playersValidator.validate(players);

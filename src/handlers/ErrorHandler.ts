@@ -66,7 +66,7 @@ export default class ErrorHandler implements IHandler {
       logger.error({
         message: 'Internal server error is thrown',
         errorStatus: statusCode,
-        error,
+        errorMessage: error.message,
         url: req.originalUrl,
         method: req.method,
         body: req.body,
@@ -76,6 +76,8 @@ export default class ErrorHandler implements IHandler {
 
       res.status(statusCode);
       res.send({ message: error.message, statusCode, data: 'Internal server error' });
+
+      process.exit(1);
     }
   };
 }

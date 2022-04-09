@@ -60,7 +60,7 @@ if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined
       format.colorize(),
       format.printf((info) => {
         const { timestamp, level, ...content } = info;
-        return `${level} ${timestamp}: ${JSON.stringify(content)}`;
+        return `${level} ${timestamp}: ${JSON.stringify(content, null, 4)}`;
       }),
     ),
   }));
