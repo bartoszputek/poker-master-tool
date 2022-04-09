@@ -41,6 +41,7 @@ beforeEach(() => {
         },
       ],
       communityCards: ['Td', 'As', 'Qc', '2c', '3c'],
+      deathCards: ['6d'],
     },
   );
 

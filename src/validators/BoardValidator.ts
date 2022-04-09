@@ -20,6 +20,10 @@ export default class BoardValidator implements IValidator {
       throw new ValidationError('Property cards is missing in board object', board);
     }
 
+    if (!deathCards) {
+      throw new ValidationError('Property deathCards is missing in board object', board);
+    }
+
     this.arrayValidator.validate(communityCards);
 
     if (communityCards.length > 5) {

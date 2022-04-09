@@ -117,7 +117,7 @@ test('validate(): should throw an error when player has one card ', async () => 
     playersValidator.validate(players);
   };
 
-  const expectedError: ValidationError = new ValidationError('Player has only one card', players[0]);
+  const expectedError: ValidationError = new ValidationError('Player should have two cards', players[0]);
 
   expect(response).toThrow(expectedError);
 });

@@ -4,6 +4,7 @@ import { IComputeHandParams, IComputeHandResponse } from 'controllers/ComputeHan
 import ComputeHandHandler from 'handlers/ComputeHandHandler';
 import Board from 'models/Board';
 import { IController, ILogger, ISerializedBoard, IValidator } from 'interfaces';
+import { getExampleResults } from '../Utils';
 import { createLoggerStub } from '../Stubs';
 
 interface ITestContext {
@@ -21,7 +22,7 @@ let context: ITestContext;
 
 beforeEach(() => {
   const computeHandControllerStub: IController<IComputeHandParams, Promise<IComputeHandResponse>> = {
-    execute: jest.fn(async () => exampleResult()),
+    execute: jest.fn(async () => getExampleResults()),
   };
   const boardValidatorStub: IValidator = {
     validate: jest.fn(),
@@ -44,6 +45,7 @@ beforeEach(() => {
       },
     ],
     communityCards: ['Td', 'As', 'Qc', '2c', '3c'],
+    deathCards: ['6d'],
   };
 
   const parameters: IComputeHandParams = {
@@ -83,7 +85,7 @@ test('handle(): should call execute method and send response', async () => {
   await computeHandHandler.handle(req, res, next);
 
   expect(computeHandControllerStub.execute).toBeCalledWith(parameters);
-  expect(res.send).toBeCalledWith(exampleResult());
+  expect(res.send).toBeCalledWith(getExampleResults());
 });
 
 test('validate(): should call validation methods and next function', async () => {
@@ -94,67 +96,3 @@ test('validate(): should call validation methods and next function', async () =>
   expect(boardValidatorStub.validate).toBeCalledWith(seralizedBoard);
   expect(next).toBeCalled();
 });
-
-function exampleResult(): IComputeHandResponse {
-  return {
-    players: [
-      {
-        handTypes: {
-          bad: 0,
-          highCard: 317149,
-          onePair: 771874,
-          twoPair: 398148,
-          trips: 78736,
-          straight: 64152,
-          flush: 38642,
-          fullHouse: 40896,
-          quads: 2376,
-          straightFlush: 331,
-        },
-        results: {
-          win: [
-            953955,
-            55.72,
-          ],
-          draw: [
-            7346,
-            0.43,
-          ],
-          lose: [
-            751003,
-            43.86,
-          ],
-        },
-      },
-      {
-        handTypes: {
-          bad: 0,
-          highCard: 293411,
-          onePair: 725109,
-          twoPair: 386284,
-          trips: 76721,
-          straight: 62074,
-          flush: 123468,
-          fullHouse: 40896,
-          quads: 2376,
-          straightFlush: 1965,
-        },
-        results: {
-          win: [
-            751003,
-            43.86,
-          ],
-          draw: [
-            7346,
-            0.43,
-          ],
-          lose: [
-            953955,
-            55.72,
-          ],
-        },
-      },
-    ],
-    combinations: 1712304,
-  };
-}

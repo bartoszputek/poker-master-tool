@@ -14,7 +14,7 @@ function calculate(playersCards, communityCards, deathCards) {
     }
 
     if (!playersCards.every((cards) => cards.length === 2)) {
-      reject(new Error('Player should have 2 cards!'));
+      reject(new Error('Player should have two cards!'));
       return;
     }
 

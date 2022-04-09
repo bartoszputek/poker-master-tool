@@ -56,7 +56,7 @@ test('calculate(): should throw an error if any player has more than 2 cards', a
 
   const testFunction = async () => calculate(playerCards, [], []);
 
-  await expect(testFunction()).rejects.toStrictEqual(new Error('Maximum length of players cards is 2!'));
+  await expect(testFunction()).rejects.toStrictEqual(new Error('Player should have two cards!'));
 });
 
 test('calculate(): should throw an error if there is more than 5 community cards', async () => {

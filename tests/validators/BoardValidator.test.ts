@@ -33,6 +33,7 @@ test('validate(): should return true', async () => {
   const board: ISerializedBoard = {
     players,
     communityCards: ['Td', 'As', 'Qc', '2c', '3c'],
+    deathCards: ['6d'],
   };
 
   const response = boardValidator.validate(board);
@@ -60,6 +61,7 @@ test('validate(): should throw an error when board has too many card', async () 
   const board: ISerializedBoard = {
     players,
     communityCards: ['Td', 'As', 'Qc', '2c', '3c', '4c'],
+    deathCards: ['6d'],
   };
 
   const response = () => {
@@ -67,6 +69,23 @@ test('validate(): should throw an error when board has too many card', async () 
   };
 
   const expectedError: ValidationError = new ValidationError('Board has too many cards', { board });
+
+  expect(response).toThrow(expectedError);
+});
+
+test('validate(): should throw an error when board has not deathCards property ', async () => {
+  const { boardValidator, players } = context;
+
+  const board: ISerializedBoard = {
+    players,
+    communityCards: ['Td', 'As', 'Qc', '2c', '3c'],
+  } as ISerializedBoard;
+
+  const response = () => {
+    boardValidator.validate(board);
+  };
+
+  const expectedError: ValidationError = new ValidationError('Property deathCards is missing in board object', board);
 
   expect(response).toThrow(expectedError);
 });

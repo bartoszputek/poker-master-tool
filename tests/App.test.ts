@@ -32,12 +32,13 @@ test.skip('should return response', async () => {
   const board: ISerializedBoard = {
     players,
     communityCards: ['Ts', 'Ad', 'Qc', '2c', '3c'],
+    deathCards: ['5d'],
   };
 
   const response = await request(app).post('/').send({ board });
 
   expect(response.statusCode).toBe(200);
-  expect(response.body).toMatchObject({ response: 'eska34,52,41,1,5' });
+  expect(response.body).toMatchObject({ response: '' });
 });
 
 test.skip('should return response', async () => {
@@ -55,10 +56,11 @@ test.skip('should return response', async () => {
   const board: ISerializedBoard = {
     players,
     communityCards: [],
+    deathCards: [],
   };
 
   const response = await request(app).post('/').send({ board });
 
   expect(response.statusCode).toBe(200);
-  expect(response.body).toMatchObject({ response: 'eska34,52,41,1,5' });
+  expect(response.body).toMatchObject({ response: '' });
 });
