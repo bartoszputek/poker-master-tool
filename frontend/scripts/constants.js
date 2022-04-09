@@ -3,5 +3,5 @@ export const CARDS = ['2c', '2d', '2h', '2s', '3c', '3d', '3h', '3s', '4c', '4d'
   'Jc', 'Jd', 'Jh', 'Js', 'Qc', 'Qd', 'Qh', 'Qs', 'Kc', 'Kd', 'Kh', 'Ks', 'Ac', 'Ad', 'Ah', 'As'];
 export const BOARD_INDEX = 18;
 export const DEATH_CARDS_INDEX = 23;
-export const API_URL = process.env.BACKEND_API_URL;
+export const API_URL = BACKEND_API_URL;
 export const APP_VERSION = VERSION;

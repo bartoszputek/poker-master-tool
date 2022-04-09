@@ -6,7 +6,8 @@
         "browser": true
     },
     "globals": {
-        "VERSION": "readonly"
+        "VERSION": "readonly",
+        "BACKEND_API_URL": "readonly"
     },
     "extends": [
         "airbnb-base",
