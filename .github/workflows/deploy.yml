@@ -1,10 +1,13 @@
 name: Deploy
 on:
-  push:
-    branches: [ main ]
+  workflow_run:
+    workflows: Build and run tests
+    branches: main
+    types: completed
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - name: Connect via SSH and deploy app
       uses: appleboy/ssh-action@master
