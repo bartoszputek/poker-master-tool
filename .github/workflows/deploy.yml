@@ -1,0 +1,20 @@
+name: Deploy
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Connect via SSH and deploy app
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          cd ${{ secrets.SSH_BUILD_PATH }}
+          git fetch --all
+          git reset --hard origin/master
+          cd ../..
+          docker-compose up -d --build poker-master-tool
