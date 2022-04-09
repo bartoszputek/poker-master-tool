@@ -88,6 +88,8 @@ test('handle(): should handle JSON parsing error', async () => {
 test('handle(): should handle an error', async () => {
   const { errorHandler, req, res, next } = context;
 
+  const exit = jest.spyOn(process, 'exit').mockImplementation((number) => number as never);
+
   const errorMessage: string = 'error message';
   const error = new Error(errorMessage);
 
@@ -95,4 +97,5 @@ test('handle(): should handle an error', async () => {
 
   expect(res.status).toBeCalledWith(500);
   expect(res.send).toBeCalledWith({ message: error.message, statusCode: 500, data: 'Internal server error' });
+  expect(exit).toHaveBeenCalledWith(1);
 });
