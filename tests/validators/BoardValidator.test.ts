@@ -89,3 +89,17 @@ test('validate(): should throw an error when board has not deathCards property '
 
   expect(response).toThrow(expectedError);
 });
+
+test('validate(): should throw an error when board is not defined', async () => {
+  const { boardValidator } = context;
+
+  const board: ISerializedBoard = undefined as unknown as ISerializedBoard;
+
+  const response = () => {
+    boardValidator.validate(board);
+  };
+
+  const expectedError: ValidationError = new ValidationError('Board object does not exist in request body', board);
+
+  expect(response).toThrow(expectedError);
+});

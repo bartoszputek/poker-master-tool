@@ -7,6 +7,7 @@ import ErrorHandler from 'handlers/ErrorHandler';
 import LoggerHandler from 'handlers/LoggerHandler';
 import CacheInMemory from 'helpers/CacheInMemory';
 import { CACHE_TTL_IN_MS, FRONTEND_DEV_SERVER_URL } from 'constant';
+import helmet from 'helmet';
 import { initLookUpTable } from '../addon/addon';
 
 class App {
@@ -20,6 +21,8 @@ class App {
     this.express = express();
     this.express.use(express.json());
     this.express.use(express.static('public'));
+
+    this.express.use(helmet());
 
     if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
       this.express.use(cors({

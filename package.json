@@ -1,6 +1,6 @@
 {
   "name": "poker-master-tool",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -20,6 +20,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "helmet": "^5.0.2",
     "uuid": "^8.3.2",
     "winston": "^3.6.0",
     "winston-daily-rotate-file": "^4.6.1"
