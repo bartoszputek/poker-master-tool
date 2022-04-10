@@ -6,6 +6,9 @@ COPY package*.json ./
 
 RUN npm ci
 
+ARG NODE_ENV
+ENV NODE_ENV $NODE_ENV
+
 COPY . .
 
 RUN npm run addon:configure

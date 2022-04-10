@@ -6,9 +6,8 @@ const CopyPlugin = require("copy-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
-  require('dotenv').config({ path: './.env' }); 
-}
+const frontendEnv = require("./frontend-env.json");
+const isDev = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined;
 
 module.exports = {
   entry: './frontend/scripts/script.js',
@@ -45,7 +44,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       VERSION: JSON.stringify(require("./package.json").version),
-      BACKEND_API_URL: JSON.stringify(process.env.BACKEND_API_URL)
+      BACKEND_API_URL: isDev ? JSON.stringify(frontendEnv.BACKEND_API_URL_DEV) : JSON.stringify(frontendEnv.BACKEND_API_URL_PROD)
     }),
     new CopyPlugin({
       patterns: [

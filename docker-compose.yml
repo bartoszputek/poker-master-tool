@@ -2,11 +2,12 @@ version: '3'
 
 services:
   poker-master-tool:
-    build: ./
+    build:
+      context: .
+      args:
+        - NODE_ENV=development
     image: poker-master-tool
-    restart: always
-    env_file:
-      - ./.env
+    restart: always  
     ports:
       - "3000:3000"
     volumes: 
