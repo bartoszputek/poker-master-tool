@@ -12,7 +12,6 @@ import {
 } from 'interfaces';
 import BoardValidator from 'validators/BoardValidator';
 import Board from 'models/Board';
-import { CACHE_HEADERS_TTL_IN_SECONDS } from 'constant';
 
 export default class ComputeHandHandler implements IHandler {
   constructor(
@@ -39,7 +38,6 @@ export default class ComputeHandHandler implements IHandler {
       statusCode: 200,
     });
 
-    res.set('Cache-Control', `public, max-age=${CACHE_HEADERS_TTL_IN_SECONDS}`);
     res.send(response);
   };
 

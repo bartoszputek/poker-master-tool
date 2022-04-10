@@ -1,8 +1,6 @@
 export const CACHE_TTL_IN_MS: number = 1000 * 60 * 10;
 export const CARD_SUITS: string[] = ['s', 'd', 'h', 'c'];
 export const CARD_RANKS: string[] = ['2', '3', '4', '5', '6', '7', '8', '9', 't', 'j', 'q', 'k', 'a'];
-export const FRONTEND_DEV_SERVER_URL: string = 'http://localhost:8080';
-export const CACHE_HEADERS_TTL_IN_SECONDS: number = 60 * 60 * 24 * 1;
 export enum Card {
   '2c' = 1,
   '2d',
@@ -57,3 +55,4 @@ export enum Card {
   'ah',
   'as',
 }
+export const FRONTEND_DEV_SERVER_URL: string = 'http://localhost:8080';
