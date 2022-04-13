@@ -81,14 +81,12 @@ export default class App {
   }
 
   shouldRetrieve() {
-    const hero = this.board.players[0];
-    const villians = this.board.players.slice(1);
-    const isEveryVillianReady = villians.every((player) => player.cards.length === 0 || player.cards.length === 2);
-    const isAtLeastOneVillianFilled = villians.some((player) => player.cards.length === 2);
+    const { players } = this.board;
+    const isEveryVillianReady = players.every((player) => player.cards.length === 0 || player.cards.length === 2);
+    const isAtLeastOneVillianFilled = players.some((player) => player.cards.length === 2);
     const areCommunityCardsReady = this.board.communityCards.length !== 2 && this.board.communityCards.length !== 1;
 
-    return hero.cards.length === 2
-          && isEveryVillianReady
+    return isEveryVillianReady
           && isAtLeastOneVillianFilled
           && areCommunityCardsReady;
   }

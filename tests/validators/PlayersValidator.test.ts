@@ -47,20 +47,6 @@ test('validate(): should throw an error when there is too many players ', async 
   expect(response).toThrow(expectedError);
 });
 
-test('validate(): should throw an error when there is one player ', async () => {
-  const { playersValidator } = context;
-
-  const players: ISerializedPlayer[] = getPlayers(1);
-
-  const response = () => {
-    playersValidator.validate(players);
-  };
-
-  const expectedError: ValidationError = new ValidationError('Too little players, - minimum amount is 2', players);
-
-  expect(response).toThrow(expectedError);
-});
-
 test('validate(): should throw an error when player has not cards property ', async () => {
   const { playersValidator } = context;
 

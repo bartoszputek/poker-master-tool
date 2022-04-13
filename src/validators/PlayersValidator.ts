@@ -16,10 +16,6 @@ export default class PlayersValidator implements IValidator {
       throw new ValidationError('Too many players, - maximum amount is 9', players);
     }
 
-    if (players.length < 2) {
-      throw new ValidationError('Too little players, - minimum amount is 2', players);
-    }
-
     players.forEach((player) => {
       const { cards } = player;
 
