@@ -1,24 +1,32 @@
-import { BOARD_INDEX, DEATH_CARDS_INDEX } from '../constants';
-
-import Board from './Board';
 import Mapper from '../utils/Mapper';
 import View from './views/View';
 import ApiProxy from './ApiProxy';
+import PlayerController from './controllers/PlayerController';
+import BoardController from './controllers/BoardController';
+import DeathCardsController from './controllers/DeathCardsController';
 
 export default class App {
   constructor() {
-    this.board = new Board();
     this.view = new View();
     this.apiProxy = new ApiProxy();
 
     this.cursor = 0;
+
+    const setCursor = (a) => {
+      this.cursor = a;
+    };
+
+    this.playerController = new PlayerController(this.view.playersView, setCursor);
+    this.boardController = new BoardController(this.view.boardView, setCursor);
+    this.deathCardsController = new DeathCardsController(this.view.deathCardsView, setCursor);
   }
 
   prepare() {
     this.view.initCardIcons((card) => this.addCard(card));
     this.view.initResetButton(() => {
       this.cursor = 0;
-      this.board.reset();
+      this.playerController.reset();
+      this.boardController.reset();
     });
 
     this.view.initElements((i) => {
@@ -27,52 +35,30 @@ export default class App {
   }
 
   async addCard(card) {
-    const { object, playerIndex, cardIndex } = Mapper.getObject(this.cursor);
+    let deletedCard;
 
-    if (!object) {
-      return false;
+    switch (Mapper.getObject(this.cursor)) {
+      case 'player':
+        deletedCard = this.playerController.addCard(card, this.cursor);
+        break;
+      case 'board':
+        deletedCard = this.boardController.addCard(card, this.cursor);
+        break;
+      case 'deathCards':
+        deletedCard = this.deathCardsController.addCard(card, this.cursor);
+        break;
+      default:
+        return false;
     }
 
-    if (object === 'player') {
-      const { cardIndex: playerCardIndex, deletedCard } = this.board.addCardToPlayer(card, playerIndex, cardIndex);
-
-      this.view.playersView.setCard(card, playerIndex, playerCardIndex);
-
-      this.cursor = (playerIndex * 2) + playerCardIndex + 1;
-
-      if (deletedCard) {
-        this.view.resetCardIcon(deletedCard);
-      }
-    }
-
-    if (object === 'board') {
-      const { cardIndex: boardCardIndex, deletedCard } = this.board.addCardToBoard(card, cardIndex);
-
-      this.view.boardView.setCard(card, boardCardIndex);
-
-      this.cursor = BOARD_INDEX + boardCardIndex + 1;
-
-      if (deletedCard) {
-        this.view.resetCardIcon(deletedCard);
-      }
-    }
-
-    if (object === 'deathCards') {
-      const { cardIndex: deathCardsIndex, deletedCard } = this.board.addCardToDeathCards(card, cardIndex);
-
-      this.view.deathCardsView.setCard(card, deathCardsIndex);
-
-      this.cursor = DEATH_CARDS_INDEX + deathCardsIndex + 1;
-
-      if (deletedCard) {
-        this.view.resetCardIcon(deletedCard);
-      }
+    if (deletedCard) {
+      this.view.resetCardIcon(deletedCard);
     }
 
     this.view.focusElement(this.cursor);
 
-    if (this.shouldRetrieve()) {
-      const results = await this.getResults(this.board);
+    if (this.shouldFetchResults()) {
+      const results = await this.getResults();
 
       this.view.playersView.setPlayerResults(results);
     }
@@ -80,18 +66,24 @@ export default class App {
     return true;
   }
 
-  shouldRetrieve() {
-    const { players } = this.board;
-    const isEveryVillianReady = players.every((player) => player.cards.length === 0 || player.cards.length === 2);
-    const isAtLeastOneVillianFilled = players.some((player) => player.cards.length === 2);
-    const areCommunityCardsReady = this.board.communityCards.length !== 2 && this.board.communityCards.length !== 1;
+  shouldFetchResults() {
+    const { players } = this.playerController;
+    const { communityCards } = this.boardController;
 
-    return isEveryVillianReady
-          && isAtLeastOneVillianFilled
-          && areCommunityCardsReady;
+    const isEveryPlayerReady = players.every((player) => player.cards.length === 0 || player.cards.length === 2);
+    const isAtLeastOnePlayerFilled = players.some((player) => player.cards.length === 2);
+    const areCommunityCardsReady = communityCards.length !== 2 && communityCards.length !== 1;
+
+    return isEveryPlayerReady && isAtLeastOnePlayerFilled && areCommunityCardsReady;
   }
 
-  async getResults(board) {
+  async getResults() {
+    const board = {
+      communityCards: this.boardController.communityCards,
+      deathCards: this.deathCardsController.deathCards,
+      players: this.playerController.players,
+    };
+
     const data = this.getPlayersWithCards(board);
     const indexesReadyPlayers = this.getIndexesReadyPlayers(board);
 
