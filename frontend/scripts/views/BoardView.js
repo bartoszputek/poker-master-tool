@@ -1,5 +1,5 @@
-import { BOARD_INDEX } from '../../constants';
-import Mapper from '../../utils/Mapper';
+import { BOARD_INDEX } from '../constants';
+import Mapper from '../utils/Mapper';
 
 export default class BoardView {
   boardElement = document.getElementById('board');
@@ -17,6 +17,10 @@ export default class BoardView {
     this.boardElement.children[cardIndex].style.backgroundImage = `url(assets/img/${mappedCard.toUpperCase()}.svg)`;
   }
 
+  resetCard(cardIndex) {
+    this.boardElement.children[cardIndex].style.backgroundImage = 'url(assets/img/2B.svg)';
+  }
+
   reset() {
     const items = Array.from(this.boardElement.children);
 
@@ -25,7 +29,9 @@ export default class BoardView {
     });
   }
 
-  focus(cardIndex) {
+  focus(index) {
+    const cardIndex = Mapper.getBoardIndex(index);
+
     this.boardElement.children[cardIndex].focus();
   }
 }

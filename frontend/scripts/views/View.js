@@ -1,5 +1,5 @@
-import { CARDS, APP_VERSION } from '../../constants';
-import Mapper from '../../utils/Mapper';
+import { CARDS, APP_VERSION } from '../constants';
+import Mapper from '../utils/Mapper';
 import BoardView from './BoardView';
 import DeathCardsView from './DeathCardsView';
 import PlayersView from './PlayersView';
@@ -9,11 +9,15 @@ export default class View {
 
   versionElement = document.getElementById('version');
 
+  resetButton = document.getElementById('reset');
+
   playersView = new PlayersView();
 
   boardView = new BoardView();
 
   deathCardsView = new DeathCardsView();
+
+  mapper = new Mapper(this.playersView, this.boardView, this.deathCardsView);
 
   initElements(callback) {
     this.playersView.init(callback);
@@ -33,11 +37,9 @@ export default class View {
   }
 
   initResetButton(callback) {
-    const resetButton = document.getElementById('reset');
+    this.resetButton.addEventListener('click', callback);
 
-    resetButton.addEventListener('click', callback);
-
-    resetButton.addEventListener('click', () => {
+    this.resetButton.addEventListener('click', () => {
       this.playersView.resetPlayers();
       this.playersView.resetPoputResults();
       this.playersView.resetResults();
@@ -45,7 +47,7 @@ export default class View {
       this.deathCardsView.reset();
     });
 
-    resetButton.addEventListener('click', () => {
+    this.resetButton.addEventListener('click', () => {
       this.cardsElements.forEach((card) => {
         card.classList.remove('hide');
       });
@@ -58,19 +60,26 @@ export default class View {
     cardElement.classList.remove('hide');
   }
 
-  focusElement(index) {
-    const { object, cardIndex, playerIndex } = Mapper.getObject(index);
+  focusElement(card) {
+    const nextElement = this.getNextElementToFocus(card);
 
-    if (object === 'player') {
-      this.playersView.focus(playerIndex, cardIndex);
+    nextElement.focus();
+  }
+
+  getNextElementToFocus(card) {
+    let index = CARDS.findIndex((c) => c === card) + 1;
+    let element = this.cardsElements[index] ?? this.resetButton;
+
+    while (element.classList.contains('hide')) {
+      if (index === 51) {
+        element = this.resetButton;
+        break;
+      }
+
+      index += 1;
+      element = this.cardsElements[index];
     }
 
-    if (object === 'board') {
-      this.boardView.focus(cardIndex);
-    }
-
-    if (object === 'deathCards') {
-      this.deathCardsView.focus(cardIndex);
-    }
+    return element;
   }
 }

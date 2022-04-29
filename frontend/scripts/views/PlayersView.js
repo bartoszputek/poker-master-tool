@@ -1,4 +1,4 @@
-import Mapper from '../../utils/Mapper';
+import Mapper from '../utils/Mapper';
 
 export default class PlayersView {
   playerResultsElements = [];
@@ -45,6 +45,11 @@ export default class PlayersView {
     const mappedCard = Mapper.mapCard(card);
     const playerElement = document.getElementById(`player-${playerIndex + 1}`);
     playerElement.children[0].children[cardIndex].style.backgroundImage = `url(assets/img/${mappedCard.toUpperCase()}.svg)`;
+  }
+
+  resetCard(playerIndex, cardIndex) {
+    const playerElement = document.getElementById(`player-${playerIndex + 1}`);
+    playerElement.children[0].children[cardIndex].style.backgroundImage = 'url(assets/img/2B.svg)';
   }
 
   setPlayerResults(results) {
@@ -135,7 +140,9 @@ export default class PlayersView {
     return tableData;
   }
 
-  focus(playerIndex, cardIndex) {
+  focus(index) {
+    const { playerIndex, cardIndex } = Mapper.getPlayerIndexes(index);
+
     const playerElement = document.getElementById(`player-${playerIndex + 1}`);
 
     playerElement.children[0].children[cardIndex].focus();

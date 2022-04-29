@@ -133,6 +133,10 @@ body {
   cursor: pointer;
 }
 
+.focused {
+  outline: 2px solid black;
+}
+
 table {
   border-collapse: collapse;
   border: 2px solid rgb(200,200,200);

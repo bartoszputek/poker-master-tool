@@ -1,20 +1,24 @@
 export default class Mapper {
-  static getObject(index) {
+  constructor(playerInstance, boardInstance, deathCardsInstance) {
+    this.playerInstance = playerInstance;
+    this.boardInstance = boardInstance;
+    this.deathCardsInstance = deathCardsInstance;
+  }
+
+  getObject(index) {
     if (index < 18) {
-      return 'player';
+      return this.playerInstance;
     }
 
     if (index < 23) {
-      return 'board';
+      return this.boardInstance;
     }
 
     if (index < 31) {
-      return 'deathCards';
+      return this.deathCardsInstance;
     }
 
-    return {
-      object: undefined,
-    };
+    return undefined;
   }
 
   static getPlayerIndexes(cursor) {

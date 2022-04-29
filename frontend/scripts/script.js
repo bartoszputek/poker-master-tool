@@ -1,4 +1,4 @@
-import App from './components/App';
+import App from './App';
 
 import '../css/modern-normalize.css';
 import '../css/style.css';

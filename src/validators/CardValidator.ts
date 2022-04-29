@@ -4,6 +4,10 @@ import { IValidator } from 'interfaces';
 
 export default class CardValidator implements IValidator {
   public validate(card: string): boolean {
+    if (!card) {
+      throw new ValidationError('Incorrect card format', { card });
+    }
+
     if (card.length !== 2) {
       throw new ValidationError('Incorrect card format', { card });
     }
