@@ -1,3 +1,4 @@
+import { SELECT_CLASS_NAME } from '../constants';
 import Mapper from '../utils/Mapper';
 
 export default class PlayersView {
@@ -140,11 +141,11 @@ export default class PlayersView {
     return tableData;
   }
 
-  focus(index) {
+  toggleSelection(index) {
     const { playerIndex, cardIndex } = Mapper.getPlayerIndexes(index);
 
     const playerElement = document.getElementById(`player-${playerIndex + 1}`);
 
-    playerElement.children[0].children[cardIndex].focus();
+    playerElement.children[0].children[cardIndex].classList.toggle(SELECT_CLASS_NAME);
   }
 }

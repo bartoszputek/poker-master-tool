@@ -1,4 +1,4 @@
-import { DEATH_CARDS_INDEX } from '../constants';
+import { DEATH_CARDS_INDEX, SELECT_CLASS_NAME } from '../constants';
 import Mapper from '../utils/Mapper';
 
 export default class DeathCardsView {
@@ -29,9 +29,9 @@ export default class DeathCardsView {
     });
   }
 
-  focus(index) {
+  toggleSelection(index) {
     const cardIndex = Mapper.getDeathCardsIndex(index);
 
-    this.deathCardsElement.children[cardIndex].focus();
+    this.deathCardsElement.children[cardIndex].classList.toggle(SELECT_CLASS_NAME);
   }
 }

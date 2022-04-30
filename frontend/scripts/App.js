@@ -4,21 +4,18 @@ import ApiProxy from './utils/ApiProxy';
 import PlayersController from './controllers/PlayersController';
 import BoardController from './controllers/BoardController';
 import DeathCardsController from './controllers/DeathCardsController';
+import CursorController from './controllers/CursorController';
 
 export default class App {
   constructor() {
     this.view = new View();
     this.apiProxy = new ApiProxy();
 
-    this.cursor = 0;
+    this.cursorController = new CursorController(this.view);
 
-    const setCursor = (i) => {
-      this.cursor = i;
-    };
-
-    this.playersController = new PlayersController(this.view.playersView, setCursor);
-    this.boardController = new BoardController(this.view.boardView, setCursor);
-    this.deathCardsController = new DeathCardsController(this.view.deathCardsView, setCursor);
+    this.playersController = new PlayersController(this.view.playersView, this.cursorController);
+    this.boardController = new BoardController(this.view.boardView, this.cursorController);
+    this.deathCardsController = new DeathCardsController(this.view.deathCardsView, this.cursorController);
 
     this.mapper = new Mapper(this.playersController, this.boardController, this.deathCardsController);
   }
@@ -26,25 +23,30 @@ export default class App {
   prepare() {
     this.view.initCardIcons((card) => this.addCard(card));
     this.view.initResetButton(() => {
-      this.cursor = 0;
+      this.cursorController.reset();
       this.playersController.reset();
       this.boardController.reset();
     });
 
     this.view.initElements((i) => {
-      this.cursor = i;
+      this.cursorController.position = i;
       this.removeCard();
     });
   }
 
-  async addCard(card) {
-    const object = this.mapper.getObject(this.cursor);
+  addCard(card) {
+    const { position } = this.cursorController;
+    const object = this.mapper.getObject(position);
 
     if (!object) {
       return false;
     }
 
-    object.addCard(card, this.cursor);
+    const isCardAdded = object.addCard(card, position);
+
+    if (!isCardAdded) {
+      return false;
+    }
 
     this.view.focusElement(card);
 
@@ -53,14 +55,15 @@ export default class App {
     return true;
   }
 
-  async removeCard() {
-    const object = this.mapper.getObject(this.cursor);
+  removeCard() {
+    const { position } = this.cursorController;
+    const object = this.mapper.getObject(position);
 
     if (!object) {
       return false;
     }
 
-    const deletedCard = object.removeCard(this.cursor);
+    const deletedCard = object.removeCard(position);
 
     if (deletedCard) {
       this.view.resetCardIcon(deletedCard);

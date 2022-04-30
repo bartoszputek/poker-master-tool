@@ -1,4 +1,4 @@
-import { BOARD_INDEX } from '../constants';
+import { BOARD_INDEX, SELECT_CLASS_NAME } from '../constants';
 import Mapper from '../utils/Mapper';
 
 export default class BoardView {
@@ -29,9 +29,9 @@ export default class BoardView {
     });
   }
 
-  focus(index) {
+  toggleSelection(index) {
     const cardIndex = Mapper.getBoardIndex(index);
 
-    this.boardElement.children[cardIndex].focus();
+    this.boardElement.children[cardIndex].classList.toggle(SELECT_CLASS_NAME);
   }
 }

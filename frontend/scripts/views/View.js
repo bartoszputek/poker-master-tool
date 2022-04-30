@@ -82,4 +82,10 @@ export default class View {
 
     return element;
   }
+
+  toggleSelection(index) {
+    const object = this.mapper.getObject(index);
+
+    object.toggleSelection(index);
+  }
 }

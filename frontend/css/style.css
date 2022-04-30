@@ -113,10 +113,6 @@ body {
   background-size: contain;
 }
 
-.card:focus {
-  outline: 3px solid black;
-}
-
 .hide {
   visibility: hidden;
 }
@@ -133,7 +129,7 @@ body {
   cursor: pointer;
 }
 
-.focused {
+.selected {
   outline: 2px solid black;
 }
 

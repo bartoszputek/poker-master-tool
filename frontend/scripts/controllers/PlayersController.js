@@ -2,9 +2,9 @@ import CardsRepository from '../repositories/CardsRepository';
 import Mapper from '../utils/Mapper';
 
 export default class PlayersController {
-  constructor(playersView, setCursor) {
+  constructor(playersView, cursorController) {
     this.playersView = playersView;
-    this.setCursor = setCursor;
+    this.cursorController = cursorController;
     this.initPlayers();
   }
 
@@ -16,10 +16,13 @@ export default class PlayersController {
     const { playerIndex } = Mapper.getPlayerIndexes(cursor);
 
     const index = this.playerRepositories[playerIndex].addCard(card);
+    const nextIndex = this.playerRepositories[playerIndex].getIndex();
 
     this.playersView.setCard(card, playerIndex, index);
 
-    this.setCursor((playerIndex * 2) + index + 1);
+    this.cursorController.position = (playerIndex * 2) + nextIndex;
+
+    return true;
   }
 
   removeCard(cursor) {
@@ -29,7 +32,7 @@ export default class PlayersController {
 
     this.playersView.resetCard(playerIndex, cardIndex);
 
-    this.setCursor((playerIndex * 2) + cardIndex);
+    this.cursorController.position = (playerIndex * 2) + cardIndex;
 
     return deletedCard;
   }

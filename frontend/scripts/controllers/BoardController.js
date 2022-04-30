@@ -3,9 +3,9 @@ import CardsRepository from '../repositories/CardsRepository';
 import Mapper from '../utils/Mapper';
 
 export default class BoardController {
-  constructor(boardView, setCursor) {
+  constructor(boardView, cursorController) {
     this.boardView = boardView;
-    this.setCursor = setCursor;
+    this.cursorController = cursorController;
     this.cardsRepository = new CardsRepository();
   }
 
@@ -15,10 +15,13 @@ export default class BoardController {
 
   addCard(card) {
     const index = this.cardsRepository.addCard(card);
+    const nextIndex = this.cardsRepository.getIndex();
 
     this.boardView.setCard(card, index);
 
-    this.setCursor(BOARD_INDEX + index + 1);
+    this.cursorController.position = BOARD_INDEX + nextIndex;
+
+    return true;
   }
 
   removeCard(cursor) {
@@ -28,7 +31,7 @@ export default class BoardController {
 
     this.boardView.resetCard(cardIndex);
 
-    this.setCursor(BOARD_INDEX + cardIndex);
+    this.cursorController.position = BOARD_INDEX + cardIndex;
 
     return deletedCard;
   }

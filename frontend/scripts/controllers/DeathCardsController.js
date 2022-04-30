@@ -1,12 +1,12 @@
-import { DEATH_CARDS_INDEX } from '../constants';
+import { DEATH_CARDS_INDEX, MAX_DEATH_CARDS } from '../constants';
 import CardsRepository from '../repositories/CardsRepository';
 import Mapper from '../utils/Mapper';
 
 export default class DeathCardsController {
-  constructor(deathCardsView, setCursor) {
+  constructor(deathCardsView, cursorController) {
     this.deathCardsView = deathCardsView;
-    this.setCursor = setCursor;
-    this.cardsRepository = new CardsRepository();
+    this.cursorController = cursorController;
+    this.cardsRepository = new CardsRepository(MAX_DEATH_CARDS);
   }
 
   get deathCards() {
@@ -14,11 +14,20 @@ export default class DeathCardsController {
   }
 
   addCard(card) {
+    const isFull = this.cardsRepository.isFull();
+
+    if (isFull) {
+      return false;
+    }
+
     const index = this.cardsRepository.addCard(card);
+    const nextIndex = this.cardsRepository.getIndex();
 
     this.deathCardsView.setCard(card, index);
 
-    this.setCursor(DEATH_CARDS_INDEX + index + 1);
+    this.cursorController.position = DEATH_CARDS_INDEX + nextIndex;
+
+    return true;
   }
 
   removeCard(cursor) {
@@ -28,7 +37,7 @@ export default class DeathCardsController {
 
     this.deathCardsView.resetCard(cardIndex);
 
-    this.setCursor(DEATH_CARDS_INDEX + cardIndex);
+    this.cursorController.position = DEATH_CARDS_INDEX + cardIndex;
 
     return deletedCard;
   }

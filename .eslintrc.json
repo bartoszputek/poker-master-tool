@@ -32,6 +32,7 @@
         "@typescript-eslint/dot-notation": "off",
         "no-bitwise": "off",
         "no-restricted-syntax": ["error", "BinaryExpression[operator='in']"],
-        "no-param-reassign": ["error", { "props": false }]
+        "no-param-reassign": ["error", { "props": false }],
+        "no-underscore-dangle": "off"
     }
 }

@@ -8,3 +8,5 @@ export const BOARD_INDEX = 18;
 export const DEATH_CARDS_INDEX = 23;
 export const API_URL = BACKEND_API_URL;
 export const APP_VERSION = VERSION;
+export const MAX_DEATH_CARDS = 8;
+export const SELECT_CLASS_NAME = 'selected';

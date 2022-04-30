@@ -1,5 +1,7 @@
 export default class CardsRepository {
-  constructor() {
+  constructor(maxAmount) {
+    this.maxLength = maxAmount - 1;
+
     this.reset();
   }
 
@@ -19,7 +21,11 @@ export default class CardsRepository {
     const deletedCard = this.cards[index];
 
     if (deletedCard) {
-      this.cards[index] = null;
+      if (index === this.cards.length - 1) {
+        this.cards.pop();
+      } else {
+        this.cards[index] = null;
+      }
     }
 
     return deletedCard;
@@ -32,6 +38,14 @@ export default class CardsRepository {
       index = this.cards.length;
     }
 
+    if (this.isFull()) {
+      return this.maxLength;
+    }
+
     return index;
+  }
+
+  isFull() {
+    return this.maxLength && this.cards.length > this.maxLength;
   }
 }
