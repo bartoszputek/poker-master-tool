@@ -1,4 +1,4 @@
-import { ICalculateResponse } from '../addon/addon';
+import { ICalculateResponse } from '../../addon/addon';
 
 // eslint-disable-next-line import/prefer-default-export
 export function getExampleResults(): ICalculateResponse {

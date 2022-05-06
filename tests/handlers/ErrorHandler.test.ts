@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import ErrorHandler from 'handlers/ErrorHandler';
 import { ILogger } from 'interfaces';
-import { createLoggerStub } from '../Stubs';
+import { createLoggerStub } from '../_utils/Stubs';
 
 interface ITestContext {
   errorHandler: ErrorHandler,

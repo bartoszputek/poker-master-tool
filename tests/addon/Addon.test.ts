@@ -1,5 +1,5 @@
 import { calculate, initLookUpTable } from '../../addon/addon';
-import { getExampleResults } from '../Utils';
+import { getExampleResults } from '../_utils/Utils';
 
 // TODO: Remove skipping tests for addon after implementing script for generating data/HandRanks.dat
 test.skip('calculate(): should return a response', async () => {

@@ -4,8 +4,8 @@ import { IComputeHandParams, IComputeHandResponse } from 'controllers/ComputeHan
 import ComputeHandHandler from 'handlers/ComputeHandHandler';
 import Board from 'models/Board';
 import { IController, ILogger, ISerializedBoard, IValidator } from 'interfaces';
-import { getExampleResults } from '../Utils';
-import { createLoggerStub } from '../Stubs';
+import { getExampleResults } from '../_utils/Utils';
+import { createLoggerStub } from '../_utils/Stubs';
 
 interface ITestContext {
   computeHandHandler: ComputeHandHandler,

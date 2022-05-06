@@ -1,8 +1,8 @@
 import { ICache, ILogger } from 'interfaces';
 import ComputeHandController, { IComputeHandResponse } from 'controllers/ComputeHandController';
 import Board from 'models/Board';
-import { createCacheStub, createLoggerStub } from '../Stubs';
-import { getExampleResults } from '../Utils';
+import { createCacheStub, createLoggerStub } from '../_utils/Stubs';
+import { getExampleResults } from '../_utils/Utils';
 
 interface ITestFunction {
   (board: Board): Promise<IComputeHandResponse>;
