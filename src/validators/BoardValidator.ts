@@ -44,6 +44,16 @@ export default class BoardValidator implements IValidator {
       this.cardValidator.validate(card);
     });
 
+    const playerCards: string[] = players.flatMap((player) => player.cards);
+
+    if (this.hasDuplicates([...communityCards, ...playerCards, ...deathCards])) {
+      throw new ValidationError('Board includes duplicated cards', board);
+    }
+
     return true;
+  }
+
+  private hasDuplicates(cards: string[]): Boolean {
+    return new Set(cards).size !== cards.length;
   }
 }

@@ -14,7 +14,7 @@ beforeAll(() => {
 
   const players: ISerializedPlayer[] = [
     {
-      cards: ['As', 'Qc'],
+      cards: ['Ad', 'Qd'],
     },
     {
       cards: ['Td', '2h'],
@@ -32,7 +32,7 @@ test('validate(): should return true', async () => {
 
   const board: ISerializedBoard = {
     players,
-    communityCards: ['Td', 'As', 'Qc', '2c', '3c'],
+    communityCards: ['Ts', 'As', 'Qc', '2c', '3c'],
     deathCards: ['6d'],
   };
 
@@ -100,6 +100,24 @@ test('validate(): should throw an error when board is not defined', async () => 
   };
 
   const expectedError: ValidationError = new ValidationError('Board object does not exist in request body', board);
+
+  expect(response).toThrow(expectedError);
+});
+
+test('validate(): should throw an error when board includes duplicates', async () => {
+  const { boardValidator, players } = context;
+
+  const board: ISerializedBoard = {
+    players,
+    communityCards: ['Ts', 'As', 'Qc', '2c', '3c'],
+    deathCards: ['2c'],
+  };
+
+  const response = () => {
+    boardValidator.validate(board);
+  };
+
+  const expectedError: ValidationError = new ValidationError('Board includes duplicated cards', board);
 
   expect(response).toThrow(expectedError);
 });

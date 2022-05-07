@@ -66,3 +66,17 @@ test('validate(): should throw an error when suit is incorrect ', async () => {
 
   expect(response).toThrow(expectedError);
 });
+
+test('validate(): should throw an error when card is undefined', async () => {
+  const { cardValidator } = context;
+
+  const card: string = undefined as unknown as string;
+
+  const response = () => {
+    cardValidator.validate(card);
+  };
+
+  const expectedError: ValidationError = new ValidationError('Incorrect card format', { card });
+
+  expect(response).toThrow(expectedError);
+});

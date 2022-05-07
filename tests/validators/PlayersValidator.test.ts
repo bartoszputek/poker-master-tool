@@ -47,6 +47,20 @@ test('validate(): should throw an error when there is too many players ', async 
   expect(response).toThrow(expectedError);
 });
 
+test('validate(): should throw an error when players array is empty', async () => {
+  const { playersValidator } = context;
+
+  const players: ISerializedPlayer[] = [];
+
+  const response = () => {
+    playersValidator.validate(players);
+  };
+
+  const expectedError: ValidationError = new ValidationError('Players should have at least 1 element', players);
+
+  expect(response).toThrow(expectedError);
+});
+
 test('validate(): should throw an error when player has not cards property ', async () => {
   const { playersValidator } = context;
 
@@ -87,7 +101,7 @@ test('validate(): should throw an error when player has too many card ', async (
   expect(response).toThrow(expectedError);
 });
 
-test('validate(): should throw an error when player has one card ', async () => {
+test('validate(): should throw an error when player has one card', async () => {
   const { playersValidator } = context;
 
   const players: ISerializedPlayer[] = [
