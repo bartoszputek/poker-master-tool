@@ -4,159 +4,52 @@
   font-display: swap;
 }
 
+h2 {
+  font-size: 18px;
+}
+
 body {
- font-family: 'Roboto';
- background-color: black;
- display: flex;
- justify-content: center;
+  font-family: 'Roboto';
+  display: flex;
+  justify-content: center;
+  background-color: #e8e8e8;
 }
 
 .app {
-  height: 1400px;
-  width: 1300px;
-  padding: 5px;
+  min-height: 100vh;
+  padding: 10px 20px;
   display: flex;
   flex-direction: column;
-  background-color: gray;
-}
-
-.card-picker-column {
-  display: flex;
-}
-
-.card-picker-row {
-  margin-left: 5px;
-}
-
-.card-icon {
-  height: 60px;
-  width: 24px;
-  background-size: 100px; 
-  background-position: -2px -2px;
-  margin: 1px;
-  border: none;
-  cursor: pointer;
-}
-
-.card-icon:focus {
-  outline: 3px solid black;
-}
-
-.row {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 10px; 
-  margin-bottom: 35px;
-}
-
-.row-1 {
-  order: 3;
-  margin-bottom: 0px;
-}
-
-.row-2 {
-  justify-content: space-between;
-  order: 2;
-}
-
-.row-3 {
-  order: 1;
-}
-
-.death-cards-container {
-  order: 4;
-}
-
-.results{
-  order: 5;
-}
-
-.results-container{
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.player {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  position: relative;
-  margin: 5px;
-}
-
-.player-results{
-  font-size: 14px;
-  width: 100%;
-  position: absolute;
-  bottom: -60px;
-  background-color: white;
-  padding: 5px 0;
-  -webkit-box-shadow: 2px 2px 15px 0px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow:    2px 2px 15px 0px rgba(50, 50, 50, 0.75);
-  box-shadow:         2px 2px 15px 0px rgba(50, 50, 50, 0.75);
-}
-
-.board {
-  display: flex;
-  padding: 10px;
-}
-
-.card {
-  width: 80px;
-  height: 112px;
-  margin-left: 3px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background: url('assets/img/2B.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
+  background-color: #fff;
 }
 
 .hide {
-  visibility: hidden;
-}
-
-.menu {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.reset-button {
-  width: 60px;
-  height: 30px;
-  cursor: pointer;
+  display: none;
 }
 
 .selected {
   outline: 2px solid black;
 }
 
-table {
-  border-collapse: collapse;
-  border: 2px solid rgb(200,200,200);
-  letter-spacing: 1px;
-  font-size: 0.8rem;
+.death-cards-container {
+  margin-top: 10px;
 }
 
-td, th {
-  border: 1px solid rgb(190,190,190);
-  padding: 10px 10px;
+.version {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
-th {
-  width: 75px;
+@media screen and (max-width: 900px) {
+  body {
+    display: block;
+  }
 }
 
-td {
-  text-align: center;
-}
-
-.hand-cell-header{
-  width: auto;
-}
-
-.combinations {
-  margin-bottom: 10px;
+@media screen and (max-width: 400px) {
+  .app {
+    padding: 5px;
+  }
 }

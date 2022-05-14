@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
 
 import ComputeHandController, { IComputeHandResponse } from 'controllers/ComputeHandController';
 import ComputeHandHandler from 'handlers/ComputeHandHandler';
@@ -7,7 +8,6 @@ import ErrorHandler from 'handlers/ErrorHandler';
 import LoggerHandler from 'handlers/LoggerHandler';
 import CacheInMemory from 'helpers/CacheInMemory';
 import { CACHE_TTL_IN_MS, FRONTEND_DEV_SERVER_URL } from 'constant';
-import helmet from 'helmet';
 import { initLookUpTable } from '../addon/addon';
 
 class App {

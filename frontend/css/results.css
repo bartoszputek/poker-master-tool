@@ -1,0 +1,52 @@
+.combinations {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-left: 0px;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+}
+
+td,
+th {
+  border: 1px solid rgb(190, 190, 190);
+  border-left: 0px;
+  padding: 10px 10px;
+}
+
+th {
+  min-width: 75px;
+}
+
+td {
+  text-align: center;
+}
+
+td:first-child {
+  min-width: 80px;
+  position: sticky;
+  left: 0;
+  background-color: #ddd;
+  box-shadow: inset -2px 1px 0 rgb(190, 190, 190), inset 0px -1px 0 rgb(190, 190, 190);
+}
+
+th:first-child {
+  position: sticky;
+  left: 0;
+  background-color: #ddd;
+  box-shadow: inset -2px 1px 0 rgb(190, 190, 190), inset 0px -1px 0 rgb(190, 190, 190);
+}
+
+.hand-cell-header {
+  width: auto;
+}
+
+.table-container {
+  max-width: 1000px;
+  overflow-x: auto;
+  border: 2px solid rgb(200, 200, 200);
+}

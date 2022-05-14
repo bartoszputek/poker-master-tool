@@ -50,7 +50,7 @@ class CalculateWorker : public AsyncWorker {
     std::array<std::string, 3> resultNames = getResultNames();
 
     // Map Results struct to JS object
-    for(int i=0; i<serializedPlayers.size(); i++){
+    for(unsigned int i=0; i<serializedPlayers.size(); i++){
       Local<Object> player = Nan::New<Object>();
       std::array<int, 10> playerStats = playersStats[i].handTypeSum;
       Local<Object> handTypeSum = Nan::New<Object>();

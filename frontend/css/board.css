@@ -1,0 +1,188 @@
+.board-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1000px;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  font-size: 14px;
+  font-weight: 600;
+  flex: 0 1 25%;
+  margin: 10px 0;
+}
+
+.player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-1 {
+  order: 8;
+}
+
+.player-2 {
+  order: 9;
+}
+
+.player-3 {
+  order: 10;
+}
+
+.player-4 {
+  order: 5;
+  flex: 0 1 33%;
+  align-items: flex-start;
+}
+
+.player-5 {
+  order: 7;
+  flex: 0 1 33%;
+  align-items: flex-end;
+}
+
+.player-6 {
+  order: 1;
+  margin-bottom: 60px;
+}
+
+.player-7 {
+  order: 2;
+  margin-bottom: 60px;
+}
+
+.player-8 {
+  order: 3;
+  margin-bottom: 60px;
+}
+
+.player-9 {
+  order: 4;
+  margin-bottom: 60px;
+}
+
+.board {
+  display: flex;
+  justify-content: center;
+  order: 6;
+  flex: 0 1 33%;
+  margin: 10px 0;
+}
+
+.player-results {
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  width: 100px;
+  position: absolute;
+  bottom: -60px;
+  background-color: white;
+  margin-top: 5px;
+  padding: 5px 0;
+  -webkit-box-shadow: 2px 2px 15px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 2px 2px 15px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 2px 2px 15px 0px rgba(50, 50, 50, 0.75);
+}
+
+.card {
+  width: 50px;
+  height: 71px;
+  margin-left: 3px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: url('assets/img/2B.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.card:focus {
+  outline: 3px solid #9ecaed;
+  box-shadow: 0 0 10px 1px #9ecaed;
+}
+
+@media screen and (max-width: 830px) {
+  .player-4 {
+    flex: 0 1 25%;
+    margin-bottom: 60px;
+  }
+
+  .player-5 {
+    flex: 0 1 25%;
+    margin-bottom: 60px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .player {
+    flex: 0 1 33%;
+    margin: 5px 0;
+  }
+
+  .player-1 {
+    order: 0;
+  }
+
+  .player-2 {
+    order: 0;
+  }
+
+  .player-3 {
+    order: 0;
+  }
+
+  .player-4 {
+    order: 0;
+    flex: 0 1 33%;
+    align-items: center;
+  }
+
+  .player-5 {
+    order: 0;
+    flex: 0 1 33%;
+    align-items: center;
+  }
+
+  .player-6 {
+    order: 0;
+  }
+
+  .player-7 {
+    order: 0;
+  }
+
+  .player-8 {
+    order: 0;
+  }
+
+  .player-9 {
+    order: 0;
+  }
+
+  .player-results {
+    font-size: 12px;
+    position: static;
+  }
+
+  .board {
+    margin: 5px 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .card {
+    width: 40px;
+    height: 57px;
+    padding: 0;
+  }
+
+  .player-results {
+    width: 85px;
+  }
+
+}

@@ -45,12 +45,18 @@ export default class PlayersView {
   setCard(card, playerIndex, cardIndex) {
     const mappedCard = Mapper.mapCard(card);
     const playerElement = document.getElementById(`player-${playerIndex + 1}`);
-    playerElement.children[0].children[cardIndex].style.backgroundImage = `url(assets/img/${mappedCard.toUpperCase()}.svg)`;
+
+    const playerCardElement = this.playerCardElement(playerElement, cardIndex);
+
+    playerCardElement.style.backgroundImage = `url(assets/img/${mappedCard.toUpperCase()}.svg)`;
   }
 
   resetCard(playerIndex, cardIndex) {
     const playerElement = document.getElementById(`player-${playerIndex + 1}`);
-    playerElement.children[0].children[cardIndex].style.backgroundImage = 'url(assets/img/2B.svg)';
+
+    const playerCardElement = this.playerCardElement(playerElement, cardIndex);
+
+    playerCardElement.style.backgroundImage = 'url(assets/img/2B.svg)';
   }
 
   setPlayerResults(results) {
@@ -108,7 +114,8 @@ export default class PlayersView {
   resetPlayers() {
     for (let index = 0; index < 9; index += 1) {
       const playerElement = document.getElementById(`player-${index + 1}`);
-      const items = Array.from(playerElement.children[0].children);
+
+      const items = [0, 1].map((value) => this.playerCardElement(playerElement, value));
 
       items.forEach((card) => {
         card.style.backgroundImage = 'url(assets/img/2B.svg)';
@@ -146,6 +153,12 @@ export default class PlayersView {
 
     const playerElement = document.getElementById(`player-${playerIndex + 1}`);
 
-    playerElement.children[0].children[cardIndex].classList.toggle(SELECT_CLASS_NAME);
+    const playerCardElement = this.playerCardElement(playerElement, cardIndex);
+
+    playerCardElement.classList.toggle(SELECT_CLASS_NAME);
+  }
+
+  playerCardElement(playerElement, index) {
+    return playerElement.children[0].children[0].children[index];
   }
 }
