@@ -35,7 +35,8 @@ export default class PlayersView {
       const playerElement = document.getElementById(`player-${index + 1}`);
 
       for (let i = 0; i < 2; i += 1) {
-        playerElement.children[0].children[i].addEventListener('click', () => {
+        const playerCardElement = this.playerCardElement(playerElement, i);
+        playerCardElement.addEventListener('click', () => {
           callback((index * 2) + i);
         });
       }
@@ -76,7 +77,7 @@ export default class PlayersView {
 
       const resultsElement = this.playerResultsElements[playerIndex];
 
-      resultsElement.classList.remove('hide');
+      resultsElement.classList.remove('display-none');
 
       const winsElement = this.playerWinsElements[playerIndex];
       const losesElement = this.playerLosesElements[playerIndex];
@@ -94,7 +95,7 @@ export default class PlayersView {
 
   resetPoputResults() {
     this.playerResultsElements.forEach((playerResultsElement) => {
-      playerResultsElement.classList.add('hide');
+      playerResultsElement.classList.add('display-none');
     });
   }
 

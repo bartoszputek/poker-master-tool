@@ -24,6 +24,10 @@ body {
 }
 
 .hide {
+  visibility: hidden;
+}
+
+.display-none {
   display: none;
 }
 
