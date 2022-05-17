@@ -13,7 +13,7 @@ vector<int> FULL_DECK{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17
 array<int, 10> initHand = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 array<std::pair<int, double>, 3> initResult = {std::make_pair(0, 0), std::make_pair(0, 0), std::make_pair(0, 0)};
 
-// The handranks lookup table- loaded from HANDRANKS.DAT.
+// The handranks lookup table - loaded from HANDRANKS.DAT.
 int HR[32487834];
 
 array<string, 10> getHandNames(){
@@ -42,7 +42,6 @@ array<string, 3> getResultNames(){
 
 	return results;
 }
-
 
 array<PlayerStats, 9> initStructures(){
 	array<PlayerStats, 9> players;
@@ -125,7 +124,7 @@ vector<int> determineWinner(int max, vector<int>& ranks){
 	return winnerIndexes;
 }
 
-void handleResults(vector<int> results, array<PlayerStats, 9>& players){
+void handleResults(vector<int>& results, array<PlayerStats, 9>& players){
 		if(results.size() == 0){
 			for(array<PlayerStats, 9>::iterator it = players.begin(); it != players.end(); ++it){
 				(*it).results[1].first++;
@@ -135,12 +134,12 @@ void handleResults(vector<int> results, array<PlayerStats, 9>& players){
 
 		for(vector<int>::iterator it = results.begin(); it != results.end(); ++it){
 			players[(*it)].results[0].first++;
-		}		
+		}
 }
 
 int iterate(
 	vector<int>::iterator it,
-	vector<int> playerPointers,
+	vector<int>& playerPointers,
 	int iteration,
 	vector<int>& deck,
 	vector<int>& ranks,
@@ -153,14 +152,14 @@ int iterate(
 			for(vector<int>::iterator p_iterator = playerPointers.begin(); p_iterator != playerPointers.end(); ++p_iterator){
 				int index = p_iterator - playerPointers.begin();
 				array<int, 10> &handSum = playersStats[index].handTypeSum;
-				int ululu = *p_iterator >> 12;
-				handSum[ululu] += 1;
+				int handRank = *p_iterator >> 12;
+				handSum[handRank] += 1;
 				ranks.push_back(*p_iterator);
 
 				if(*p_iterator > max){
 					max = *p_iterator;
 				}
-			}		
+			}
 			
 			vector<int> results = determineWinner(max, ranks);
 			handleResults(results, playersStats);
@@ -169,15 +168,18 @@ int iterate(
 			return 1;
 	}
 
+	vector<int> newPointers;
+	newPointers.reserve(playerPointers.size());
+
 	for(vector<int>::iterator it1 = it; it1 != deck.end() - iteration + 1; ++it1) {
-		vector<int> newPointers;
-		newPointers.reserve(playerPointers.size());
 		for(vector<int>::iterator p_iterator = playerPointers.begin(); p_iterator != playerPointers.end(); ++p_iterator){
 			newPointers.push_back(HR[*p_iterator + *it1]);
-		}    
+		}
 
 		count += iterate(it1 + 1, newPointers, iteration - 1, deck, ranks, playersStats);
-	}	
+
+		newPointers.clear();
+	}
 
 	return count;
 }
