@@ -1,6 +1,3 @@
-// HandRankSetup.cpp : Sets up the HandRank File for VERY fast Lookups
-// by Ray Wotton and the 2+2 list  My code is GPL, use it as you like
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
