@@ -1,14 +1,10 @@
 #include <stdio.h>
 
-#include "arrays.h"
-#include "poker.h"
+#include "arrays.hpp"
+#include "poker.hpp"
 
 // Paul D. Senzee's Optimized Hand Evaluator
 //   for Cactus Kev's Poker Hand Evaluator
-//
-// Replaces binary search with a perfect hash.
-// If you replace eval_5hand with eval_5hand_fast, the products[] and values[] arrays in 'arrays.h' are unnecessary.
-// With eval_5hand_fast, the 'allfive.c' test program runs about 2.7 times faster.
 //
 // (c) Paul D. Senzee.
 // Portions (in eval_5hand_fast) (c) Kevin L. Suffecool.
@@ -55,22 +51,6 @@ unsigned find_fast(unsigned u) {
 //   b = bit turned on depending on rank of card
 //
 
-//  This routine will search a deck for a specific card
-//  (specified by rank/suit), and return the INDEX giving
-//  the position of the found card.  If it is not found,
-//  then it returns -1
-//
-int find_card(int rank, int suit, int *deck) {
-    int i, c;
-
-    for (i = 0; i < 52; i++) {
-        c = deck[i];
-        if ((c & suit) && (RANK(c) == rank))
-            return (i);
-    }
-    return (-1);
-}
-
 int eval_5hand_fast(int c1, int c2, int c3, int c4, int c5) {
     int q = (c1 | c2 | c3 | c4 | c5) >> 16;
     short s;
@@ -78,32 +58,6 @@ int eval_5hand_fast(int c1, int c2, int c3, int c4, int c5) {
     if ((s = unique5[q])) return s;                          // check for straights and high card hands
     return hash_values[find_fast((c1 & 0xff) * (c2 & 0xff) * (c3 & 0xff) * (c4 & 0xff) * (c5 & 0xff))];
 }
-
-// short
-// eval_5cards( int c1, int c2, int c3, int c4, int c5 )
-//{
-//     int q;
-//     short s;
-//
-//     q = (c1|c2|c3|c4|c5) >> 16;
-//
-//     /* check for Flushes and StraightFlushes
-//     */
-//     if ( c1 & c2 & c3 & c4 & c5 & 0xF000 )
-//	return( flushes[q] );
-//
-//     /* check for Straights and HighCard hands
-//     */
-//     s = unique5[q];
-//     if ( s )  return ( s );
-//
-//     /* let's do it the hard way
-//     */
-//     q = (c1&0xFF) * (c2&0xFF) * (c3&0xFF) * (c4&0xFF) * (c5&0xFF);
-//     q = findit( q );
-//
-//     return( values[q] );
-// }
 
 extern unsigned short hash_adjust[] =
     {
@@ -669,8 +623,6 @@ short eval_5hand(int *hand) {
 
 // This is a non-optimized method of determining the
 // best five-card hand possible out of seven cards.
-// I am working on a faster algorithm.
-//
 short eval_7hand(int *hand) {
     int i, j, q, best = 9999, subhand[5];
 

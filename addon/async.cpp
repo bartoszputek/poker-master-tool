@@ -1,10 +1,10 @@
-#include "async.h"
+#include "async.hpp"
 
 #include <nan.h>
 
 #include <vector>
 
-#include "calculator.h"
+#include "calculator.hpp"
 
 using Nan::AsyncQueueWorker;
 using Nan::AsyncWorker;

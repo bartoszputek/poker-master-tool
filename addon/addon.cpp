@@ -1,6 +1,6 @@
 #include <nan.h>
 
-#include "async.h"
+#include "async.hpp"
 
 using Nan::GetFunction;
 using Nan::New;

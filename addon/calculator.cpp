@@ -1,4 +1,4 @@
-#include "calculator.h"
+#include "calculator.hpp"
 
 #include <algorithm>
 #include <array>

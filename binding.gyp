@@ -3,9 +3,9 @@
     {
       "target_name": "addon",
       "sources": [
-        "addon/addon.cc",
-        "addon/calculator.cc",
-        "addon/async.cc"
+        "addon/addon.cpp",
+        "addon/calculator.cpp",
+        "addon/async.cpp"
       ],
       "include_dirs": ["<!(node -e \"require('nan')\")"]
     }

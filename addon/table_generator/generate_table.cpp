@@ -8,22 +8,8 @@
 
 #include <filesystem>
 
-#include "poker.h"
+#include "poker.hpp"
 
-const char HandRanks[][16] = {
-    "BAD!!",            // 0
-    "High Card",        // 1
-    "Pair",             // 2
-    "Two Pair",         // 3
-    "Three of a Kind",  // 4
-    "Straight",         // 5
-    "Flush",            // 6
-    "Full House",       // 7
-    "Four of a Kind",   // 8
-    "Straight Flush"    // 9
-};
-
-#define LARGE_INTEGER int64_t
 #define int64 int64_t
 
 inline int min(int const x, int const y) {
@@ -309,7 +295,7 @@ int DoEval(int64 IDin) {
     return result;  // now a handrank that I like
 }
 
-int main(int argc, char *argv[]) {
+int main() {
     int64 ID;
 
     // step through the ID array - always shifting the current ID and
