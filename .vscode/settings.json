@@ -44,6 +44,12 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "cinttypes": "cpp",
-    "typeinfo": "cpp"
-  }
+    "typeinfo": "cpp",
+    "chrono": "cpp",
+    "codecvt": "cpp",
+    "ctime": "cpp",
+    "iomanip": "cpp",
+    "ratio": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "Disabled"
 }
