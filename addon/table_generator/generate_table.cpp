@@ -1,7 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
 #include <filesystem>
 
@@ -257,11 +255,8 @@ int DoEval(int64 IDin) {
             holdrank = min(holdrank,
                            eval_5hand_fast(cards[1], cards[2], cards[3], cards[4], cards[5]));
             break;
-        case 7:
+        default:
             holdrank = eval_7hand(cards);
-            break;
-        default:  // problem!!  shouldn't hit this...
-            printf("    Problem with numcards = %d!!\n", numcards);
             break;
     }
 

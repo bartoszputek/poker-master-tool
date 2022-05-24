@@ -11,6 +11,7 @@
     "build:frontend": "webpack --mode=production",
     "addon:configure": "node-gyp configure",
     "addon:build": "node-gyp rebuild",
+    "addon:generate-table": "cd addon/table_generator && make",
     "test": "jest --maxWorkers=1",
     "test:coverage": "jest --coverage",
     "test:performance": "node tests/performance_test.js",

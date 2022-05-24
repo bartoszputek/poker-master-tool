@@ -45,7 +45,7 @@ array<string, 3> getResultNames() {
 array<PlayerStats, 9> initStructures() {
     array<PlayerStats, 9> players;
 
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 9; ++i) {
         players[i].handTypeSum = initHand;
         players[i].results = initResult;
     }
@@ -127,13 +127,13 @@ vector<int> determineWinner(int max, vector<int>& ranks) {
 void handleResults(vector<int>& results, array<PlayerStats, 9>& players) {
     if (results.size() == 0) {
         for (array<PlayerStats, 9>::iterator it = players.begin(); it != players.end(); ++it) {
-            (*it).results[1].first++;
+            ++(*it).results[1].first;
         }
         return;
     }
 
     for (vector<int>::iterator it = results.begin(); it != results.end(); ++it) {
-        players[(*it)].results[0].first++;
+        ++players[(*it)].results[0].first;
     }
 }
 
@@ -213,7 +213,7 @@ Results processResults(int combinations, array<PlayerStats, 9>& playersStats) {
     Results results;
     results.combinations = combinations;
 
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 9; ++i) {
         int wins = playersStats[i].results[0].first;
         int draws = playersStats[i].results[1].first;
         int loses = combinations - wins - draws;
