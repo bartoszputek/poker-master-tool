@@ -11,6 +11,8 @@ ENV NODE_ENV $NODE_ENV
 
 COPY . .
 
+RUN npm run addon:generate-table
+
 RUN npm run addon:configure
 
 RUN npm run addon:build

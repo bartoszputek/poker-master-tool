@@ -2,10 +2,9 @@ node_modules
 npm-debug.log
 dist
 coverage
+addon/data
 build
 logs
 public
-.env
-.env.example
 .gitignore
 .vscode

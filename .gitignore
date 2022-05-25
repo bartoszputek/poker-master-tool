@@ -2,7 +2,7 @@ node_modules
 npm-debug.log
 dist
 coverage
-data
+addon/data
 build
 logs
 public
