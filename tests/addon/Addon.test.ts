@@ -1,8 +1,7 @@
 import { calculate, initLookUpTable } from '../../addon/addon';
 import { getExampleResults } from '../_utils/Utils';
 
-// TODO: Remove skipping tests for addon after implementing script for generating data/HandRanks.dat
-test.skip('calculate(): should return a response', async () => {
+test('calculate(): should return a response', async () => {
   await initLookUpTable();
 
   const playerCards: number[][] = [
@@ -23,7 +22,7 @@ test.skip('calculate(): should return a response', async () => {
   await expect(results).toEqual(getExampleResults());
 });
 
-test.skip('calculate(): should throw an error if there are more than 9 players', async () => {
+test('calculate(): should throw an error if there are more than 9 players', async () => {
   const playerCards: number[][] = [
     [1, 11],
     [2, 12],
@@ -42,7 +41,7 @@ test.skip('calculate(): should throw an error if there are more than 9 players',
   await expect(testFunction()).rejects.toStrictEqual(new Error('Maximum length of players array is 9!'));
 });
 
-test.skip('calculate(): should throw an error if any player has more than 2 cards', async () => {
+test('calculate(): should throw an error if any player has more than 2 cards', async () => {
   const playerCards: number[][] = [
     [1, 11],
     [2, 12],
@@ -60,7 +59,7 @@ test.skip('calculate(): should throw an error if any player has more than 2 card
   await expect(testFunction()).rejects.toStrictEqual(new Error('Player should have two cards!'));
 });
 
-test.skip('calculate(): should throw an error if there is more than 5 community cards', async () => {
+test('calculate(): should throw an error if there is more than 5 community cards', async () => {
   const playerCards: number[][] = [
     [1, 11],
     [2, 12],
@@ -80,7 +79,7 @@ test.skip('calculate(): should throw an error if there is more than 5 community 
   await expect(testFunction()).rejects.toStrictEqual(new Error('Maximum length of communityCards array is 5!'));
 });
 
-test.skip('calculate(): should throw an error if deathCards parameter is not an array', async () => {
+test('calculate(): should throw an error if deathCards parameter is not an array', async () => {
   const playerCards: number[][] = [
     [1, 11],
     [2, 12],

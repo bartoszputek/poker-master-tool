@@ -1,0 +1,43 @@
+name: Push workflow
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    name: Build and run tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+        cache: 'npm'
+    - name: Use Node.js
+      run: npm ci
+    - name: Generate table for addon
+      run: npm run addon:generate-table
+    - name: Configure addon
+      run: npm run addon:configure
+    - name: Build addon
+      run: npm run addon:build
+    - name: Build application
+      run: npm run build
+    - name: Run tests
+      run: npm test
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Connect via SSH and deploy app
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          cd ${{ secrets.SSH_BUILD_PATH }}
+          git fetch
+          git reset --hard origin/main
+          cd ../..
+          docker-compose up -d --build poker-master-tool
