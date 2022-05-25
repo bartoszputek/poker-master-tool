@@ -313,7 +313,7 @@ int main() {
             if (numcards < 7)
                 SaveID(ID);
         }
-        printf("\rID - %d", IDnum);  // show progress -- this counts up to 612976
+        // printf("\rID - %d", IDnum);  // show progress -- this counts up to 612976
     }
 
     printf("\nSetting HandRanks!\n");
@@ -346,7 +346,7 @@ int main() {
             HR[IDnum * 53 + 53] = DoEval(IDs[IDnum]);
         }
 
-        printf("\rID - %d", IDnum);  // show the progress -- counts to 612976 again
+        // printf("\rID - %d", IDnum);  // show the progress -- counts to 612976 again
     }
 
     printf("\nNumber IDs = %d\nmaxHR = %d\n", numIDs, maxHR);  // for warm fuzzys
