@@ -1,6 +1,6 @@
 {
   "name": "poker-master-tool",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
