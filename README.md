@@ -1,5 +1,5 @@
 # Poker Master Tool
-Open-source poker hand calculator avaiable on https://pokermastertool.bartoszputek.pl/
+Open-source poker hand calculator available on https://pokermastertool.bartoszputek.pl/
 ## Table of contents
 * [General info](#general-info)
 * [Architecture](#architecture)
