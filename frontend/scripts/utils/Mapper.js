@@ -36,6 +36,7 @@ export default class Mapper {
     return (cursor + 1) % 8;
   }
 
+// Maps 'Ad' name to another to avoid blocking the element by ad blocker browser extensions
   static mapCard(card) {
     if (card === 'Ad') {
       return 'ArD';
