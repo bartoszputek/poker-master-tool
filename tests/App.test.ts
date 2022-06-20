@@ -10,7 +10,7 @@ interface ITestContext {
 
 let context: ITestContext;
 
-beforeAll( async () => {
+beforeAll(async () => {
   const app = new App();
 
   await app.initData();

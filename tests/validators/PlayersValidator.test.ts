@@ -42,7 +42,7 @@ test('validate(): should throw an error when there is too many players ', async 
     playersValidator.validate(players);
   };
 
-  const expectedError: ValidationError = new ValidationError('Too many players, - maximum amount is 9', players);
+  const expectedError: ValidationError = new ValidationError('Length of players array is too long (9 is maximum)', players);
 
   expect(response).toThrow(expectedError);
 });
@@ -56,7 +56,7 @@ test('validate(): should throw an error when players array is empty', async () =
     playersValidator.validate(players);
   };
 
-  const expectedError: ValidationError = new ValidationError('Players should have at least 1 element', players);
+  const expectedError: ValidationError = new ValidationError('Players array should have at least 1 element', players);
 
   expect(response).toThrow(expectedError);
 });
@@ -96,7 +96,10 @@ test('validate(): should throw an error when player has too many card ', async (
     playersValidator.validate(players);
   };
 
-  const expectedError: ValidationError = new ValidationError('Player has too many cards', players[0]);
+  const expectedError: ValidationError = new ValidationError(
+    'Cards property in player object should have exactly two cards',
+    players[0],
+  );
 
   expect(response).toThrow(expectedError);
 });
@@ -117,7 +120,10 @@ test('validate(): should throw an error when player has one card', async () => {
     playersValidator.validate(players);
   };
 
-  const expectedError: ValidationError = new ValidationError('Player should have two cards', players[0]);
+  const expectedError: ValidationError = new ValidationError(
+    'Cards property in player object should have exactly two cards',
+    players[0],
+  );
 
   expect(response).toThrow(expectedError);
 });

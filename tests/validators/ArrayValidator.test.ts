@@ -28,7 +28,7 @@ test('validate(): should return true', async () => {
   expect(response).toBe(true);
 });
 
-test('validate(): should throw an error when there is too many players ', async () => {
+test('validate(): should throw an error when object is not an array', async () => {
   const { arrayValidator } = context;
 
   const array: string = 'aaa';

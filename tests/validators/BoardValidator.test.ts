@@ -50,7 +50,7 @@ test('validate(): should throw an error when board has not cards property ', asy
     boardValidator.validate(board);
   };
 
-  const expectedError: ValidationError = new ValidationError('Property cards is missing in board object', board);
+  const expectedError: ValidationError = new ValidationError('Property communityCards is missing in board object', board);
 
   expect(response).toThrow(expectedError);
 });
@@ -68,7 +68,7 @@ test('validate(): should throw an error when board has too many card', async () 
     boardValidator.validate(board);
   };
 
-  const expectedError: ValidationError = new ValidationError('Board has too many cards', { board });
+  const expectedError: ValidationError = new ValidationError('Property communityCards has too many cards (5 is maximum)', { board });
 
   expect(response).toThrow(expectedError);
 });

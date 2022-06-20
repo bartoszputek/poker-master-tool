@@ -21,7 +21,7 @@ export default class BoardValidator implements IValidator {
     this.playersValidator.validate(players);
 
     if (!communityCards) {
-      throw new ValidationError('Property cards is missing in board object', board);
+      throw new ValidationError('Property communityCards is missing in board object', board);
     }
 
     if (!deathCards) {
@@ -31,7 +31,7 @@ export default class BoardValidator implements IValidator {
     this.arrayValidator.validate(communityCards);
 
     if (communityCards.length > 5) {
-      throw new ValidationError('Board has too many cards', board);
+      throw new ValidationError('Property communityCards has too many cards (5 is maximum)', board);
     }
 
     communityCards.forEach((card) => {

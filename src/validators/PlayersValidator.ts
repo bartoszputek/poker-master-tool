@@ -13,11 +13,11 @@ export default class PlayersValidator implements IValidator {
     this.arrayValidator.validate(players);
 
     if (players.length > 9) {
-      throw new ValidationError('Too many players, - maximum amount is 9', players);
+      throw new ValidationError('Length of players array is too long (9 is maximum)', players);
     }
 
     if (players.length < 1) {
-      throw new ValidationError('Players should have at least 1 element', players);
+      throw new ValidationError('Players array should have at least 1 element', players);
     }
 
     players.forEach((player) => {
@@ -29,12 +29,8 @@ export default class PlayersValidator implements IValidator {
 
       this.arrayValidator.validate(cards);
 
-      if (cards.length > 2) {
-        throw new ValidationError('Player has too many cards', player);
-      }
-
-      if (cards.length < 2) {
-        throw new ValidationError('Player should have two cards', player);
+      if (cards.length !== 2) {
+        throw new ValidationError('Cards property in player object should have exactly two cards', player);
       }
 
       cards.forEach((card) => {
