@@ -26,6 +26,7 @@ export default class App {
       this.cursorController.reset();
       this.playersController.reset();
       this.boardController.reset();
+      this.deathCardsController.reset();
     });
 
     this.view.initElements((i) => {
