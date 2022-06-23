@@ -58,11 +58,11 @@ export default class Logger implements ILogger {
 
     this.info({
       responseTimeInMs: this.timer.stop(),
-      ...message as Record<string, unknown>,
+      ...message,
     });
   }
 }
 
-function isString(value: unknown) {
+function isString(value: unknown): value is String {
   return typeof value === 'string' || value instanceof String;
 }
