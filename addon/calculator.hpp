@@ -1,5 +1,6 @@
 #include <array>
 #include <vector>
+#include <string>
 
 struct PlayerStats {
     std::array<int, 10> handTypeSum;
