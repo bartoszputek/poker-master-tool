@@ -40,7 +40,7 @@ App will be listening on `http://localhost:3000`.
 
 ## Installation
 
-To install the application you should have installed Node 16 version.
+To install the application you should have installed Node 16 version, make and g++ complier.
 
 Next, follow consecutive commands:
 
