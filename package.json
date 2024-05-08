@@ -1,6 +1,6 @@
 {
   "name": "poker-master-tool",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Open-source poker hand calculator",
   "main": "dist/index.js",
   "scripts": {
