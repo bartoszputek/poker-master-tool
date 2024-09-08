@@ -61,6 +61,7 @@ beforeEach(() => {
   const res: Partial<Response> = {
     status: jest.fn(),
     send: jest.fn(),
+    set: jest.fn(),
     locals: {
       logger: loggerStub,
     },
