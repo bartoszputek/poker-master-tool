@@ -17,7 +17,7 @@ export default class ComputeHandHandler implements IHandler {
   constructor(
     private readonly controller: IController<IComputeHandParams, Promise<IComputeHandResponse>>,
     private readonly boardValidator: IValidator = new BoardValidator(),
-  ) {}
+  ) { }
 
   public handle: RequestHandler = async (req: Request, res: Response) => {
     const { board: serializedBoard }: { board: ISerializedBoard } = req.body;
@@ -37,6 +37,8 @@ export default class ComputeHandHandler implements IHandler {
       message: 'The ComputeHandHandler handled response successfully',
       statusCode: 200,
     });
+
+    res.set('Cache-Control', 'public, max-age=31557600');
 
     res.send(response);
   };
