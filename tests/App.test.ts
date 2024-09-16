@@ -22,7 +22,7 @@ beforeAll(async () => {
   };
 });
 
-test('should return response', async () => {
+test('GET:/compute: should return response', async () => {
   const { app } = context;
 
   const players: ISerializedPlayer[] = [
@@ -52,7 +52,9 @@ test('should return response', async () => {
     deathCards: ['7d'],
   };
 
-  const response = await request(app).post('/').send({ board });
+  const encodedBoard: string = Buffer.from(JSON.stringify(board)).toString('base64');
+
+  const response = await request(app).get('/compute').query(`board=${encodedBoard}`);
 
   expect(response.statusCode).toBe(200);
   expect(response.body).toMatchObject(getExampleResults());

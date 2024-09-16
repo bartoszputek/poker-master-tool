@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { IComputeHandParams, IComputeHandResponse } from 'controllers/ComputeHandController';
-import ComputeHandHandler from 'handlers/ComputeHandHandler';
+import ComputeHandHandler, { SECONDS_IN_MONTH } from 'handlers/ComputeHandHandler';
 import Board from 'models/Board';
 import { IController, ILogger, ISerializedBoard, IValidator } from 'interfaces';
 import { getExampleResults } from '../_utils/Utils';
@@ -13,8 +13,8 @@ interface ITestContext {
   boardValidatorStub: IValidator
   seralizedBoard: ISerializedBoard,
   parameters: IComputeHandParams,
-  req: Request,
-  res: Response,
+  req: Request<any, any, any, any, { board: ISerializedBoard, logger: ILogger }>,
+  res: Response<any, { board: ISerializedBoard, logger: ILogger }>,
   next: NextFunction
 }
 
@@ -53,11 +53,13 @@ beforeEach(() => {
     logger: loggerStub,
   };
 
+  const encodedBoard: string = Buffer.from(JSON.stringify(seralizedBoard)).toString('base64');
+
   const req: Partial<Request> = {
-    body: {
-      board: seralizedBoard,
+    query: {
+      board: encodedBoard,
     },
-  } as Request;
+  } as Request<any, any, any, any, { board: ISerializedBoard, logger: ILogger }>;
   const res: Partial<Response> = {
     status: jest.fn(),
     send: jest.fn(),
@@ -74,8 +76,8 @@ beforeEach(() => {
     boardValidatorStub,
     seralizedBoard,
     parameters,
-    req: req as Request,
-    res: res as Response,
+    req: req as Request<any, any, any, any, { board: ISerializedBoard, logger: ILogger }>,
+    res: res as Response<any, { board: ISerializedBoard, logger: ILogger }>,
     next,
   };
 });
@@ -83,10 +85,23 @@ beforeEach(() => {
 test('handle(): should call execute method and send response', async () => {
   const { computeHandHandler, computeHandControllerStub, parameters, req, res, next } = context;
 
+  computeHandHandler.validate(req, res, next);
+
   await computeHandHandler.handle(req, res, next);
 
   expect(computeHandControllerStub.execute).toBeCalledWith(parameters);
   expect(res.send).toBeCalledWith(getExampleResults());
+});
+
+test('handle(): should set cache and content-type headers', async () => {
+  const { computeHandHandler, req, res, next } = context;
+
+  computeHandHandler.validate(req, res, next);
+
+  await computeHandHandler.handle(req, res, next);
+
+  expect(res.set).toBeCalledWith('Cache-Control', `public, max-age=${SECONDS_IN_MONTH}`);
+  expect(res.set).toBeCalledWith('Content-Type', 'application/json');
 });
 
 test('validate(): should call validation methods and next function', async () => {

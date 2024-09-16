@@ -2,18 +2,19 @@ import { API_URL } from '../constants';
 
 export default class ApiProxy {
   async getResults(board) {
-    const data = await this.postData(API_URL, { board });
+    const data = await this.getData(`${API_URL}/compute`, board);
 
     return data;
   }
 
-  async postData(url = '', data = {}) {
-    const response = await fetch(url, {
-      method: 'POST',
+  async getData(url = '', data = {}) {
+    const response = await fetch(`${url}?${new URLSearchParams({
+      board: btoa(JSON.stringify(data)),
+    }).toString()}`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
     });
 
     if (response.ok) {

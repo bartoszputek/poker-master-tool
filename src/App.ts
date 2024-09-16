@@ -38,7 +38,7 @@ class App {
     const computeHandController = new ComputeHandController(cacheInMemory);
     this.computeHandHandler = new ComputeHandHandler(computeHandController);
 
-    this.express.post('/', this.computeHandHandler.validate, this.computeHandHandler.handle);
+    this.express.get('/compute', this.computeHandHandler.validate, this.computeHandHandler.handle);
 
     const errorHandler = new ErrorHandler();
 
