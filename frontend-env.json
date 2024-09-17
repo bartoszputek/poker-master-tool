@@ -1,4 +1,4 @@
 {
   "BACKEND_API_URL_DEV": "http://localhost:3000",
-  "BACKEND_API_URL_PROD": "/"
+  "BACKEND_API_URL_PROD": ""
 }
