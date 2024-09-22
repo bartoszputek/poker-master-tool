@@ -1,8 +1,10 @@
 <script lang="ts">
-	export let value: string;
+	const CARD_REVERSE = '2B';
 
-	export let width: number = 60;
-	const height: number = width * 2.5;
+	export let value: string = CARD_REVERSE;
+
+	export let width: number = 70;
+	const height: number = width * 1.4;
 
 	let isSelected: boolean = false;
 </script>
@@ -20,18 +22,11 @@
 	button {
 		display: inline-block;
 		padding: 0;
-		margin: 5px;
-		vertical-align: top;
+		margin: 2px;
 		cursor: pointer;
 		border: solid;
-		border-width: 1px;
-		border-radius: 12px;
-		overflow: hidden;
-	}
-
-	.isSelected {
-		opacity: 0.2;
-		cursor: not-allowed;
+		border-width: 0px;
+		border-radius: 4px;
 	}
 
 	button:hover {
@@ -41,6 +36,7 @@
 
 	img {
 		display: block;
-		margin: -2px 0px 0 -4px;
+		width: 100%;
+		height: 100%;
 	}
 </style>

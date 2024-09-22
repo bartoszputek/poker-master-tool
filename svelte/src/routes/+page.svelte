@@ -1,5 +1,7 @@
 <script lang="ts">
 	import CardIcon from '$lib/components/CardIcon.svelte';
+	import Card from '../lib/components/Card.svelte';
+	import Player from '../lib/components/Player.svelte';
 
 	export const CARD_SUITS: string[] = ['s', 'd', 'h', 'c'];
 	export const CARD_RANKS: string[] = [
@@ -24,6 +26,10 @@
 		<CardIcon value={`${rank}${suit}`}></CardIcon>
 	{/each}
 {/each}
+
+<br />
+
+<Player />
 
 <h1>Welcome to SvelteKit</h1>
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
