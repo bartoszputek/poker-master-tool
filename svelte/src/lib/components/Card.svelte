@@ -1,7 +1,10 @@
 <script lang="ts">
 	const CARD_REVERSE = '2B';
 
-	export let value: string = CARD_REVERSE;
+	export let value: string | null;
+
+	let cardValue: string;
+	$: cardValue = value ?? CARD_REVERSE;
 
 	export let width: number = 70;
 	const height: number = width * 1.4;
@@ -9,13 +12,8 @@
 	let isSelected: boolean = false;
 </script>
 
-<button
-	aria-label={value}
-	style="width:{width}px; height:{height}px;"
-	class:isSelected
-	on:click={() => (isSelected = !isSelected)}
->
-	<img alt="" src={`/images/cards/${value.toUpperCase()}.svg`} />
+<button aria-label={value} style="width:{width}px; height:{height}px;" class:isSelected on:click>
+	<img alt="" src={`/images/cards/${cardValue.toUpperCase()}.svg`} />
 </button>
 
 <style>
