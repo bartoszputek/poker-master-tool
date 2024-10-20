@@ -1,9 +1,24 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/dist"
+      "src": "dist/index.js", 
+      "use": "@vercel/node",
+      "config": { "includeFiles": ["dist/**"] }
+    },
+    {
+        "src": "public/**",
+        "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/index.js"
+    },
+    {
+      "src": "/(.+)",
+      "dest": "public/$1"
     }
   ]
 }
