@@ -8,3 +8,4 @@ logs
 public
 .env
 .vscode/*
+.vercel
