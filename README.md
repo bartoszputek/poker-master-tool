@@ -1,32 +1,39 @@
 # Poker Master Tool
-Open-source poker hand calculator available on https://pokermastertool.bartoszputek.com/
+
+Open-source poker hand calculator.
+
 ## Table of contents
-* [General info](#general-info)
-* [Architecture](#architecture)
-* [Features](#features)
-* [Quick start with Docker](#quick-start-with-docker)
-* [Installation](#installation)
-* [Unit and performance tests](#unit-and-performance-tests)
-* [Development](#development)
-* [License](#license)
+
+- [General info](#general-info)
+- [Architecture](#architecture)
+- [Features](#features)
+- [Quick start with Docker](#quick-start-with-docker)
+- [Installation](#installation)
+- [Unit and performance tests](#unit-and-performance-tests)
+- [Development](#development)
+- [License](#license)
 
 ## General info
+
 This project has been written to a develop fast open-source hand calculator for Texas Hold'em as an Engineering Thesis. It uses TwoPlusTwo evaluator for calculating hand ranks. The repository contains unit and performance tests, Docker image with Docker Compose for quick start and configured CI/CD with GitHub Actions.
 
 ![Application view](./readme/application-view.png)
 
 ## Architecture
+
 The Application is split into 3 projects:
-* Node.js backend application built with Typescript and Express.js framework 
-* Frotend written in pure JavaScript and Webpack bundler located in `frontend` directory
-* C++ Addon with TwoPlusTwo table generator in `addon` directory
+
+- Node.js backend application built with Typescript and Express.js framework
+- Frotend written in pure JavaScript and Webpack bundler located in `frontend` directory
+- C++ Addon with TwoPlusTwo table generator in `addon` directory
 
 ## Features
-* Responsive web application for Poker Texas Hold'em odds calculator up to 9 players
-* Displaying the number of enumerated combinations and hand rank probability for each player
-* Support for Death Cards
-* Request caching on the backend side
-* Logging requests with log retention politics stored inside `logs` directory
+
+- Responsive web application for Poker Texas Hold'em odds calculator up to 9 players
+- Displaying the number of enumerated combinations and hand rank probability for each player
+- Support for Death Cards
+- Request caching on the backend side
+- Logging requests with log retention politics stored inside `logs` directory
 
 ## Quick start with Docker
 
@@ -45,7 +52,7 @@ To install the application you should have installed Node 16 version, make and g
 Next, follow consecutive commands:
 
 ```bash
-npm install 
+npm install
 
 npm run build:all
 
@@ -89,6 +96,7 @@ npm run dev:frontend
 ```
 
 ## License
+
 You can check out the full license [here](./LICENSE)
 
 This project is licensed under the terms of **the MIT license**.
