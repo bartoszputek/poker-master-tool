@@ -162,12 +162,6 @@ pnpm format:check
 
 To format the code, run `pnpm format`.
 
-The `.git-blame-ignore-revs` file lists commits that change only the formatting. GitHub uses it automatically. To use it with `git blame` on your computer, run:
-
-```bash
-git config blame.ignoreRevsFile .git-blame-ignore-revs
-```
-
 ## License
 
 You can check out the full license [here](./LICENSE)
