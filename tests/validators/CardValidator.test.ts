@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { before, test } from 'node:test';
-import ValidationError from 'errors/ValidationError';
-import CardValidator from 'validators/CardValidator';
+import ValidationError from '../../src/errors/ValidationError';
+import CardValidator from '../../src/validators/CardValidator';
 
 interface ITestContext {
   cardValidator: CardValidator

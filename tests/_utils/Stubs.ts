@@ -1,5 +1,5 @@
 import { mock, Mock } from 'node:test';
-import { ICache, ILogger } from 'interfaces';
+import { ICache, ILogger } from '../../src/interfaces';
 
 export type Mocked<T> = {
   [K in keyof T]: T[K] extends (...args: never[]) => unknown ? Mock<T[K]> : T[K];

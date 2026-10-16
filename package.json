@@ -4,8 +4,8 @@
   "description": "Open-source poker hand calculator",
   "main": "dist/index.js",
   "scripts": {
-    "start": "NODE_ENV=production NODE_PATH=./dist node dist/index.js",
-    "dev": "NODE_PATH=./src ts-node src/index.ts",
+    "start": "NODE_ENV=production node dist/index.js",
+    "dev": "ts-node src/index.ts",
     "dev:frontend": "webpack-dev-server",
     "dev:docker": "docker-compose up --build",
     "build:all": "npm run build && npm run build:frontend && npm run addon:all",
@@ -15,8 +15,8 @@
     "addon:configure": "node-gyp configure",
     "addon:build": "node-gyp rebuild",
     "addon:generate-table": "cd addon/table_generator && make",
-    "test": "NODE_PATH=./src node --require ts-node/register --test --test-concurrency=1 \"tests/**/*.test.ts\"",
-    "test:coverage": "NODE_PATH=./src node --require ts-node/register --test --test-concurrency=1 --experimental-test-coverage --test-coverage-exclude=\"tests/**\" \"tests/**/*.test.ts\"",
+    "test": "node --require ts-node/register --test --test-concurrency=1 \"tests/**/*.test.ts\"",
+    "test:coverage": "node --require ts-node/register --test --test-concurrency=1 --experimental-test-coverage --test-coverage-exclude=\"tests/**\" \"tests/**/*.test.ts\"",
     "lint": "eslint \"**/*.ts\" --fix",
     "test:benchmark": "node tests/benchmark.mjs"
   },

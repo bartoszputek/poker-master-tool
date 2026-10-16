@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { beforeEach, test } from 'node:test';
-import { ICache, ILogger } from 'interfaces';
-import ComputeHandController, { IComputeHandResponse } from 'controllers/ComputeHandController';
-import Board from 'models/Board';
+import { ICache, ILogger } from '../../src/interfaces';
+import ComputeHandController, { IComputeHandResponse } from '../../src/controllers/ComputeHandController';
+import Board from '../../src/models/Board';
 import { createCacheStub, createLoggerStub, Mocked } from '../_utils/Stubs';
 import { getExampleResults } from '../_utils/Utils';
 

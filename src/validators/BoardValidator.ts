@@ -1,5 +1,5 @@
-import ValidationError from 'errors/ValidationError';
-import { ISerializedBoard, IValidator } from 'interfaces';
+import ValidationError from '../errors/ValidationError';
+import { ISerializedBoard, IValidator } from '../interfaces';
 import ArrayValidator from './ArrayValidator';
 import CardValidator from './CardValidator';
 import PlayersValidator from './PlayersValidator';

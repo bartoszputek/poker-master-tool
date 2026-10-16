@@ -1,7 +1,7 @@
-import { ILogger, LoggerMessage } from 'interfaces';
+import { ILogger, LoggerMessage } from '../interfaces';
 import winston from 'winston';
 import { randomUUID } from 'node:crypto';
-import Timer from 'helpers/Timer';
+import Timer from './Timer';
 
 import winstonLogger from './WinstonLogger';
 

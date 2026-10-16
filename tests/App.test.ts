@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import { before, test } from 'node:test';
 import request from 'supertest';
-import App from 'App';
+import App from '../src/App';
 import express from 'express';
-import { ISerializedBoard, ISerializedPlayer } from 'interfaces';
+import { ISerializedBoard, ISerializedPlayer } from '../src/interfaces';
 import { getExampleResults } from './_utils/Utils';
 
 interface ITestContext {

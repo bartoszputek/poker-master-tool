@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { beforeEach, test } from 'node:test';
-import CacheInMemory from 'helpers/CacheInMemory';
+import CacheInMemory from '../../src/helpers/CacheInMemory';
 
 interface ITestContext {
   cacheInMemory: CacheInMemory<string, Record<string, unknown>>,

@@ -1,5 +1,5 @@
-import { ICache, IController, ILogger } from 'interfaces';
-import Board from 'models/Board';
+import { ICache, IController, ILogger } from '../interfaces';
+import Board from '../models/Board';
 import { calculate, ICalculateResponse } from '../../addon/addon';
 
 export interface IComputeHandParams {

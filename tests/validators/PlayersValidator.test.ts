@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { before, test } from 'node:test';
-import PlayersValidator from 'validators/PlayersValidator';
-import { ISerializedPlayer } from 'interfaces';
-import ValidationError from 'errors/ValidationError';
+import PlayersValidator from '../../src/validators/PlayersValidator';
+import { ISerializedPlayer } from '../../src/interfaces';
+import ValidationError from '../../src/errors/ValidationError';
 
 interface ITestContext {
   playersValidator: PlayersValidator

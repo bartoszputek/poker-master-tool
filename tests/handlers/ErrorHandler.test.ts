@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import { beforeEach, mock, Mock, test } from 'node:test';
-import ApplicationError from 'errors/ApplicationError';
+import ApplicationError from '../../src/errors/ApplicationError';
 import { NextFunction, Request, Response } from 'express';
 
-import ErrorHandler from 'handlers/ErrorHandler';
-import { ILogger } from 'interfaces';
+import ErrorHandler from '../../src/handlers/ErrorHandler';
+import { ILogger } from '../../src/interfaces';
 import { createLoggerStub } from '../_utils/Stubs';
 
 interface ITestContext {

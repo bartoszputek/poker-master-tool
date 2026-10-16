@@ -1,4 +1,4 @@
-import { ICache } from 'interfaces';
+import { ICache } from '../interfaces';
 
 interface MapArgument<V> {
   value: V;

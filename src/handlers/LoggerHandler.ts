@@ -2,8 +2,8 @@ import {
   RequestHandler, Request, Response, NextFunction,
 } from 'express';
 
-import Logger from 'helpers/Logger';
-import { IHandler } from 'interfaces';
+import Logger from '../helpers/Logger';
+import { IHandler } from '../interfaces';
 
 export default class LoggerHandler implements IHandler {
   public handle: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {

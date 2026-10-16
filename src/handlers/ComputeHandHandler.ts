@@ -2,16 +2,16 @@ import {
   RequestHandler, Request, Response, NextFunction,
 } from 'express';
 
-import { IComputeHandParams, IComputeHandResponse } from 'controllers/ComputeHandController';
+import { IComputeHandParams, IComputeHandResponse } from '../controllers/ComputeHandController';
 import {
   ISerializedBoard,
   IController,
   IHandler,
   IValidator,
   ILogger,
-} from 'interfaces';
-import BoardValidator from 'validators/BoardValidator';
-import Board from 'models/Board';
+} from '../interfaces';
+import BoardValidator from '../validators/BoardValidator';
+import Board from '../models/Board';
 import ValidationError from '../errors/ValidationError';
 
 export const SECONDS_IN_MONTH: number = 60 * 60 * 24 * 30;

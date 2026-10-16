@@ -2,10 +2,10 @@ import assert from 'node:assert/strict';
 import { beforeEach, mock, Mock, test } from 'node:test';
 import { NextFunction, Request, Response } from 'express';
 
-import { IComputeHandParams, IComputeHandResponse } from 'controllers/ComputeHandController';
-import ComputeHandHandler, { SECONDS_IN_MONTH } from 'handlers/ComputeHandHandler';
-import Board from 'models/Board';
-import { IController, ILogger, ISerializedBoard, IValidator } from 'interfaces';
+import { IComputeHandParams, IComputeHandResponse } from '../../src/controllers/ComputeHandController';
+import ComputeHandHandler, { SECONDS_IN_MONTH } from '../../src/handlers/ComputeHandHandler';
+import Board from '../../src/models/Board';
+import { IController, ILogger, ISerializedBoard, IValidator } from '../../src/interfaces';
 import { getExampleResults } from '../_utils/Utils';
 import { createLoggerStub, Mocked } from '../_utils/Stubs';
 
