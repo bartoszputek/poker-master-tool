@@ -11,4 +11,4 @@ services:
     ports:
       - "3000:3000"
     volumes: 
-      - ./logs:/usr/src/app/logs
+      - ./apps/backend/logs:/usr/src/app/apps/backend/logs

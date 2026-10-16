@@ -1,4 +1,4 @@
-import { ICalculateResponse } from '../../addon/addon';
+import { ICalculateResponse } from '@poker-master-tool/addon';
 
 export function getExampleResults(): ICalculateResponse {
   return {

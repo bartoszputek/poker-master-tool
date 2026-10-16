@@ -17,15 +17,25 @@ Open-source poker hand calculator.
 
 This project has been written to a develop fast open-source hand calculator for Texas Hold'em as an Engineering Thesis. It uses TwoPlusTwo evaluator for calculating hand ranks. The repository contains unit and performance tests, Docker image with Docker Compose for quick start and configured CI/CD with GitHub Actions.
 
-![Application view](./readme/application-view.png)
+![Application view](./docs/application-view.png)
 
 ## Architecture
 
-The Application is split into 3 projects:
+The repository is a pnpm workspace with 3 packages:
 
-- Node.js backend application built with Typescript and Express.js framework
-- Frontend written in SvelteKit (Svelte 5) and TypeScript in the `frontend` directory. The build writes static files to `public`, and the backend serves them.
-- C++ Addon with TwoPlusTwo table generator in `addon` directory
+```
+apps/
+  backend/     @poker-master-tool/backend  - Express API in TypeScript
+  frontend/    @poker-master-tool/frontend - SvelteKit (Svelte 5) app in TypeScript
+packages/
+  addon/       @poker-master-tool/addon    - C++ calculator, lookup table generator and benchmark
+e2e/           Playwright end-to-end test
+docs/          Images for this README
+```
+
+- The backend uses the addon as the workspace dependency `@poker-master-tool/addon`.
+- The frontend build writes static files to `apps/frontend/build`. The backend serves them. To use a different directory, set the `STATIC_DIRECTORY` environment variable.
+- The addon reads the lookup table from `packages/addon/data/HandRanks.dat`.
 
 ## Features
 
@@ -33,7 +43,7 @@ The Application is split into 3 projects:
 - Displaying the number of enumerated combinations and hand rank probability for each player
 - Support for Death Cards
 - Request caching on the backend side
-- Logging requests with log retention politics stored inside `logs` directory
+- Logging requests with log retention politics stored inside the `apps/backend/logs` directory
 
 ## Quick start with Docker
 
@@ -49,12 +59,14 @@ App will be listening on `http://localhost:3000`.
 
 To install the application, you need Node 26, pnpm 12, make and a g++ compiler.
 
-Next, follow consecutive commands:
+Next, follow consecutive commands. `pnpm install` also builds the addon, and `pnpm build` builds the addon, the backend and the frontend:
 
 ```bash
 pnpm install
 
-pnpm build:all
+pnpm generate-table
+
+pnpm build
 
 pnpm start
 ```
@@ -63,7 +75,7 @@ The app will be listening on `http://localhost:3000`.
 
 ## Unit and performance tests
 
-Unit tests are written in Jest testing framework.
+Unit tests use the Node.js test runner (`node:test`).
 
 To run unit tests run:
 
@@ -73,7 +85,7 @@ pnpm test
 
 if you wish to get a coverage report you run `pnpm test:coverage`.
 
-The end-to-end test uses Playwright. It builds the application, starts the backend and calculates the odds in the browser. Generate the lookup table and build the addon before you run it:
+The end-to-end test uses Playwright. It builds the application, starts the backend and calculates the odds in the browser. Generate the lookup table before you run it:
 
 ```bash
 pnpm exec playwright install chromium
@@ -87,14 +99,14 @@ To run the performance benchmark for the addon, run:
 pnpm test:benchmark
 ```
 
-The benchmark uses tinybench. It runs each scenario for a minimum of 2 seconds and 64 iterations. It writes the results to the `benchmark-results` directory:
+The benchmark uses tinybench. It runs each scenario for a minimum of 2 seconds and 64 iterations. It writes the results to the `packages/addon/benchmark/results` directory:
 
 - `tinybench-<timestamp>.md` - a Markdown table with the results.
 - `tinybench-<timestamp>.json` - the same results in JSON format.
 
 ### Benchmark results
 
-These results are from Node 26.7.0 on an Apple M3 Pro. The full output is in [tinybench-2026-10-16T21-13-31-178Z.md](./benchmark-results/tinybench-2026-10-16T21-13-31-178Z.md) and [tinybench-2026-10-16T21-13-31-178Z.json](./benchmark-results/tinybench-2026-10-16T21-13-31-178Z.json).
+These results are from Node 26.7.0 on an Apple M3 Pro. The full output is in [tinybench-2026-10-16T21-13-31-178Z.md](./packages/addon/benchmark/results/tinybench-2026-10-16T21-13-31-178Z.md) and [tinybench-2026-10-16T21-13-31-178Z.json](./packages/addon/benchmark/results/tinybench-2026-10-16T21-13-31-178Z.json).
 
 Player `n` has the cards `n` and `n + 10`. The community cards and the death cards are the cards 20 to 24. Combinations is the number of boards that the calculator examines.
 
@@ -124,7 +136,7 @@ The results change with the hardware and the Node version.
 
 ## Development
 
-To serve a frontend by the backend application you should build the frontend first using `pnpm build:frontend`. After that you can run the backend development server with:
+To serve a frontend by the backend application you should build the frontend first using `pnpm --filter @poker-master-tool/frontend build`. After that you can run the backend development server with:
 
 ```bash
 pnpm dev

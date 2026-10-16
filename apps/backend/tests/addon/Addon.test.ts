@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { calculate, initLookUpTable } from '../../addon/addon';
+import { calculate, initLookUpTable } from '@poker-master-tool/addon';
 import { getExampleResults } from '../_utils/Utils';
 
 test('calculate(): should return a response', async () => {

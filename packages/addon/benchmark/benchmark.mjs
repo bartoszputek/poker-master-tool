@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { Bench, hrtimeNowTimestampProvider } from 'tinybench';
-import addon from '../addon/addon.js';
+import addon from '../index.js';
 
 const [time = 2000, iterations = 64] = process.argv.slice(2).map(Number);
 
@@ -64,7 +64,7 @@ const rows = bench.tasks.map(({ name, result }) => {
 
 console.table(rows);
 
-const outDir = path.join(import.meta.dirname, '..', 'benchmark-results');
+const outDir = path.join(import.meta.dirname, 'results');
 const stamp = new Date().toISOString().replace(/[:.]/g, '-');
 const env = `node ${process.version}, ${os.cpus()[0].model}, ${os.platform()} ${os.release()}, tinybench time=${time}ms minIterations=${iterations}`;
 const headers = Object.keys(rows[0]);

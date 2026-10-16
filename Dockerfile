@@ -5,9 +5,11 @@ RUN npm install --global pnpm@12.14.0
 WORKDIR /usr/src/app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY frontend/package.json ./frontend/
+COPY apps/backend/package.json ./apps/backend/
+COPY apps/frontend/package.json ./apps/frontend/
+COPY packages/addon/package.json ./packages/addon/
 
-# The sources are not copied yet, so skip the addon build that the install script starts.
+# The sources are not copied yet, so skip the addon build that the install starts.
 RUN pnpm install --frozen-lockfile --ignore-scripts
 
 ARG NODE_ENV
@@ -15,13 +17,7 @@ ENV NODE_ENV $NODE_ENV
 
 COPY . .
 
-RUN pnpm addon:generate-table
-
-RUN pnpm addon:configure
-
-RUN pnpm addon:build
-
-RUN pnpm build:frontend
+RUN pnpm generate-table
 
 RUN pnpm build
 

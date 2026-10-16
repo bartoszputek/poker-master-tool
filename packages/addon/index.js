@@ -1,5 +1,5 @@
 const path = require('node:path');
-const addon = require('../build/Release/addon.node');
+const addon = require('./build/Release/addon.node');
 
 const LOOKUP_TABLE_PATH = path.join(__dirname, 'data', 'HandRanks.dat');
 

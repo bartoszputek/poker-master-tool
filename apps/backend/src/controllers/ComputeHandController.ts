@@ -1,6 +1,6 @@
 import { ICache, IController, ILogger } from '../interfaces';
 import Board from '../models/Board';
-import { calculate, ICalculateResponse } from '../../addon/addon';
+import { calculate, ICalculateResponse } from '@poker-master-tool/addon';
 
 export interface IComputeHandParams {
   board: Board;

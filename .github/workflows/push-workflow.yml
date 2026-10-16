@@ -18,12 +18,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Generate table for addon
-        run: pnpm addon:generate-table
-      - name: Configure addon
-        run: pnpm addon:configure
-      - name: Build addon
-        run: pnpm addon:build
-      - name: Build application
+        run: pnpm generate-table
+      - name: Build addon, backend and frontend
         run: pnpm build
       - name: Run tests
         run: pnpm test

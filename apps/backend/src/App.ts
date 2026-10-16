@@ -7,8 +7,8 @@ import ComputeHandHandler from './handlers/ComputeHandHandler';
 import ErrorHandler from './handlers/ErrorHandler';
 import LoggerHandler from './handlers/LoggerHandler';
 import CacheInMemory from './helpers/CacheInMemory';
-import { CACHE_TTL_IN_MS, FRONTEND_DEV_SERVER_URL } from './constant';
-import { initLookUpTable } from '../addon/addon';
+import { CACHE_TTL_IN_MS, FRONTEND_DEV_SERVER_URL, STATIC_DIRECTORY } from './constant';
+import { initLookUpTable } from '@poker-master-tool/addon';
 
 class App {
   express: express.Application;
@@ -20,7 +20,7 @@ class App {
   constructor() {
     this.express = express();
     this.express.use(express.json());
-    this.express.use(express.static('public'));
+    this.express.use(express.static(STATIC_DIRECTORY));
 
     this.express.use(helmet());
 

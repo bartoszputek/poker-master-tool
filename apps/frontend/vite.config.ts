@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { defineConfig } from 'vite';
 
 const { version } = JSON.parse(
-	readFileSync(new URL('../package.json', import.meta.url), 'utf8')
+	readFileSync(new URL('../../package.json', import.meta.url), 'utf8')
 ) as { version: string };
 
 export default defineConfig({
@@ -15,8 +15,8 @@ export default defineConfig({
 				runes: ({ filename }) =>
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
-			// The Express backend serves the static build from the public directory.
-			adapter: adapter({ pages: '../public', assets: '../public' })
+			// The Express backend serves the static build from the build directory.
+			adapter: adapter()
 		})
 	],
 	define: {

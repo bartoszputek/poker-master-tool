@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: 'e2e',
+  testDir: '.',
   forbidOnly: !!process.env.CI,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
@@ -11,7 +11,8 @@ export default defineConfig({
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   // The addon must be built and the lookup table generated before the tests start.
   webServer: {
-    command: 'pnpm build && pnpm build:frontend && pnpm start',
+    command: 'pnpm build && pnpm start',
+    cwd: '..',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

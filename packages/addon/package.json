@@ -1,0 +1,20 @@
+{
+  "name": "@poker-master-tool/addon",
+  "version": "2.0.3",
+  "private": true,
+  "description": "Native Texas Hold'em calculator with the TwoPlusTwo evaluator",
+  "license": "MIT",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "gypfile": true,
+  "scripts": {
+    "build": "node-gyp rebuild",
+    "generate-table": "make -C table-generator",
+    "benchmark": "node benchmark/benchmark.mjs"
+  },
+  "devDependencies": {
+    "nan": "^2.29.0",
+    "node-gyp": "^13.1.0",
+    "tinybench": "^6.2.2"
+  }
+}
