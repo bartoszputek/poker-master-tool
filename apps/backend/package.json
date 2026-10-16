@@ -10,7 +10,8 @@
     "dev": "ts-node src/index.ts",
     "build": "tsc -p tsconfig.build.json",
     "test": "node --require ts-node/register --test --test-concurrency=1 \"tests/**/*.test.ts\"",
-    "test:coverage": "node --require ts-node/register --test --test-concurrency=1 --experimental-test-coverage --test-coverage-exclude=\"tests/**\" \"tests/**/*.test.ts\""
+    "test:coverage": "node --require ts-node/register --test --test-concurrency=1 --experimental-test-coverage --test-coverage-exclude=\"tests/**\" \"tests/**/*.test.ts\"",
+    "check": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
     "@poker-master-tool/addon": "workspace:*",
@@ -23,10 +24,10 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
-    "@types/node": "^26.6.5",
+    "@types/node": "catalog:",
     "@types/supertest": "^7.2.1",
     "supertest": "^7.3.1",
     "ts-node": "^10.9.2",
-    "typescript": "^6.0.3"
+    "typescript": "catalog:"
   }
 }

@@ -1,0 +1,13 @@
+pnpm-lock.yaml
+**/build
+**/dist
+**/coverage
+**/.svelte-kit
+**/test-results
+**/playwright-report
+apps/frontend/static
+packages/addon/data
+packages/addon/benchmark/results
+
+# Vendored, minified
+apps/frontend/src/lib/styles/modern-normalize.css

@@ -20,15 +20,22 @@
     "test:coverage": "pnpm --filter @poker-master-tool/backend test:coverage",
     "test:benchmark": "pnpm --filter @poker-master-tool/addon benchmark",
     "test:e2e": "playwright test --config e2e/playwright.config.ts",
-    "lint": "eslint \"**/*.ts\" --fix"
+    "lint": "eslint .",
+    "check": "pnpm --recursive check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.64.1",
-    "@stylistic/eslint-plugin": "^5.10.0",
     "eslint": "^10.12.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-svelte": "^3.19.0",
     "globals": "^17.13.0",
-    "typescript": "^6.0.3",
+    "prettier": "^3.8.3",
+    "prettier-plugin-svelte": "^4.1.0",
+    "svelte": "catalog:",
+    "typescript": "catalog:",
     "typescript-eslint": "^8.71.2"
   }
 }

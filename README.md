@@ -148,7 +148,17 @@ When you work on the frontend, run the Vite development server. It is available 
 pnpm dev:frontend
 ```
 
-To check the frontend types and code style, run `pnpm --filter @poker-master-tool/frontend check` and `pnpm --filter @poker-master-tool/frontend lint`.
+All packages use the same ESLint, Prettier and TypeScript configuration in the root directory. Versions that more than one package uses are in the `catalog` of `pnpm-workspace.yaml`. To check the code, run:
+
+```bash
+pnpm check
+
+pnpm lint
+
+pnpm format:check
+```
+
+To format the code, run `pnpm format`.
 
 ## License
 

@@ -1,3 +1,9 @@
 packages:
   - apps/*
   - packages/*
+
+# Versions that more than one package uses. Packages refer to them with "catalog:".
+catalog:
+  '@types/node': ^26.6.5
+  svelte: ^5.57.1
+  typescript: ^6.0.3

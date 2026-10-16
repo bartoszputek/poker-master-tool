@@ -23,8 +23,10 @@ jobs:
         run: pnpm build
       - name: Run tests
         run: pnpm test
-      - name: Check frontend
-        run: pnpm --filter @poker-master-tool/frontend check && pnpm --filter @poker-master-tool/frontend lint
+      - name: Check types
+        run: pnpm check
+      - name: Lint
+        run: pnpm lint
       - name: Install Playwright browser
         run: pnpm exec playwright install --with-deps chromium
       - name: Run e2e tests

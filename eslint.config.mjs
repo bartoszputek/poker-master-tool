@@ -1,31 +1,68 @@
 import js from '@eslint/js';
-import stylistic from '@stylistic/eslint-plugin';
+import prettier from 'eslint-config-prettier';
+import svelte from 'eslint-plugin-svelte';
+import { defineConfig } from 'eslint/config';
 import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import ts from 'typescript-eslint';
 
-export default tseslint.config(
+const FRONTEND_FILES = ['apps/frontend/**/*.{js,ts,svelte}'];
+
+// The svelte presets apply some rules to all files. Limit them to the frontend.
+const forFrontend = (configs) =>
+  configs.map((config) => ({ ...config, files: config.files ?? FRONTEND_FILES }));
+
+export default defineConfig(
   {
-    ignores: ['**/node_modules', '**/dist', '**/build', '**/coverage', 'apps/frontend', '**/test-results', '**/playwright-report'],
+    ignores: [
+      '**/node_modules',
+      '**/dist',
+      '**/build',
+      '**/coverage',
+      '**/.svelte-kit',
+      '**/test-results',
+      '**/playwright-report',
+      'packages/addon/data',
+    ],
   },
   js.configs.recommended,
-  tseslint.configs.recommended,
-  stylistic.configs.customize({ indent: 2, quotes: 'single', semi: true, braceStyle: '1tbs', arrowParens: true }),
+  ts.configs.recommended,
+  forFrontend(svelte.configs.recommended),
+  // Prettier formats the code, so turn off the ESLint rules that conflict with it.
+  prettier,
+  forFrontend(svelte.configs.prettier),
   {
-    languageOptions: {
-      globals: { ...globals.node },
-    },
+    languageOptions: { globals: globals.node },
     rules: {
-      // Keep the airbnb-era formatting that the code base already uses.
-      '@stylistic/max-len': ['error', { code: 135 }],
-      '@stylistic/object-curly-newline': ['error', { ObjectPattern: 'never' }],
-      '@stylistic/member-delimiter-style': 'off',
-      '@stylistic/type-annotation-spacing': 'off',
-      '@stylistic/operator-linebreak': ['error', 'before', { overrides: { '=': 'after' } }],
-      '@stylistic/indent': ['error', 2, { SwitchCase: 1, assignmentOperator: 'off' }],
       '@typescript-eslint/no-explicit-any': 'warn',
       'no-restricted-syntax': ['error', "BinaryExpression[operator='in']"],
       'no-param-reassign': ['error', { props: false }],
       'no-console': 'warn',
+    },
+  },
+  {
+    files: ['**/*.cjs', 'packages/addon/index.js'],
+    languageOptions: { sourceType: 'commonjs' },
+    rules: { '@typescript-eslint/no-require-imports': 'off' },
+  },
+  {
+    files: ['apps/frontend/**'],
+    languageOptions: { globals: globals.browser },
+    rules: {
+      // typescript-eslint recommends that you do not use no-undef on TypeScript projects.
+      'no-undef': 'off',
+      'no-console': 'off',
+      // {' '} keeps the whitespace between inline-block card buttons, which the layout needs.
+      'svelte/no-useless-mustaches': 'off',
+    },
+  },
+  {
+    files: ['**/*.svelte', '**/*.svelte.ts'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        extraFileExtensions: ['.svelte'],
+        parser: ts.parser,
+      },
     },
   },
 );
