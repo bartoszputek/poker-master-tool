@@ -4,7 +4,6 @@
     "rootDir": "./src"
   },
   "exclude": [
-    "tests/**/*",
-    "frontend/**/*.ts"
+    "tests/**/*"
   ]
 }

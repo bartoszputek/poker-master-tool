@@ -1,4 +1,4 @@
-node_modules
+**/node_modules
 npm-debug.log
 dist
 coverage
@@ -6,5 +6,8 @@ addon/data
 build
 logs
 public
+frontend/.svelte-kit
+test-results
+playwright-report
 .gitignore
 .vscode

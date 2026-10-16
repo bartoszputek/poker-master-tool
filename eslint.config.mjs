@@ -5,14 +5,14 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['node_modules', 'dist', 'build', 'public', 'coverage', 'svelte', 'benchmark-results', '*.config.js'],
+    ignores: ['node_modules', 'dist', 'build', 'public', 'coverage', 'frontend', 'benchmark-results', 'test-results', 'playwright-report'],
   },
   js.configs.recommended,
   tseslint.configs.recommended,
   stylistic.configs.customize({ indent: 2, quotes: 'single', semi: true, braceStyle: '1tbs', arrowParens: true }),
   {
     languageOptions: {
-      globals: { ...globals.node, ...globals.browser, VERSION: 'readonly', BACKEND_API_URL: 'readonly' },
+      globals: { ...globals.node },
     },
     rules: {
       // Keep the airbnb-era formatting that the code base already uses.

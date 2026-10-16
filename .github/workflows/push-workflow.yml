@@ -13,8 +13,11 @@ jobs:
         with:
           node-version: "26.x"
           cache: "npm"
+          cache-dependency-path: |
+            package-lock.json
+            frontend/package-lock.json
       - name: Install dependencies
-        run: npm ci
+        run: npm ci && npm ci --prefix frontend
       - name: Generate table for addon
         run: npm run addon:generate-table
       - name: Configure addon
@@ -25,3 +28,9 @@ jobs:
         run: npm run build
       - name: Run tests
         run: npm test
+      - name: Check frontend
+        run: npm --prefix frontend run check && npm --prefix frontend run lint
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+      - name: Run e2e tests
+        run: npm run test:e2e

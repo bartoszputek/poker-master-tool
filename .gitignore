@@ -9,3 +9,5 @@ public
 .env
 .vscode/*
 .vercel
+test-results
+playwright-report

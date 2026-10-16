@@ -3,8 +3,9 @@ FROM node:26
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY frontend/package*.json ./frontend/
 
-RUN npm ci
+RUN npm ci && npm ci --prefix frontend
 
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV

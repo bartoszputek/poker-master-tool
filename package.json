@@ -6,11 +6,11 @@
   "scripts": {
     "start": "NODE_ENV=production node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "dev:frontend": "webpack-dev-server",
+    "dev:frontend": "npm --prefix frontend run dev",
     "dev:docker": "docker-compose up --build",
     "build:all": "npm run build && npm run build:frontend && npm run addon:all",
     "build": "tsc -p tsconfig.backend.json",
-    "build:frontend": "webpack --mode=production",
+    "build:frontend": "npm --prefix frontend run build",
     "addon:all": "npm run addon:configure && npm run addon:build && npm run addon:generate-table",
     "addon:configure": "node-gyp configure",
     "addon:build": "node-gyp rebuild",
@@ -18,7 +18,8 @@
     "test": "node --require ts-node/register --test --test-concurrency=1 \"tests/**/*.test.ts\"",
     "test:coverage": "node --require ts-node/register --test --test-concurrency=1 --experimental-test-coverage --test-coverage-exclude=\"tests/**\" \"tests/**/*.test.ts\"",
     "lint": "eslint \"**/*.ts\" --fix",
-    "test:benchmark": "node tests/benchmark.mjs"
+    "test:benchmark": "node tests/benchmark.mjs",
+    "test:e2e": "playwright test"
   },
   "author": "Bartosz Putek",
   "license": "MIT",
@@ -35,29 +36,20 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.5",
     "@types/supertest": "^7.2.1",
-    "copy-webpack-plugin": "^14.0.0",
-    "css-loader": "^7.1.5",
-    "css-minimizer-webpack-plugin": "^8.0.0",
     "eslint": "^10.13.0",
     "globals": "^17.13.0",
-    "html-loader": "^5.1.0",
-    "html-webpack-plugin": "^5.6.8",
-    "mini-css-extract-plugin": "^2.10.2",
     "nan": "^2.29.0",
     "node-gyp": "^13.1.0",
     "supertest": "^7.3.1",
     "tinybench": "^6.2.2",
-    "ts-loader": "^9.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.71.2",
-    "webpack": "^5.112.0",
-    "webpack-cli": "^7.2.3",
-    "webpack-dev-server": "^6.0.0"
+    "typescript-eslint": "^8.71.2"
   }
 }

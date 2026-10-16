@@ -24,7 +24,7 @@ This project has been written to a develop fast open-source hand calculator for 
 The Application is split into 3 projects:
 
 - Node.js backend application built with Typescript and Express.js framework
-- Frotend written in pure JavaScript and Webpack bundler located in `frontend` directory
+- Frontend written in SvelteKit (Svelte 5) and TypeScript in the `frontend` directory. The build writes static files to `public`, and the backend serves them.
 - C++ Addon with TwoPlusTwo table generator in `addon` directory
 
 ## Features
@@ -54,6 +54,8 @@ Next, follow consecutive commands:
 ```bash
 npm install
 
+npm install --prefix frontend
+
 npm run build:all
 
 npm run start
@@ -72,6 +74,14 @@ npm run test
 ```
 
 if you wish to get a coverage report you run `npm run test:coverage`.
+
+The end-to-end test uses Playwright. It builds the application, starts the backend and calculates the odds in the browser. Generate the lookup table and build the addon before you run it:
+
+```bash
+npx playwright install chromium
+
+npm run test:e2e
+```
 
 To run the performance benchmark for the addon, run:
 
@@ -122,11 +132,13 @@ To serve a frontend by the backend application you should build the frontend fir
 npm run dev
 ```
 
-When you work on the frontend you may wish to dynamically rebuild the project. To run the frontend development server run:
+When you work on the frontend, run the Vite development server. It is available on `http://localhost:8080` and sends the `/compute` requests to the backend on port 3000:
 
 ```bash
 npm run dev:frontend
 ```
+
+To check the frontend types and code style, run `npm --prefix frontend run check` and `npm --prefix frontend run lint`.
 
 ## License
 
