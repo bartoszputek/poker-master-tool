@@ -77,7 +77,7 @@ The app will be listening on `http://localhost:3000`.
 
 ## Unit and performance tests
 
-Unit tests use the Node.js test runner (`node:test`). Node runs the TypeScript files of the backend directly, without a build step.
+Unit tests use the Node.js test runner (`node:test`).
 
 To run unit tests run:
 
