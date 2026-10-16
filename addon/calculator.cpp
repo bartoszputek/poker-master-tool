@@ -198,15 +198,15 @@ int calculate(
     return combinations;
 }
 
-int initData() {
+bool initData(const string& path) {
     memset(HR, 0, sizeof(HR));
-    FILE* file = fopen("addon/data/HandRanks.dat", "rb");
+    FILE* file = fopen(path.c_str(), "rb");
     if (!file)
         return false;
-    fread(HR, sizeof(HR), 1, file);
+    size_t blocksRead = fread(HR, sizeof(HR), 1, file);
     fclose(file);
 
-    return true;
+    return blocksRead == 1;
 }
 
 Results processResults(int combinations, array<PlayerStats, 9>& playersStats) {

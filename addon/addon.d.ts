@@ -1,4 +1,4 @@
-export function initLookUpTable(): void;
+export function initLookUpTable(): Promise<void>;
 export function calculate(playersCards:number[][], communityCards:number[], deathCards:number[]): Promise<ICalculateResponse>;
 
 export interface ICalculateResponse {

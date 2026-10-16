@@ -13,6 +13,6 @@ struct Results {
 };
 
 Results compute(std::vector<std::vector<int>> players, std::vector<int> communityCards, std::vector<int> deathCards);
-int initData();
+bool initData(const std::string& path);
 std::array<std::string, 10> getHandNames();
 std::array<std::string, 3> getResultNames();

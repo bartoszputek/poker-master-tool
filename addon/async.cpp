@@ -95,12 +95,14 @@ class CalculateWorker : public AsyncWorker {
 
 class InitWorker : public AsyncWorker {
    public:
-    InitWorker(Callback *callback)
-        : AsyncWorker(callback, "poker-eval:initWorker") {}
+    InitWorker(Callback *callback, std::string path)
+        : AsyncWorker(callback, "poker-eval:initWorker"), path(path) {}
     ~InitWorker() {}
 
     void Execute() {
-        initData();
+        if (!initData(path)) {
+            SetErrorMessage(("Cannot read the lookup table: " + path).c_str());
+        }
     }
 
     void HandleOKCallback() {
@@ -111,12 +113,16 @@ class InitWorker : public AsyncWorker {
 
         callback->Call(2, argv, async_resource);
     }
+
+   private:
+    std::string path;
 };
 
 NAN_METHOD(InitLookUpTable) {
-    Callback *callback = new Callback(To<Function>(info[0]).ToLocalChecked());
+    std::string path = *Nan::Utf8String(info[0]);
+    Callback *callback = new Callback(To<Function>(info[1]).ToLocalChecked());
 
-    AsyncQueueWorker(new InitWorker(callback));
+    AsyncQueueWorker(new InitWorker(callback, path));
 }
 
 NAN_METHOD(CalculateAsync) {

@@ -1,8 +1,11 @@
+const path = require('node:path');
 const addon = require('../build/Release/addon.node');
 
+const LOOKUP_TABLE_PATH = path.join(__dirname, 'data', 'HandRanks.dat');
+
 function initLookUpTable() {
-  return new Promise((resolve) => {
-    addon.initLookUpTable(() => resolve());
+  return new Promise((resolve, reject) => {
+    addon.initLookUpTable(LOOKUP_TABLE_PATH, (error) => (error ? reject(error) : resolve()));
   });
 }
 
