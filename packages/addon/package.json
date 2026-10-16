@@ -6,6 +6,12 @@
   "license": "MIT",
   "main": "index.js",
   "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "build/Release/addon.node",
+    "data/HandRanks.dat"
+  ],
   "gypfile": true,
   "scripts": {
     "build": "node-gyp rebuild",

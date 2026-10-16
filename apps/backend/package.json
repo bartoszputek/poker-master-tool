@@ -5,6 +5,9 @@
   "description": "Express API for the poker hand calculator",
   "license": "MIT",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "NODE_ENV=production node dist/index.js",
     "dev": "ts-node src/index.ts",
