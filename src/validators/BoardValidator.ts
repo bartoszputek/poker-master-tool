@@ -53,7 +53,7 @@ export default class BoardValidator implements IValidator {
     return true;
   }
 
-  private hasDuplicates(cards: string[]): Boolean {
+  private hasDuplicates(cards: string[]): boolean {
     return new Set(cards).size !== cards.length;
   }
 }

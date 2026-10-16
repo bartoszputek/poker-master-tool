@@ -65,7 +65,7 @@ test('execute(): should save results when cache is empty', async () => {
 
   await testFunction(board);
 
-  expect(cacheInMemoryStub.set).toBeCalled();
+  expect(cacheInMemoryStub.set).toHaveBeenCalled();
 });
 
 test('execute(): should return results from cache when it is set', async () => {
@@ -77,6 +77,6 @@ test('execute(): should return results from cache when it is set', async () => {
 
   const results: IComputeHandResponse = await testFunction(board);
 
-  expect(cacheInMemoryStub.set).not.toBeCalled();
+  expect(cacheInMemoryStub.set).not.toHaveBeenCalled();
   expect(results).toBe(expectedResults);
 });

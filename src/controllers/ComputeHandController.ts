@@ -2,12 +2,12 @@ import { ICache, IController, ILogger } from 'interfaces';
 import Board from 'models/Board';
 import { calculate, ICalculateResponse } from '../../addon/addon';
 
-export interface IComputeHandParams{
+export interface IComputeHandParams {
   board: Board;
   logger: ILogger
 }
 
-export interface IComputeHandResponse extends ICalculateResponse {}
+export type IComputeHandResponse = ICalculateResponse;
 
 export default class ComputeHandController implements IController<IComputeHandParams, Promise<IComputeHandResponse>> {
   constructor(private readonly cache: ICache<string, IComputeHandResponse>) {}

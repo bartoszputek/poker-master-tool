@@ -36,7 +36,7 @@ int64 MakeID(int64 IDin, int newcard) {
     // Get card suit by (newcard & 3) operation <=> newcard % 4
     cards[0] = (((newcard >> 2) + 1) << 4) + (newcard & 3) + 1;
 
-    for (numcards = 0; numcards < 8; numcards++) {
+    for (numcards = 0; numcards < 7; numcards++) {
         if (cards[numcards] == 0) {
             break;
         }

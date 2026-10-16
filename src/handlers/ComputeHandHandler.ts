@@ -75,7 +75,7 @@ export default class ComputeHandHandler implements IHandler {
       const json = JSON.parse(base64Value);
 
       return json;
-    } catch (error) {
+    } catch {
       throw new ValidationError('The board query parameter is not a parsable JSON string.', { board });
     }
   }

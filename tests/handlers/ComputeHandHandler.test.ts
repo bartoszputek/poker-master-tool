@@ -89,8 +89,8 @@ test('handle(): should call execute method and send response', async () => {
 
   await computeHandHandler.handle(req, res, next);
 
-  expect(computeHandControllerStub.execute).toBeCalledWith(parameters);
-  expect(res.send).toBeCalledWith(getExampleResults());
+  expect(computeHandControllerStub.execute).toHaveBeenCalledWith(parameters);
+  expect(res.send).toHaveBeenCalledWith(getExampleResults());
 });
 
 test('handle(): should set cache and content-type headers', async () => {
@@ -100,8 +100,8 @@ test('handle(): should set cache and content-type headers', async () => {
 
   await computeHandHandler.handle(req, res, next);
 
-  expect(res.set).toBeCalledWith('Cache-Control', `public, max-age=${SECONDS_IN_MONTH}`);
-  expect(res.set).toBeCalledWith('Content-Type', 'application/json');
+  expect(res.set).toHaveBeenCalledWith('Cache-Control', `public, max-age=${SECONDS_IN_MONTH}`);
+  expect(res.set).toHaveBeenCalledWith('Content-Type', 'application/json');
 });
 
 test('validate(): should call validation methods and next function', async () => {
@@ -109,6 +109,6 @@ test('validate(): should call validation methods and next function', async () =>
 
   computeHandHandler.validate(req, res, next);
 
-  expect(boardValidatorStub.validate).toBeCalledWith(seralizedBoard);
-  expect(next).toBeCalled();
+  expect(boardValidatorStub.validate).toHaveBeenCalledWith(seralizedBoard);
+  expect(next).toHaveBeenCalled();
 });

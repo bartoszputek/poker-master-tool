@@ -45,7 +45,7 @@ test('handle(): should call next function if headers are sent', async () => {
 
   errorHandler.handle(error, req, res, next);
 
-  expect(next).toBeCalledWith(error);
+  expect(next).toHaveBeenCalledWith(error);
 });
 
 test('handle(): should handle application error', async () => {
@@ -64,8 +64,8 @@ test('handle(): should handle application error', async () => {
 
   errorHandler.handle(error, req, res, next);
 
-  expect(res.status).toBeCalledWith(statusCode);
-  expect(res.send).toBeCalledWith({ message: error.message, statusCode: error.statusCode, data: error.data });
+  expect(res.status).toHaveBeenCalledWith(statusCode);
+  expect(res.send).toHaveBeenCalledWith({ message: error.message, statusCode: error.statusCode, data: error.data });
 });
 
 test('handle(): should handle JSON parsing error', async () => {
@@ -81,8 +81,8 @@ test('handle(): should handle JSON parsing error', async () => {
 
   errorHandler.handle(error, req, res, next);
 
-  expect(res.status).toBeCalledWith(400);
-  expect(res.send).toBeCalledWith({ message: error.message, statusCode: 400, data: { body } });
+  expect(res.status).toHaveBeenCalledWith(400);
+  expect(res.send).toHaveBeenCalledWith({ message: error.message, statusCode: 400, data: { body } });
 });
 
 test('handle(): should handle an error', async () => {
@@ -95,7 +95,7 @@ test('handle(): should handle an error', async () => {
 
   errorHandler.handle(error, req, res, next);
 
-  expect(res.status).toBeCalledWith(500);
-  expect(res.send).toBeCalledWith({ message: error.message, statusCode: 500, data: 'Internal server error' });
+  expect(res.status).toHaveBeenCalledWith(500);
+  expect(res.send).toHaveBeenCalledWith({ message: error.message, statusCode: 500, data: 'Internal server error' });
   expect(exit).toHaveBeenCalledWith(1);
 });

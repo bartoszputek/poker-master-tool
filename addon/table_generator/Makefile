@@ -1,4 +1,4 @@
-CFLAGS = -O3 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic -lstdc++fs
+CFLAGS = -O3 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
 
 main: generate-table
 	./dist/generate-table

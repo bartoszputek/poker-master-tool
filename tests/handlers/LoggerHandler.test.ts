@@ -43,5 +43,5 @@ test('handle(): should next function', async () => {
 
   loggerHandler.handle(req, res, next);
 
-  expect(next).toBeCalled();
+  expect(next).toHaveBeenCalled();
 });

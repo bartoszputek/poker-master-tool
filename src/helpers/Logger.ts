@@ -1,6 +1,6 @@
 import { ILogger, LoggerMessage } from 'interfaces';
 import winston from 'winston';
-import { v4 as uuid } from 'uuid';
+import { randomUUID } from 'node:crypto';
 import Timer from 'helpers/Timer';
 
 import winstonLogger from './WinstonLogger';
@@ -11,7 +11,7 @@ export default class Logger implements ILogger {
   private timer?: Timer;
 
   constructor() {
-    this.logger = winstonLogger.child({ traceId: uuid() });
+    this.logger = winstonLogger.child({ traceId: randomUUID() });
   }
 
   public fatal(message:LoggerMessage):void {
@@ -63,6 +63,6 @@ export default class Logger implements ILogger {
   }
 }
 
-function isString(value: unknown): value is String {
+function isString(value: unknown): value is string {
   return typeof value === 'string' || value instanceof String;
 }
