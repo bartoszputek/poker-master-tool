@@ -1,6 +1,6 @@
-import { CARD_RANKS, CARD_SUITS } from '../constant';
-import ValidationError from '../errors/ValidationError';
-import { IValidator } from '../interfaces';
+import { CARD_RANKS, CARD_SUITS } from '../constant.ts';
+import ValidationError from '../errors/ValidationError.ts';
+import type { IValidator } from '../interfaces.ts';
 
 export default class CardValidator implements IValidator {
   public validate(card: string): boolean {

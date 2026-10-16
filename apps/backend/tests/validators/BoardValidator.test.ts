@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { before, test } from 'node:test';
-import ValidationError from '../../src/errors/ValidationError';
-import { ISerializedBoard, ISerializedPlayer } from '../../src/interfaces';
-import BoardValidator from '../../src/validators/BoardValidator';
+import ValidationError from '../../src/errors/ValidationError.ts';
+import type { ISerializedBoard, ISerializedPlayer } from '../../src/interfaces.ts';
+import BoardValidator from '../../src/validators/BoardValidator.ts';
 
 interface ITestContext {
   boardValidator: BoardValidator;

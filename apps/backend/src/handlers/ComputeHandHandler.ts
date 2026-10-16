@@ -1,18 +1,34 @@
-import { RequestHandler, Request, Response, NextFunction } from 'express';
+import type { RequestHandler, Request, Response, NextFunction } from 'express';
 
-import { IComputeHandParams, IComputeHandResponse } from '../controllers/ComputeHandController';
-import { ISerializedBoard, IController, IHandler, IValidator, ILogger } from '../interfaces';
-import BoardValidator from '../validators/BoardValidator';
-import Board from '../models/Board';
-import ValidationError from '../errors/ValidationError';
+import type {
+  IComputeHandParams,
+  IComputeHandResponse,
+} from '../controllers/ComputeHandController.ts';
+import type {
+  ISerializedBoard,
+  IController,
+  IHandler,
+  IValidator,
+  ILogger,
+} from '../interfaces.ts';
+import BoardValidator from '../validators/BoardValidator.ts';
+import Board from '../models/Board.ts';
+import ValidationError from '../errors/ValidationError.ts';
 
 export const SECONDS_IN_MONTH: number = 60 * 60 * 24 * 30;
 
 export default class ComputeHandHandler implements IHandler {
+  private readonly controller: IController<IComputeHandParams, Promise<IComputeHandResponse>>;
+
+  private readonly boardValidator: IValidator;
+
   constructor(
-    private readonly controller: IController<IComputeHandParams, Promise<IComputeHandResponse>>,
-    private readonly boardValidator: IValidator = new BoardValidator(),
-  ) {}
+    controller: IController<IComputeHandParams, Promise<IComputeHandResponse>>,
+    boardValidator: IValidator = new BoardValidator(),
+  ) {
+    this.controller = controller;
+    this.boardValidator = boardValidator;
+  }
 
   public handle: RequestHandler<any, any, any, any, { board: ISerializedBoard; logger: ILogger }> =
     async (req: Request, res: Response<any, { board: ISerializedBoard; logger: ILogger }>) => {

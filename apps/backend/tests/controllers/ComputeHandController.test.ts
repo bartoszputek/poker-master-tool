@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import { beforeEach, test } from 'node:test';
-import { ICache, ILogger } from '../../src/interfaces';
+import type { ICache, ILogger } from '../../src/interfaces.ts';
 import ComputeHandController, {
-  IComputeHandResponse,
-} from '../../src/controllers/ComputeHandController';
-import Board from '../../src/models/Board';
-import { createCacheStub, createLoggerStub, Mocked } from '../_utils/Stubs';
-import { getExampleResults } from '../_utils/Utils';
+  type IComputeHandResponse,
+} from '../../src/controllers/ComputeHandController.ts';
+import Board from '../../src/models/Board.ts';
+import { createCacheStub, createLoggerStub, type Mocked } from '../_utils/Stubs.ts';
+import { getExampleResults } from '../_utils/Utils.ts';
 
 interface ITestFunction {
   (board: Board): Promise<IComputeHandResponse>;

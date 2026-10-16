@@ -1,13 +1,20 @@
-import ValidationError from '../errors/ValidationError';
-import { ISerializedPlayer, IValidator } from '../interfaces';
-import ArrayValidator from './ArrayValidator';
-import CardValidator from './CardValidator';
+import ValidationError from '../errors/ValidationError.ts';
+import type { ISerializedPlayer, IValidator } from '../interfaces.ts';
+import ArrayValidator from './ArrayValidator.ts';
+import CardValidator from './CardValidator.ts';
 
 export default class PlayersValidator implements IValidator {
+  public readonly arrayValidator: ArrayValidator;
+
+  public readonly cardValidator: CardValidator;
+
   constructor(
-    public readonly arrayValidator: ArrayValidator = new ArrayValidator(),
-    public readonly cardValidator: CardValidator = new CardValidator(),
-  ) {}
+    arrayValidator: ArrayValidator = new ArrayValidator(),
+    cardValidator: CardValidator = new CardValidator(),
+  ) {
+    this.arrayValidator = arrayValidator;
+    this.cardValidator = cardValidator;
+  }
 
   public validate(players: ISerializedPlayer[]): boolean {
     this.arrayValidator.validate(players);

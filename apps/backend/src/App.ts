@@ -2,12 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 
-import ComputeHandController, { IComputeHandResponse } from './controllers/ComputeHandController';
-import ComputeHandHandler from './handlers/ComputeHandHandler';
-import ErrorHandler from './handlers/ErrorHandler';
-import LoggerHandler from './handlers/LoggerHandler';
-import CacheInMemory from './helpers/CacheInMemory';
-import { CACHE_TTL_IN_MS, FRONTEND_DEV_SERVER_URL, STATIC_DIRECTORY } from './constant';
+import ComputeHandController, {
+  type IComputeHandResponse,
+} from './controllers/ComputeHandController.ts';
+import ComputeHandHandler from './handlers/ComputeHandHandler.ts';
+import ErrorHandler from './handlers/ErrorHandler.ts';
+import LoggerHandler from './handlers/LoggerHandler.ts';
+import CacheInMemory from './helpers/CacheInMemory.ts';
+import { CACHE_TTL_IN_MS, FRONTEND_DEV_SERVER_URL, STATIC_DIRECTORY } from './constant.ts';
 import { initLookUpTable } from '@poker-master-tool/addon';
 
 class App {

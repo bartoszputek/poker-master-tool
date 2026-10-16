@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { before, test } from 'node:test';
-import ArrayValidator from '../../src/validators/ArrayValidator';
-import ValidationError from '../../src/errors/ValidationError';
+import ArrayValidator from '../../src/validators/ArrayValidator.ts';
+import ValidationError from '../../src/errors/ValidationError.ts';
 
 interface ITestContext {
   arrayValidator: ArrayValidator;

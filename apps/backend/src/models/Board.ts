@@ -1,5 +1,5 @@
-import { Card } from '../constant';
-import { ISerializedBoard } from '../interfaces';
+import { Card } from '../constant.ts';
+import type { ISerializedBoard } from '../interfaces.ts';
 
 export default class Board {
   public readonly playersCards: Card[][];

@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { beforeEach, test } from 'node:test';
-import { Card } from '../../src/constant';
-import { ISerializedBoard, ISerializedPlayer } from '../../src/interfaces';
-import Board from '../../src/models/Board';
+import { Card } from '../../src/constant.ts';
+import type { ISerializedBoard, ISerializedPlayer } from '../../src/interfaces.ts';
+import Board from '../../src/models/Board.ts';
 
 interface ITestContext {
   serializedBoard: ISerializedBoard;

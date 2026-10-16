@@ -77,7 +77,7 @@ The app will be listening on `http://localhost:3000`.
 
 ## Unit and performance tests
 
-Unit tests use the Node.js test runner (`node:test`).
+Unit tests use the Node.js test runner (`node:test`). Node runs the TypeScript files of the backend directly, without a build step.
 
 To run unit tests run:
 
@@ -138,7 +138,7 @@ The results change with the hardware and the Node version.
 
 ## Development
 
-To serve a frontend by the backend application you should build the frontend first using `pnpm --filter @poker-master-tool/frontend build`. After that you can run the backend development server with:
+To serve a frontend by the backend application you should build the frontend first using `pnpm --filter @poker-master-tool/frontend build`. After that you can run the backend development server with the command below. It restarts the backend when you change a file:
 
 ```bash
 pnpm dev

@@ -7,7 +7,12 @@
     "rootDir": ".",
     "outDir": "./dist",
     "sourceMap": true,
-    "types": ["node"]
+    "types": ["node"],
+    // Node runs the .ts files directly, so allow only syntax that it can strip.
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    // Imports use .ts extensions. tsc changes them to .js in the build.
+    "rewriteRelativeImportExtensions": true
   },
   "include": ["src/**/*.ts", "tests/**/*.ts"]
 }

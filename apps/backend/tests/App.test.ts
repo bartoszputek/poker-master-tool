@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import { before, test } from 'node:test';
 import request from 'supertest';
-import App from '../src/App';
-import express from 'express';
-import { ISerializedBoard, ISerializedPlayer } from '../src/interfaces';
-import { getExampleResults } from './_utils/Utils';
+import App from '../src/App.ts';
+import type express from 'express';
+import type { ISerializedBoard, ISerializedPlayer } from '../src/interfaces.ts';
+import { getExampleResults } from './_utils/Utils.ts';
 
 interface ITestContext {
   app: express.Application;

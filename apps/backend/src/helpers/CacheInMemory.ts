@@ -1,4 +1,4 @@
-import { ICache } from '../interfaces';
+import type { ICache } from '../interfaces.ts';
 
 interface MapArgument<V> {
   value: V;

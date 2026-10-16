@@ -1,6 +1,6 @@
-import ApplicationError from '../errors/ApplicationError';
-import { ErrorRequestHandler, NextFunction, Response, Request } from 'express';
-import { IHandler, ILogger } from '../interfaces';
+import ApplicationError from '../errors/ApplicationError.ts';
+import type { ErrorRequestHandler, NextFunction, Response, Request } from 'express';
+import type { IHandler, ILogger } from '../interfaces.ts';
 
 export default class ErrorHandler implements IHandler {
   public handle: ErrorRequestHandler = (error, req: Request, res: Response, next: NextFunction) => {

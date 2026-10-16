@@ -1,15 +1,25 @@
-import ValidationError from '../errors/ValidationError';
-import { ISerializedBoard, IValidator } from '../interfaces';
-import ArrayValidator from './ArrayValidator';
-import CardValidator from './CardValidator';
-import PlayersValidator from './PlayersValidator';
+import ValidationError from '../errors/ValidationError.ts';
+import type { ISerializedBoard, IValidator } from '../interfaces.ts';
+import ArrayValidator from './ArrayValidator.ts';
+import CardValidator from './CardValidator.ts';
+import PlayersValidator from './PlayersValidator.ts';
 
 export default class BoardValidator implements IValidator {
+  public readonly playersValidator: IValidator;
+
+  public readonly arrayValidator: ArrayValidator;
+
+  public readonly cardValidator: CardValidator;
+
   constructor(
-    public readonly playersValidator: IValidator = new PlayersValidator(),
-    public readonly arrayValidator: ArrayValidator = new ArrayValidator(),
-    public readonly cardValidator: CardValidator = new CardValidator(),
-  ) {}
+    playersValidator: IValidator = new PlayersValidator(),
+    arrayValidator: ArrayValidator = new ArrayValidator(),
+    cardValidator: CardValidator = new CardValidator(),
+  ) {
+    this.playersValidator = playersValidator;
+    this.arrayValidator = arrayValidator;
+    this.cardValidator = cardValidator;
+  }
 
   public validate(board: ISerializedBoard): boolean {
     if (!board) {

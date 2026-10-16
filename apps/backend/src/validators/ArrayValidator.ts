@@ -1,5 +1,5 @@
-import ValidationError from '../errors/ValidationError';
-import { IValidator } from '../interfaces';
+import ValidationError from '../errors/ValidationError.ts';
+import type { IValidator } from '../interfaces.ts';
 
 export default class ArrayValidator implements IValidator {
   public validate(array: unknown): boolean {

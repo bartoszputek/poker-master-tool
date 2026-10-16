@@ -1,4 +1,4 @@
-import { ErrorRequestHandler, RequestHandler } from 'express';
+import type { ErrorRequestHandler, RequestHandler } from 'express';
 
 export interface IHandler {
   handle: RequestHandler<any, any, any, any, any> | ErrorRequestHandler;

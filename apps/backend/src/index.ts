@@ -1,9 +1,7 @@
-import App from './App';
+import App from './App.ts';
 
-(async () => {
-  const app = new App();
+const app = new App();
 
-  await app.initData();
+await app.initData();
 
-  app.listen(3000);
-})();
+app.listen(3000);

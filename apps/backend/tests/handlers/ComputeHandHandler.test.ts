@@ -1,16 +1,16 @@
 import assert from 'node:assert/strict';
-import { beforeEach, mock, Mock, test } from 'node:test';
-import { NextFunction, Request, Response } from 'express';
+import { beforeEach, mock, type Mock, test } from 'node:test';
+import type { NextFunction, Request, Response } from 'express';
 
-import {
+import type {
   IComputeHandParams,
   IComputeHandResponse,
-} from '../../src/controllers/ComputeHandController';
-import ComputeHandHandler, { SECONDS_IN_MONTH } from '../../src/handlers/ComputeHandHandler';
-import Board from '../../src/models/Board';
-import { IController, ILogger, ISerializedBoard, IValidator } from '../../src/interfaces';
-import { getExampleResults } from '../_utils/Utils';
-import { createLoggerStub, Mocked } from '../_utils/Stubs';
+} from '../../src/controllers/ComputeHandController.ts';
+import ComputeHandHandler, { SECONDS_IN_MONTH } from '../../src/handlers/ComputeHandHandler.ts';
+import Board from '../../src/models/Board.ts';
+import type { IController, ILogger, ISerializedBoard, IValidator } from '../../src/interfaces.ts';
+import { getExampleResults } from '../_utils/Utils.ts';
+import { createLoggerStub, type Mocked } from '../_utils/Stubs.ts';
 
 interface ITestContext {
   computeHandHandler: ComputeHandHandler;

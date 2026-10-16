@@ -1,9 +1,9 @@
-import { ILogger, LoggerMessage } from '../interfaces';
-import winston from 'winston';
+import type { ILogger, LoggerMessage } from '../interfaces.ts';
+import type winston from 'winston';
 import { randomUUID } from 'node:crypto';
-import Timer from './Timer';
+import Timer from './Timer.ts';
 
-import winstonLogger from './WinstonLogger';
+import winstonLogger from './WinstonLogger.ts';
 
 export default class Logger implements ILogger {
   private logger: winston.Logger;

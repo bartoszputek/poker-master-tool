@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
-import { beforeEach, mock, Mock, test } from 'node:test';
-import { NextFunction, Request, Response } from 'express';
+import { beforeEach, mock, type Mock, test } from 'node:test';
+import type { NextFunction, Request, Response } from 'express';
 
-import LoggerHandler from '../../src/handlers/LoggerHandler';
-import Logger from '../../src/helpers/Logger';
+import LoggerHandler from '../../src/handlers/LoggerHandler.ts';
+import Logger from '../../src/helpers/Logger.ts';
 
 interface ITestContext {
   loggerHandler: LoggerHandler;

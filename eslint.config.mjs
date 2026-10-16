@@ -34,6 +34,10 @@ export default defineConfig(
     languageOptions: { globals: globals.node },
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
+      // verbatimModuleSyntax keeps every value import, so type-only imports must say "type".
+      '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
+      // An import with only inline types still loads the module. Use "import type" for it.
+      '@typescript-eslint/no-import-type-side-effects': 'error',
       'no-restricted-syntax': ['error', "BinaryExpression[operator='in']"],
       'no-param-reassign': ['error', { props: false }],
       'no-console': 'warn',

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { calculate, initLookUpTable } from '@poker-master-tool/addon';
-import { getExampleResults } from '../_utils/Utils';
+import { getExampleResults } from '../_utils/Utils.ts';
 
 test('calculate(): should return a response', async () => {
   await initLookUpTable();

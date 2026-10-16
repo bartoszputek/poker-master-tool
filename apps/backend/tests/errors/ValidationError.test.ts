@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import ApplicationError from '../../src/errors/ApplicationError';
-import ValidationError from '../../src/errors/ValidationError';
+import ApplicationError from '../../src/errors/ApplicationError.ts';
+import ValidationError from '../../src/errors/ValidationError.ts';
 
 test('constructor(): should create an instance of error with proper message and status code', async () => {
   const message: string = 'example message';

@@ -1,7 +1,7 @@
-import { RequestHandler, Request, Response, NextFunction } from 'express';
+import type { RequestHandler, Request, Response, NextFunction } from 'express';
 
-import Logger from '../helpers/Logger';
-import { IHandler } from '../interfaces';
+import Logger from '../helpers/Logger.ts';
+import type { IHandler } from '../interfaces.ts';
 
 export default class LoggerHandler implements IHandler {
   public handle: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
