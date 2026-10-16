@@ -1,3 +1,5 @@
+import assert from 'node:assert/strict';
+import { before, test } from 'node:test';
 import ValidationError from 'errors/ValidationError';
 import CardValidator from 'validators/CardValidator';
 
@@ -7,7 +9,7 @@ interface ITestContext {
 
 let context: ITestContext;
 
-beforeAll(() => {
+before(() => {
   const cardValidator: CardValidator = new CardValidator();
 
   context = {
@@ -22,7 +24,7 @@ test('validate(): should return true', async () => {
 
   const response = cardValidator.validate(card);
 
-  expect(response).toBe(true);
+  assert.strictEqual(response, true);
 });
 
 test('validate(): should throw an error when card format is too long', async () => {
@@ -36,7 +38,7 @@ test('validate(): should throw an error when card format is too long', async () 
 
   const expectedError: ValidationError = new ValidationError('Incorrect card format', { card });
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 test('validate(): should throw an error when rank is incorrect ', async () => {
@@ -50,7 +52,7 @@ test('validate(): should throw an error when rank is incorrect ', async () => {
 
   const expectedError: ValidationError = new ValidationError('Incorrect card format', { card });
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 test('validate(): should throw an error when suit is incorrect ', async () => {
@@ -64,7 +66,7 @@ test('validate(): should throw an error when suit is incorrect ', async () => {
 
   const expectedError: ValidationError = new ValidationError('Incorrect card format', { card });
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 test('validate(): should throw an error when card is undefined', async () => {
@@ -78,5 +80,5 @@ test('validate(): should throw an error when card is undefined', async () => {
 
   const expectedError: ValidationError = new ValidationError('Incorrect card format', { card });
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });

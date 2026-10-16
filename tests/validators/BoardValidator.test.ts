@@ -1,3 +1,5 @@
+import assert from 'node:assert/strict';
+import { before, test } from 'node:test';
 import ValidationError from 'errors/ValidationError';
 import { ISerializedBoard, ISerializedPlayer } from 'interfaces';
 import BoardValidator from 'validators/BoardValidator';
@@ -9,7 +11,7 @@ interface ITestContext {
 
 let context: ITestContext;
 
-beforeAll(() => {
+before(() => {
   const boardValidator: BoardValidator = new BoardValidator();
 
   const players: ISerializedPlayer[] = [
@@ -38,7 +40,7 @@ test('validate(): should return true', async () => {
 
   const response = boardValidator.validate(board);
 
-  expect(response).toBe(true);
+  assert.strictEqual(response, true);
 });
 
 test('validate(): should throw an error when board has not cards property ', async () => {
@@ -52,7 +54,7 @@ test('validate(): should throw an error when board has not cards property ', asy
 
   const expectedError: ValidationError = new ValidationError('Property communityCards is missing in board object', board);
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 test('validate(): should throw an error when board has too many card', async () => {
@@ -68,9 +70,9 @@ test('validate(): should throw an error when board has too many card', async () 
     boardValidator.validate(board);
   };
 
-  const expectedError: ValidationError = new ValidationError('Property communityCards has too many cards (5 is maximum)', { board });
+  const expectedError: ValidationError = new ValidationError('Property communityCards has too many cards (5 is maximum)', board);
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 test('validate(): should throw an error when board has not deathCards property ', async () => {
@@ -87,7 +89,7 @@ test('validate(): should throw an error when board has not deathCards property '
 
   const expectedError: ValidationError = new ValidationError('Property deathCards is missing in board object', board);
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 test('validate(): should throw an error when board is not defined', async () => {
@@ -101,7 +103,7 @@ test('validate(): should throw an error when board is not defined', async () => 
 
   const expectedError: ValidationError = new ValidationError('Board object does not exist in request body', board);
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 test('validate(): should throw an error when board includes duplicates', async () => {
@@ -119,5 +121,5 @@ test('validate(): should throw an error when board includes duplicates', async (
 
   const expectedError: ValidationError = new ValidationError('Board includes duplicated cards', board);
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });

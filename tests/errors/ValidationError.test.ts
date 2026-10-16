@@ -1,3 +1,5 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
 import ApplicationError from 'errors/ApplicationError';
 import ValidationError from 'errors/ValidationError';
 
@@ -9,9 +11,9 @@ test('constructor(): should create an instance of error with proper message and 
 
   const error = new ValidationError(message, data);
 
-  expect(error).toBeInstanceOf(ApplicationError);
-  expect(error).toBeInstanceOf(ValidationError);
-  expect(error.message).toBe(message);
-  expect(error.statusCode).toBe(400);
-  expect(error.data).toBe(data);
+  assert.ok(error instanceof ApplicationError);
+  assert.ok(error instanceof ValidationError);
+  assert.strictEqual(error.message, message);
+  assert.strictEqual(error.statusCode, 400);
+  assert.strictEqual(error.data, data);
 });

@@ -1,7 +1,9 @@
+import assert from 'node:assert/strict';
+import { beforeEach, test } from 'node:test';
 import { ICache, ILogger } from 'interfaces';
 import ComputeHandController, { IComputeHandResponse } from 'controllers/ComputeHandController';
 import Board from 'models/Board';
-import { createCacheStub, createLoggerStub } from '../_utils/Stubs';
+import { createCacheStub, createLoggerStub, Mocked } from '../_utils/Stubs';
 import { getExampleResults } from '../_utils/Utils';
 
 interface ITestFunction {
@@ -11,7 +13,7 @@ interface ITestFunction {
 interface ITestContext {
   testFunction: ITestFunction,
   board: Board,
-  cacheInMemoryStub: jest.Mocked<ICache<string, IComputeHandResponse>>
+  cacheInMemoryStub: Mocked<ICache<string, IComputeHandResponse>>
 }
 
 let context: ITestContext;
@@ -19,7 +21,7 @@ let context: ITestContext;
 beforeEach(() => {
   const loggerStub: ILogger = createLoggerStub();
 
-  const cacheInMemoryStub: jest.Mocked<ICache<string, IComputeHandResponse>> = createCacheStub();
+  const cacheInMemoryStub: Mocked<ICache<string, IComputeHandResponse>> = createCacheStub();
 
   const computeHandController = new ComputeHandController(cacheInMemoryStub);
 
@@ -57,7 +59,7 @@ test('execute(): should return results', async () => {
 
   const results: IComputeHandResponse = await testFunction(board);
 
-  expect(results).toBeDefined();
+  assert.notStrictEqual(results, undefined);
 });
 
 test('execute(): should save results when cache is empty', async () => {
@@ -65,7 +67,7 @@ test('execute(): should save results when cache is empty', async () => {
 
   await testFunction(board);
 
-  expect(cacheInMemoryStub.set).toHaveBeenCalled();
+  assert.strictEqual(cacheInMemoryStub.set.mock.callCount(), 1);
 });
 
 test('execute(): should return results from cache when it is set', async () => {
@@ -73,10 +75,10 @@ test('execute(): should return results from cache when it is set', async () => {
 
   const expectedResults: IComputeHandResponse = getExampleResults();
 
-  cacheInMemoryStub.get.mockReturnValue(expectedResults);
+  cacheInMemoryStub.get.mock.mockImplementation(() => expectedResults);
 
   const results: IComputeHandResponse = await testFunction(board);
 
-  expect(cacheInMemoryStub.set).not.toHaveBeenCalled();
-  expect(results).toBe(expectedResults);
+  assert.strictEqual(cacheInMemoryStub.set.mock.callCount(), 0);
+  assert.strictEqual(results, expectedResults);
 });

@@ -1,6 +1,5 @@
 import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
-import jest from 'eslint-plugin-jest';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -27,14 +26,6 @@ export default tseslint.config(
       'no-restricted-syntax': ['error', "BinaryExpression[operator='in']"],
       'no-param-reassign': ['error', { props: false }],
       'no-console': 'warn',
-    },
-  },
-  {
-    files: ['tests/**/*.ts'],
-    ...jest.configs['flat/recommended'],
-    rules: {
-      ...jest.configs['flat/recommended'].rules,
-      'jest/valid-title': 'off',
     },
   },
 );

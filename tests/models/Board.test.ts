@@ -1,3 +1,5 @@
+import assert from 'node:assert/strict';
+import { beforeEach, test } from 'node:test';
 import { Card } from 'constant';
 import { ISerializedBoard, ISerializedPlayer } from 'interfaces';
 import Board from 'models/Board';
@@ -34,8 +36,8 @@ test('constructor(): should sort player cards', async () => {
 
   const board = new Board(serializedBoard);
 
-  expect(board.playersCards[0]).toEqual([Card['qc'], Card['as']]);
-  expect(board.playersCards[1]).toEqual([Card['2h'], Card['td']]);
+  assert.deepStrictEqual(board.playersCards[0], [Card['qc'], Card['as']]);
+  assert.deepStrictEqual(board.playersCards[1], [Card['2h'], Card['td']]);
 });
 
 test('constructor(): should sort communityCards', async () => {
@@ -43,7 +45,7 @@ test('constructor(): should sort communityCards', async () => {
 
   const board = new Board(serializedBoard);
 
-  expect(board.communityCards).toEqual([Card['4d'], Card['5d'], Card['7d']]);
+  assert.deepStrictEqual(board.communityCards, [Card['4d'], Card['5d'], Card['7d']]);
 });
 
 test('constructor(): should sort deathCards', async () => {
@@ -51,5 +53,5 @@ test('constructor(): should sort deathCards', async () => {
 
   const board = new Board(serializedBoard);
 
-  expect(board.deathCards).toEqual([Card['2s'], Card['6d']]);
+  assert.deepStrictEqual(board.deathCards, [Card['2s'], Card['6d']]);
 });

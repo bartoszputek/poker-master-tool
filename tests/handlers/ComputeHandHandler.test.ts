@@ -1,3 +1,5 @@
+import assert from 'node:assert/strict';
+import { beforeEach, mock, Mock, test } from 'node:test';
 import { NextFunction, Request, Response } from 'express';
 
 import { IComputeHandParams, IComputeHandResponse } from 'controllers/ComputeHandController';
@@ -5,27 +7,29 @@ import ComputeHandHandler, { SECONDS_IN_MONTH } from 'handlers/ComputeHandHandle
 import Board from 'models/Board';
 import { IController, ILogger, ISerializedBoard, IValidator } from 'interfaces';
 import { getExampleResults } from '../_utils/Utils';
-import { createLoggerStub } from '../_utils/Stubs';
+import { createLoggerStub, Mocked } from '../_utils/Stubs';
 
 interface ITestContext {
   computeHandHandler: ComputeHandHandler,
-  computeHandControllerStub: IController<IComputeHandParams, Promise<IComputeHandResponse>>,
-  boardValidatorStub: IValidator
+  computeHandControllerStub: Mocked<IController<IComputeHandParams, Promise<IComputeHandResponse>>>,
+  boardValidatorStub: Mocked<IValidator>,
   seralizedBoard: ISerializedBoard,
   parameters: IComputeHandParams,
   req: Request<any, any, any, any, { board: ISerializedBoard, logger: ILogger }>,
   res: Response<any, { board: ISerializedBoard, logger: ILogger }>,
-  next: NextFunction
+  set: Mock<Response['set']>,
+  send: Mock<Response['send']>,
+  next: Mock<NextFunction>
 }
 
 let context: ITestContext;
 
 beforeEach(() => {
-  const computeHandControllerStub: IController<IComputeHandParams, Promise<IComputeHandResponse>> = {
-    execute: jest.fn(async () => getExampleResults()),
+  const computeHandControllerStub: Mocked<IController<IComputeHandParams, Promise<IComputeHandResponse>>> = {
+    execute: mock.fn(async () => getExampleResults()),
   };
-  const boardValidatorStub: IValidator = {
-    validate: jest.fn(),
+  const boardValidatorStub: Mocked<IValidator> = {
+    validate: mock.fn(() => true),
   };
 
   const loggerStub: ILogger = createLoggerStub();
@@ -60,15 +64,18 @@ beforeEach(() => {
       board: encodedBoard,
     },
   } as Request<any, any, any, any, { board: ISerializedBoard, logger: ILogger }>;
+  const set: Mock<Response['set']> = mock.fn();
+  const send: Mock<Response['send']> = mock.fn();
+
   const res: Partial<Response> = {
-    status: jest.fn(),
-    send: jest.fn(),
-    set: jest.fn(),
+    status: mock.fn<Response['status']>(),
+    send,
+    set,
     locals: {
       logger: loggerStub,
     },
   };
-  const next: NextFunction = jest.fn();
+  const next: Mock<NextFunction> = mock.fn();
 
   context = {
     computeHandHandler,
@@ -78,30 +85,34 @@ beforeEach(() => {
     parameters,
     req: req as Request<any, any, any, any, { board: ISerializedBoard, logger: ILogger }>,
     res: res as Response<any, { board: ISerializedBoard, logger: ILogger }>,
+    set,
+    send,
     next,
   };
 });
 
 test('handle(): should call execute method and send response', async () => {
-  const { computeHandHandler, computeHandControllerStub, parameters, req, res, next } = context;
+  const { computeHandHandler, computeHandControllerStub, parameters, req, res, send, next } = context;
 
   computeHandHandler.validate(req, res, next);
 
   await computeHandHandler.handle(req, res, next);
 
-  expect(computeHandControllerStub.execute).toHaveBeenCalledWith(parameters);
-  expect(res.send).toHaveBeenCalledWith(getExampleResults());
+  assert.deepStrictEqual(computeHandControllerStub.execute.mock.calls.map((call) => call.arguments), [[parameters]]);
+  assert.deepStrictEqual(send.mock.calls.map((call) => call.arguments), [[getExampleResults()]]);
 });
 
 test('handle(): should set cache and content-type headers', async () => {
-  const { computeHandHandler, req, res, next } = context;
+  const { computeHandHandler, req, res, set, next } = context;
 
   computeHandHandler.validate(req, res, next);
 
   await computeHandHandler.handle(req, res, next);
 
-  expect(res.set).toHaveBeenCalledWith('Cache-Control', `public, max-age=${SECONDS_IN_MONTH}`);
-  expect(res.set).toHaveBeenCalledWith('Content-Type', 'application/json');
+  assert.deepStrictEqual(set.mock.calls.map((call) => call.arguments), [
+    ['Cache-Control', `public, max-age=${SECONDS_IN_MONTH}`],
+    ['Content-Type', 'application/json'],
+  ]);
 });
 
 test('validate(): should call validation methods and next function', async () => {
@@ -109,6 +120,6 @@ test('validate(): should call validation methods and next function', async () =>
 
   computeHandHandler.validate(req, res, next);
 
-  expect(boardValidatorStub.validate).toHaveBeenCalledWith(seralizedBoard);
-  expect(next).toHaveBeenCalled();
+  assert.deepStrictEqual(boardValidatorStub.validate.mock.calls.map((call) => call.arguments), [[seralizedBoard]]);
+  assert.strictEqual(next.mock.callCount(), 1);
 });

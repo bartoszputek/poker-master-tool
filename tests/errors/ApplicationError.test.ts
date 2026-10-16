@@ -1,3 +1,5 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
 import ApplicationError from 'errors/ApplicationError';
 
 test('constructor(): should create an instance of error with proper message and status code', async () => {
@@ -9,9 +11,9 @@ test('constructor(): should create an instance of error with proper message and 
 
   const error = new ApplicationError(message, statusCode, data);
 
-  expect(error).toBeInstanceOf(Error);
-  expect(error).toBeInstanceOf(ApplicationError);
-  expect(error.message).toBe(message);
-  expect(error.statusCode).toBe(402);
-  expect(error.data).toBe(data);
+  assert.ok(error instanceof Error);
+  assert.ok(error instanceof ApplicationError);
+  assert.strictEqual(error.message, message);
+  assert.strictEqual(error.statusCode, 402);
+  assert.strictEqual(error.data, data);
 });

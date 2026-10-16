@@ -1,3 +1,5 @@
+import assert from 'node:assert/strict';
+import { before, test } from 'node:test';
 import PlayersValidator from 'validators/PlayersValidator';
 import { ISerializedPlayer } from 'interfaces';
 import ValidationError from 'errors/ValidationError';
@@ -8,7 +10,7 @@ interface ITestContext {
 
 let context: ITestContext;
 
-beforeAll(() => {
+before(() => {
   const playersValidator: PlayersValidator = new PlayersValidator();
 
   context = {
@@ -30,7 +32,7 @@ test('validate(): should return true', async () => {
 
   const response = playersValidator.validate(players);
 
-  expect(response).toBe(true);
+  assert.strictEqual(response, true);
 });
 
 test('validate(): should throw an error when there is too many players ', async () => {
@@ -44,7 +46,7 @@ test('validate(): should throw an error when there is too many players ', async 
 
   const expectedError: ValidationError = new ValidationError('Length of players array is too long (9 is maximum)', players);
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 test('validate(): should throw an error when players array is empty', async () => {
@@ -58,7 +60,7 @@ test('validate(): should throw an error when players array is empty', async () =
 
   const expectedError: ValidationError = new ValidationError('Players array should have at least 1 element', players);
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 test('validate(): should throw an error when player has not cards property ', async () => {
@@ -77,7 +79,7 @@ test('validate(): should throw an error when player has not cards property ', as
 
   const expectedError: ValidationError = new ValidationError('Property cards is missing in player object', players[0]);
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 test('validate(): should throw an error when player has too many card ', async () => {
@@ -101,7 +103,7 @@ test('validate(): should throw an error when player has too many card ', async (
     players[0],
   );
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 test('validate(): should throw an error when player has one card', async () => {
@@ -125,7 +127,7 @@ test('validate(): should throw an error when player has one card', async () => {
     players[0],
   );
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
 
 function getPlayers(amount: number): ISerializedPlayer[] {

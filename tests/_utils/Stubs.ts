@@ -1,20 +1,25 @@
+import { mock, Mock } from 'node:test';
 import { ICache, ILogger } from 'interfaces';
 
-export function createLoggerStub(): ILogger {
+export type Mocked<T> = {
+  [K in keyof T]: T[K] extends (...args: never[]) => unknown ? Mock<T[K]> : T[K];
+};
+
+export function createLoggerStub(): Mocked<ILogger> {
   return {
-    fatal: jest.fn(),
-    error: jest.fn(),
-    warn: jest.fn(),
-    info: jest.fn(),
-    debug: jest.fn(),
-    trace: jest.fn(),
-    timeInfo: jest.fn(),
+    fatal: mock.fn(),
+    error: mock.fn(),
+    warn: mock.fn(),
+    info: mock.fn(),
+    debug: mock.fn(),
+    trace: mock.fn(),
+    timeInfo: mock.fn(),
   };
 }
 
-export function createCacheStub<K, V>(): jest.Mocked<ICache<K, V>> {
+export function createCacheStub<K, V>(): Mocked<ICache<K, V>> {
   return {
-    get: jest.fn(),
-    set: jest.fn(),
+    get: mock.fn<ICache<K, V>['get']>(),
+    set: mock.fn<ICache<K, V>['set']>(),
   };
 }

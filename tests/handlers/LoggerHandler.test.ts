@@ -1,3 +1,5 @@
+import assert from 'node:assert/strict';
+import { beforeEach, mock, Mock, test } from 'node:test';
 import { NextFunction, Request, Response } from 'express';
 
 import LoggerHandler from 'handlers/LoggerHandler';
@@ -7,7 +9,7 @@ interface ITestContext {
   loggerHandler: LoggerHandler,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: Mock<NextFunction>
 }
 
 let context: ITestContext;
@@ -16,11 +18,11 @@ beforeEach(() => {
   const loggerHandler = new LoggerHandler();
   const req: Partial<Request> = {} as Request;
   const res: Partial<Response> = {
-    status: jest.fn(),
-    send: jest.fn(),
+    status: mock.fn<Response['status']>(),
+    send: mock.fn<Response['send']>(),
     locals: {},
   };
-  const next: NextFunction = jest.fn();
+  const next: Mock<NextFunction> = mock.fn();
 
   context = {
     loggerHandler,
@@ -35,7 +37,7 @@ test('handle(): should add logger to res.locals', async () => {
 
   loggerHandler.handle(req, res, next);
 
-  expect(res.locals.logger).toBeInstanceOf(Logger);
+  assert.ok(res.locals.logger instanceof Logger);
 });
 
 test('handle(): should next function', async () => {
@@ -43,5 +45,5 @@ test('handle(): should next function', async () => {
 
   loggerHandler.handle(req, res, next);
 
-  expect(next).toHaveBeenCalled();
+  assert.strictEqual(next.mock.callCount(), 1);
 });

@@ -1,3 +1,5 @@
+import assert from 'node:assert/strict';
+import { before, test } from 'node:test';
 import request from 'supertest';
 import App from 'App';
 import express from 'express';
@@ -10,7 +12,7 @@ interface ITestContext {
 
 let context: ITestContext;
 
-beforeAll(async () => {
+before(async () => {
   const app = new App();
 
   await app.initData();
@@ -56,6 +58,6 @@ test('GET:/compute: should return response', async () => {
 
   const response = await request(app).get('/compute').query(`board=${encodedBoard}`);
 
-  expect(response.statusCode).toBe(200);
-  expect(response.body).toMatchObject(getExampleResults());
+  assert.strictEqual(response.statusCode, 200);
+  assert.partialDeepStrictEqual(response.body, getExampleResults());
 });

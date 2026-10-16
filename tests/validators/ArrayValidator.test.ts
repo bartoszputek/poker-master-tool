@@ -1,3 +1,5 @@
+import assert from 'node:assert/strict';
+import { before, test } from 'node:test';
 import ArrayValidator from 'validators/ArrayValidator';
 import ValidationError from 'errors/ValidationError';
 
@@ -7,7 +9,7 @@ interface ITestContext {
 
 let context: ITestContext;
 
-beforeAll(() => {
+before(() => {
   const arrayValidator: ArrayValidator = new ArrayValidator();
 
   context = {
@@ -25,7 +27,7 @@ test('validate(): should return true', async () => {
 
   const response = arrayValidator.validate(array);
 
-  expect(response).toBe(true);
+  assert.strictEqual(response, true);
 });
 
 test('validate(): should throw an error when object is not an array', async () => {
@@ -39,5 +41,5 @@ test('validate(): should throw an error when object is not an array', async () =
 
   const expectedError: ValidationError = new ValidationError('Object is not an array', { array });
 
-  expect(response).toThrow(expectedError);
+  assert.throws(response, expectedError);
 });
