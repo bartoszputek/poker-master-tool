@@ -27,6 +27,8 @@ jobs:
         run: pnpm check
       - name: Lint
         run: pnpm lint
+      - name: Check formatting
+        run: pnpm format:check
       - name: Install Playwright browser
         run: pnpm exec playwright install --with-deps chromium
       - name: Run e2e tests

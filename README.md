@@ -55,6 +55,8 @@ docker-compose up
 
 App will be listening on `http://localhost:3000`.
 
+The image contains only the built backend, its production dependencies, the addon with the lookup table and the static frontend.
+
 ## Installation
 
 To install the application, you need Node 26, pnpm 12, make and a g++ compiler.
@@ -159,6 +161,12 @@ pnpm format:check
 ```
 
 To format the code, run `pnpm format`.
+
+The `.git-blame-ignore-revs` file lists commits that change only the formatting. GitHub uses it automatically. To use it with `git blame` on your computer, run:
+
+```bash
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+```
 
 ## License
 
