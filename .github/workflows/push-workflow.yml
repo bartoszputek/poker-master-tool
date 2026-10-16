@@ -13,8 +13,8 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "26.x"
-          cache: "pnpm"
+          node-version: '26.x'
+          cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Generate table for addon

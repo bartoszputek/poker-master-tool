@@ -25,15 +25,19 @@ class App {
     this.express.use(helmet());
 
     if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
-      this.express.use(cors({
-        origin: FRONTEND_DEV_SERVER_URL,
-      }));
+      this.express.use(
+        cors({
+          origin: FRONTEND_DEV_SERVER_URL,
+        }),
+      );
     }
 
     this.loggerHandler = new LoggerHandler();
     this.express.use(this.loggerHandler.handle);
 
-    const cacheInMemory: CacheInMemory<string, IComputeHandResponse> = new CacheInMemory(CACHE_TTL_IN_MS);
+    const cacheInMemory: CacheInMemory<string, IComputeHandResponse> = new CacheInMemory(
+      CACHE_TTL_IN_MS,
+    );
 
     const computeHandController = new ComputeHandController(cacheInMemory);
     this.computeHandHandler = new ComputeHandHandler(computeHandController);

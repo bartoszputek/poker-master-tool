@@ -14,31 +14,31 @@ export default class Logger implements ILogger {
     this.logger = winstonLogger.child({ traceId: randomUUID() });
   }
 
-  public fatal(message:LoggerMessage):void {
+  public fatal(message: LoggerMessage): void {
     this.logger.log('fatal', message);
   }
 
-  public error(message:LoggerMessage):void {
+  public error(message: LoggerMessage): void {
     this.logger.log('error', message);
   }
 
-  public warn(message:LoggerMessage):void {
+  public warn(message: LoggerMessage): void {
     this.logger.log('warn', message);
   }
 
-  public info(message:LoggerMessage):void {
+  public info(message: LoggerMessage): void {
     this.logger.log('info', message);
   }
 
-  public debug(message:LoggerMessage):void {
+  public debug(message: LoggerMessage): void {
     this.logger.log('debug', message);
   }
 
-  public trace(message:LoggerMessage):void {
+  public trace(message: LoggerMessage): void {
     this.logger.log('trace', message);
   }
 
-  public timeInfo(message:LoggerMessage):void {
+  public timeInfo(message: LoggerMessage): void {
     if (!this.timer) {
       this.timer = new Timer();
 

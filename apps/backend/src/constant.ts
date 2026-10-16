@@ -2,10 +2,25 @@ import path from 'node:path';
 
 export const FRONTEND_DEV_SERVER_URL: string = 'http://localhost:8080';
 // The static build of the frontend. The default works for both src and dist.
-export const STATIC_DIRECTORY: string = process.env.STATIC_DIRECTORY ?? path.resolve(__dirname, '../../frontend/build');
+export const STATIC_DIRECTORY: string =
+  process.env.STATIC_DIRECTORY ?? path.resolve(__dirname, '../../frontend/build');
 export const CACHE_TTL_IN_MS: number = 1000 * 60 * 10;
 export const CARD_SUITS: string[] = ['s', 'd', 'h', 'c'];
-export const CARD_RANKS: string[] = ['2', '3', '4', '5', '6', '7', '8', '9', 't', 'j', 'q', 'k', 'a'];
+export const CARD_RANKS: string[] = [
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  't',
+  'j',
+  'q',
+  'k',
+  'a',
+];
 export enum Card {
   '2c' = 1,
   '2d',
@@ -39,24 +54,24 @@ export enum Card {
   '9d',
   '9h',
   '9s',
-  'tc',
-  'td',
-  'th',
-  'ts',
-  'jc',
-  'jd',
-  'jh',
-  'js',
-  'qc',
-  'qd',
-  'qh',
-  'qs',
-  'kc',
-  'kd',
-  'kh',
-  'ks',
-  'ac',
-  'ad',
-  'ah',
-  'as',
+  tc,
+  td,
+  th,
+  ts,
+  jc,
+  jd,
+  jh,
+  js,
+  qc,
+  qd,
+  qh,
+  qs,
+  kc,
+  kd,
+  kh,
+  ks,
+  ac,
+  ad,
+  ah,
+  as,
 }

@@ -110,27 +110,27 @@ These results are from Node 26.7.0 on an Apple M3 Pro. The full output is in [ti
 
 Player `n` has the cards `n` and `n + 10`. The community cards and the death cards are the cards 20 to 24. Combinations is the number of boards that the calculator examines.
 
-| Scenario | Combinations | Mean (ms) | p99 (ms) | Operations/s |
-|---|---:|---:|---:|---:|
-| 1 player | 2,118,760 | 45.58 | 47.59 | 21.9 |
-| 2 players | 1,712,304 | 65.22 | 69.35 | 15.3 |
-| 3 players | 1,370,754 | 55.09 | 57.39 | 18.2 |
-| 4 players | 1,086,008 | 53.86 | 56.05 | 18.6 |
-| 5 players | 850,668 | 50.29 | 59.25 | 19.9 |
-| 6 players | 658,008 | 44.66 | 48.14 | 22.4 |
-| 7 players | 501,942 | 30.70 | 32.23 | 32.6 |
-| 8 players | 376,992 | 26.70 | 28.09 | 37.5 |
-| 9 players | 278,256 | 26.75 | 28.50 | 37.4 |
-| 9 players, 1 community card | 40,920 | 2.848 | 2.985 | 351.3 |
-| 9 players, 2 community cards | 4,960 | 0.381 | 0.424 | 2,627.4 |
-| 9 players, 3 community cards | 465 | 0.070 | 0.084 | 14,264.1 |
-| 9 players, 4 community cards | 30 | 0.035 | 0.045 | 28,621.5 |
-| 9 players, 5 community cards | 1 | 0.033 | 0.042 | 31,228.8 |
-| 9 players, 1 death card | 237,336 | 23.88 | 25.12 | 41.9 |
-| 9 players, 2 death cards | 201,376 | 19.99 | 21.50 | 50.0 |
-| 9 players, 3 death cards | 169,911 | 17.33 | 18.39 | 57.8 |
-| 9 players, 4 death cards | 142,506 | 14.59 | 17.56 | 68.8 |
-| 9 players, 5 death cards | 118,755 | 12.09 | 12.82 | 82.7 |
+| Scenario                     | Combinations | Mean (ms) | p99 (ms) | Operations/s |
+| ---------------------------- | -----------: | --------: | -------: | -----------: |
+| 1 player                     |    2,118,760 |     45.58 |    47.59 |         21.9 |
+| 2 players                    |    1,712,304 |     65.22 |    69.35 |         15.3 |
+| 3 players                    |    1,370,754 |     55.09 |    57.39 |         18.2 |
+| 4 players                    |    1,086,008 |     53.86 |    56.05 |         18.6 |
+| 5 players                    |      850,668 |     50.29 |    59.25 |         19.9 |
+| 6 players                    |      658,008 |     44.66 |    48.14 |         22.4 |
+| 7 players                    |      501,942 |     30.70 |    32.23 |         32.6 |
+| 8 players                    |      376,992 |     26.70 |    28.09 |         37.5 |
+| 9 players                    |      278,256 |     26.75 |    28.50 |         37.4 |
+| 9 players, 1 community card  |       40,920 |     2.848 |    2.985 |        351.3 |
+| 9 players, 2 community cards |        4,960 |     0.381 |    0.424 |      2,627.4 |
+| 9 players, 3 community cards |          465 |     0.070 |    0.084 |     14,264.1 |
+| 9 players, 4 community cards |           30 |     0.035 |    0.045 |     28,621.5 |
+| 9 players, 5 community cards |            1 |     0.033 |    0.042 |     31,228.8 |
+| 9 players, 1 death card      |      237,336 |     23.88 |    25.12 |         41.9 |
+| 9 players, 2 death cards     |      201,376 |     19.99 |    21.50 |         50.0 |
+| 9 players, 3 death cards     |      169,911 |     17.33 |    18.39 |         57.8 |
+| 9 players, 4 death cards     |      142,506 |     14.59 |    17.56 |         68.8 |
+| 9 players, 5 death cards     |      118,755 |     12.09 |    12.82 |         82.7 |
 
 The results change with the hardware and the Node version.
 

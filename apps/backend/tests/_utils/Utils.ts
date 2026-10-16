@@ -17,18 +17,9 @@ export function getExampleResults(): ICalculateResponse {
           straightFlush: 1,
         },
         results: {
-          win: [
-            9326,
-            12.64,
-          ],
-          draw: [
-            25680,
-            34.79,
-          ],
-          lose: [
-            38809,
-            52.58,
-          ],
+          win: [9326, 12.64],
+          draw: [25680, 34.79],
+          lose: [38809, 52.58],
         },
       },
       {
@@ -45,18 +36,9 @@ export function getExampleResults(): ICalculateResponse {
           straightFlush: 1,
         },
         results: {
-          win: [
-            9326,
-            12.64,
-          ],
-          draw: [
-            25680,
-            34.79,
-          ],
-          lose: [
-            38809,
-            52.58,
-          ],
+          win: [9326, 12.64],
+          draw: [25680, 34.79],
+          lose: [38809, 52.58],
         },
       },
       {
@@ -73,18 +55,9 @@ export function getExampleResults(): ICalculateResponse {
           straightFlush: 1,
         },
         results: {
-          win: [
-            11317,
-            15.34,
-          ],
-          draw: [
-            25680,
-            34.79,
-          ],
-          lose: [
-            36818,
-            49.88,
-          ],
+          win: [11317, 15.34],
+          draw: [25680, 34.79],
+          lose: [36818, 49.88],
         },
       },
       {
@@ -101,18 +74,9 @@ export function getExampleResults(): ICalculateResponse {
           straightFlush: 2,
         },
         results: {
-          win: [
-            16757,
-            22.71,
-          ],
-          draw: [
-            25680,
-            34.79,
-          ],
-          lose: [
-            31378,
-            42.51,
-          ],
+          win: [16757, 22.71],
+          draw: [25680, 34.79],
+          lose: [31378, 42.51],
         },
       },
       {
@@ -129,18 +93,9 @@ export function getExampleResults(): ICalculateResponse {
           straightFlush: 35,
         },
         results: {
-          win: [
-            25607,
-            34.7,
-          ],
-          draw: [
-            25680,
-            34.79,
-          ],
-          lose: [
-            22528,
-            30.52,
-          ],
+          win: [25607, 34.7],
+          draw: [25680, 34.79],
+          lose: [22528, 30.52],
         },
       },
       {
@@ -157,18 +112,9 @@ export function getExampleResults(): ICalculateResponse {
           straightFlush: 3,
         },
         results: {
-          win: [
-            22563,
-            30.57,
-          ],
-          draw: [
-            25680,
-            34.79,
-          ],
-          lose: [
-            25572,
-            34.65,
-          ],
+          win: [22563, 30.57],
+          draw: [25680, 34.79],
+          lose: [25572, 34.65],
         },
       },
     ],

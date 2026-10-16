@@ -8,12 +8,12 @@ import { ILogger } from '../../src/interfaces';
 import { createLoggerStub } from '../_utils/Stubs';
 
 interface ITestContext {
-  errorHandler: ErrorHandler,
-  req: Request,
-  res: Response,
-  status: Mock<Response['status']>,
-  send: Mock<Response['send']>,
-  next: Mock<NextFunction>
+  errorHandler: ErrorHandler;
+  req: Request;
+  res: Response;
+  status: Mock<Response['status']>;
+  send: Mock<Response['send']>;
+  next: Mock<NextFunction>;
 }
 
 let context: ITestContext;
@@ -54,7 +54,10 @@ test('handle(): should call next function if headers are sent', async () => {
 
   errorHandler.handle(error, req, res, next);
 
-  assert.deepStrictEqual(next.mock.calls.map((call) => call.arguments), [[error]]);
+  assert.deepStrictEqual(
+    next.mock.calls.map((call) => call.arguments),
+    [[error]],
+  );
 });
 
 test('handle(): should handle application error', async () => {
@@ -64,16 +67,16 @@ test('handle(): should handle application error', async () => {
   const statusCode: number = 404;
   const data: Record<string, any> = {
     a: 2,
-    b: [
-      'aaa',
-      'bbb',
-    ],
+    b: ['aaa', 'bbb'],
   };
   const error = new ApplicationError(errorMessage, statusCode, data);
 
   errorHandler.handle(error, req, res, next);
 
-  assert.deepStrictEqual(status.mock.calls.map((call) => call.arguments), [[statusCode]]);
+  assert.deepStrictEqual(
+    status.mock.calls.map((call) => call.arguments),
+    [[statusCode]],
+  );
   assert.deepStrictEqual(
     send.mock.calls.map((call) => call.arguments),
     [[{ message: error.message, statusCode: error.statusCode, data: error.data }]],
@@ -84,7 +87,8 @@ test('handle(): should handle JSON parsing error', async () => {
   const { errorHandler, req, res, status, send, next } = context;
 
   const errorMessage: string = 'error message';
-  const body: string = '{\r\n"players": [\r\n{\r\n"cards": ["Td", "As"]\r\n}\r\n{\r\n\r\n}\r\n]\r\n}\r\n';
+  const body: string =
+    '{\r\n"players": [\r\n{\r\n"cards": ["Td", "As"]\r\n}\r\n{\r\n\r\n}\r\n]\r\n}\r\n';
   const error = {
     type: 'entity.parse.failed',
     message: errorMessage,
@@ -93,7 +97,10 @@ test('handle(): should handle JSON parsing error', async () => {
 
   errorHandler.handle(error, req, res, next);
 
-  assert.deepStrictEqual(status.mock.calls.map((call) => call.arguments), [[400]]);
+  assert.deepStrictEqual(
+    status.mock.calls.map((call) => call.arguments),
+    [[400]],
+  );
   assert.deepStrictEqual(
     send.mock.calls.map((call) => call.arguments),
     [[{ message: error.message, statusCode: 400, data: { body } }]],
@@ -110,10 +117,16 @@ test('handle(): should handle an error', async (t) => {
 
   errorHandler.handle(error, req, res, next);
 
-  assert.deepStrictEqual(status.mock.calls.map((call) => call.arguments), [[500]]);
+  assert.deepStrictEqual(
+    status.mock.calls.map((call) => call.arguments),
+    [[500]],
+  );
   assert.deepStrictEqual(
     send.mock.calls.map((call) => call.arguments),
     [[{ message: error.message, statusCode: 500, data: 'Internal server error' }]],
   );
-  assert.deepStrictEqual(exit.mock.calls.map((call) => call.arguments), [[1]]);
+  assert.deepStrictEqual(
+    exit.mock.calls.map((call) => call.arguments),
+    [[1]],
+  );
 });

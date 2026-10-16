@@ -6,10 +6,10 @@ import LoggerHandler from '../../src/handlers/LoggerHandler';
 import Logger from '../../src/helpers/Logger';
 
 interface ITestContext {
-  loggerHandler: LoggerHandler,
-  req: Request,
-  res: Response,
-  next: Mock<NextFunction>
+  loggerHandler: LoggerHandler;
+  req: Request;
+  res: Response;
+  next: Mock<NextFunction>;
 }
 
 let context: ITestContext;

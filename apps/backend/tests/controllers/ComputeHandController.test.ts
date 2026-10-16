@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import { beforeEach, test } from 'node:test';
 import { ICache, ILogger } from '../../src/interfaces';
-import ComputeHandController, { IComputeHandResponse } from '../../src/controllers/ComputeHandController';
+import ComputeHandController, {
+  IComputeHandResponse,
+} from '../../src/controllers/ComputeHandController';
 import Board from '../../src/models/Board';
 import { createCacheStub, createLoggerStub, Mocked } from '../_utils/Stubs';
 import { getExampleResults } from '../_utils/Utils';
@@ -11,9 +13,9 @@ interface ITestFunction {
 }
 
 interface ITestContext {
-  testFunction: ITestFunction,
-  board: Board,
-  cacheInMemoryStub: Mocked<ICache<string, IComputeHandResponse>>
+  testFunction: ITestFunction;
+  board: Board;
+  cacheInMemoryStub: Mocked<ICache<string, IComputeHandResponse>>;
 }
 
 let context: ITestContext;
@@ -25,27 +27,24 @@ beforeEach(() => {
 
   const computeHandController = new ComputeHandController(cacheInMemoryStub);
 
-  const testFunction: ITestFunction = (board) => computeHandController.execute(
-    {
+  const testFunction: ITestFunction = (board) =>
+    computeHandController.execute({
       board,
       logger: loggerStub,
-    },
-  );
+    });
 
-  const board: Board = new Board(
-    {
-      players: [
-        {
-          cards: ['Td', 'As'],
-        },
-        {
-          cards: ['Td', 'As'],
-        },
-      ],
-      communityCards: ['Td', 'As', 'Qc', '2c', '3c'],
-      deathCards: ['6d'],
-    },
-  );
+  const board: Board = new Board({
+    players: [
+      {
+        cards: ['Td', 'As'],
+      },
+      {
+        cards: ['Td', 'As'],
+      },
+    ],
+    communityCards: ['Td', 'As', 'Qc', '2c', '3c'],
+    deathCards: ['6d'],
+  });
 
   context = {
     testFunction,

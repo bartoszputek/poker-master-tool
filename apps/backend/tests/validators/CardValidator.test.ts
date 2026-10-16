@@ -4,7 +4,7 @@ import ValidationError from '../../src/errors/ValidationError';
 import CardValidator from '../../src/validators/CardValidator';
 
 interface ITestContext {
-  cardValidator: CardValidator
+  cardValidator: CardValidator;
 }
 
 let context: ITestContext;

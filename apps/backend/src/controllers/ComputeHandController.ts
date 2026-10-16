@@ -4,12 +4,15 @@ import { calculate, ICalculateResponse } from '@poker-master-tool/addon';
 
 export interface IComputeHandParams {
   board: Board;
-  logger: ILogger
+  logger: ILogger;
 }
 
 export type IComputeHandResponse = ICalculateResponse;
 
-export default class ComputeHandController implements IController<IComputeHandParams, Promise<IComputeHandResponse>> {
+export default class ComputeHandController implements IController<
+  IComputeHandParams,
+  Promise<IComputeHandResponse>
+> {
   constructor(private readonly cache: ICache<string, IComputeHandResponse>) {}
 
   public async execute({ board, logger }: IComputeHandParams): Promise<IComputeHandResponse> {

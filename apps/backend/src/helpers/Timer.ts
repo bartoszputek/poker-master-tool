@@ -5,11 +5,11 @@ export default class Timer {
     this.startTime = process.hrtime();
   }
 
-  public start():void {
+  public start(): void {
     this.startTime = process.hrtime();
   }
 
-  public stop():number {
+  public stop(): number {
     const endTime: [number, number] = process.hrtime(this.startTime);
 
     const timeInMs: number = endTime[0] * 1000 + Math.round(endTime[1] / 1000000);

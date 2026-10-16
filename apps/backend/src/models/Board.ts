@@ -21,11 +21,11 @@ export default class Board {
     this.deathCards = deathCards.map(this.mapToCard).sort(this.sortCardPredicate);
   }
 
-  private mapToCard(card:string):Card {
+  private mapToCard(card: string): Card {
     return Card[card.toLowerCase() as keyof typeof Card];
   }
 
-  private sortCardPredicate(a: Card, b:Card):number {
+  private sortCardPredicate(a: Card, b: Card): number {
     if (a < b) return -1;
     if (a > b) return 1;
     return 0;

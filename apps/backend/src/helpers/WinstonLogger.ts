@@ -48,22 +48,21 @@ const winstonLogger = winston.createLogger({
       return JSON.stringify({ timestamp, level, ...content });
     }),
   ),
-  transports: [
-    createErrorTransport(),
-    createTransport('logs'),
-  ],
+  transports: [createErrorTransport(), createTransport('logs')],
 });
 
 if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
-  winstonLogger.add(new winston.transports.Console({
-    format: format.combine(
-      format.colorize(),
-      format.printf((info) => {
-        const { timestamp, level, ...content } = info;
-        return `${level} ${timestamp}: ${JSON.stringify(content, null, 4)}`;
-      }),
-    ),
-  }));
+  winstonLogger.add(
+    new winston.transports.Console({
+      format: format.combine(
+        format.colorize(),
+        format.printf((info) => {
+          const { timestamp, level, ...content } = info;
+          return `${level} ${timestamp}: ${JSON.stringify(content, null, 4)}`;
+        }),
+      ),
+    }),
+  );
 }
 
 if (process.env.NODE_ENV === 'production') {

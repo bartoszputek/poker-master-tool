@@ -1,6 +1,4 @@
-import {
-  RequestHandler, Request, Response, NextFunction,
-} from 'express';
+import { RequestHandler, Request, Response, NextFunction } from 'express';
 
 import Logger from '../helpers/Logger';
 import { IHandler } from '../interfaces';

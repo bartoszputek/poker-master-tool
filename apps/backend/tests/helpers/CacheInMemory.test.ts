@@ -3,9 +3,9 @@ import { beforeEach, test } from 'node:test';
 import CacheInMemory from '../../src/helpers/CacheInMemory';
 
 interface ITestContext {
-  cacheInMemory: CacheInMemory<string, Record<string, unknown>>,
-  key: string,
-  data: Record<string, unknown>
+  cacheInMemory: CacheInMemory<string, Record<string, unknown>>;
+  key: string;
+  data: Record<string, unknown>;
 }
 
 let context: ITestContext;
@@ -16,10 +16,7 @@ beforeEach(() => {
   const key: string = 'key';
   const data: Record<string, unknown> = {
     a: 2,
-    b: [
-      'aaa',
-      'bbb',
-    ],
+    b: ['aaa', 'bbb'],
   };
 
   context = {

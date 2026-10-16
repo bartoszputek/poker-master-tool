@@ -98,7 +98,8 @@ test('calculate(): should throw an error if deathCards parameter is not an array
 
   const deathCards: number = 1;
 
-  const testFunction = async () => calculate(playerCards, communityCards, deathCards as unknown as number[]);
+  const testFunction = async () =>
+    calculate(playerCards, communityCards, deathCards as unknown as number[]);
 
   await assert.rejects(testFunction(), new Error('The argument deathCards should be an array!'));
 });

@@ -4,7 +4,7 @@ import ArrayValidator from '../../src/validators/ArrayValidator';
 import ValidationError from '../../src/errors/ValidationError';
 
 interface ITestContext {
-  arrayValidator: ArrayValidator
+  arrayValidator: ArrayValidator;
 }
 
 let context: ITestContext;
@@ -20,10 +20,7 @@ before(() => {
 test('validate(): should return true', async () => {
   const { arrayValidator } = context;
 
-  const array: string[] = [
-    'aaa',
-    'bbb',
-  ];
+  const array: string[] = ['aaa', 'bbb'];
 
   const response = arrayValidator.validate(array);
 

@@ -7,8 +7,8 @@ services:
       args:
         - NODE_ENV=development
     image: poker-master-tool
-    restart: always  
+    restart: always
     ports:
-      - "3000:3000"
-    volumes: 
+      - '3000:3000'
+    volumes:
       - ./apps/backend/logs:/usr/src/app/apps/backend/logs

@@ -8,8 +8,8 @@ export const CARDS: readonly string[] = [
 ];
 
 export function cardImage(card: string): string {
-	// 'AD.svg' is blocked by ad blocker browser extensions.
-	const name = card === 'Ad' ? 'ARD' : card.toUpperCase();
+  // 'AD.svg' is blocked by ad blocker browser extensions.
+  const name = card === 'Ad' ? 'ARD' : card.toUpperCase();
 
-	return `url(/assets/img/${name}.svg)`;
+  return `url(/assets/img/${name}.svg)`;
 }

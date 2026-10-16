@@ -5,10 +5,12 @@ Wotton’s code contains the self-contradictory statement “My code is GPL, use
 Paul D. Senzee's Optimized Hand Evaluator for Cactus Kev's Poker Hand Evaluator.
 
 **(c) Kevin L. Suffecool.**
+
 - kevin@suffe.cool
 - http://suffe.cool/
 
 **(c) Paul D. Senzee.**
+
 - psenzee@yahoo.com
 - Senzee 5
 - http://senzee.blogspot.com

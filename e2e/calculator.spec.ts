@@ -17,8 +17,16 @@ test('calculates the odds of two players with the native addon', async ({ page }
 
   // All 5-card boards from the 48 remaining cards: C(48, 5).
   await expect(combinations).toHaveText('Combinations: 1712304');
-  await expect(player1Results.locator('div')).toHaveText(['Win: 81.07%', 'Lose: 18.56%', 'Draw: 0.39%']);
-  await expect(player2Results.locator('div')).toHaveText(['Win: 18.56%', 'Lose: 81.07%', 'Draw: 0.39%']);
+  await expect(player1Results.locator('div')).toHaveText([
+    'Win: 81.07%',
+    'Lose: 18.56%',
+    'Draw: 0.39%',
+  ]);
+  await expect(player2Results.locator('div')).toHaveText([
+    'Win: 18.56%',
+    'Lose: 81.07%',
+    'Draw: 0.39%',
+  ]);
   await expect(onePairRow.getByRole('cell').nth(0)).toHaveText('35.03%');
   await expect(page.getByRole('button', { name: 'Ah', exact: true })).toBeHidden();
 

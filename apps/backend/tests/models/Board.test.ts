@@ -5,7 +5,7 @@ import { ISerializedBoard, ISerializedPlayer } from '../../src/interfaces';
 import Board from '../../src/models/Board';
 
 interface ITestContext {
-  serializedBoard: ISerializedBoard,
+  serializedBoard: ISerializedBoard;
 }
 
 let context: ITestContext;

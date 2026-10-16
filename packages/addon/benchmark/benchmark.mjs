@@ -35,7 +35,13 @@ function scenarios() {
 
 await addon.initLookUpTable();
 
-const bench = new Bench({ name: 'calculator', time, iterations, timestampProvider: hrtimeNowTimestampProvider, throws: true });
+const bench = new Bench({
+  name: 'calculator',
+  time,
+  iterations,
+  timestampProvider: hrtimeNowTimestampProvider,
+  throws: true,
+});
 
 for (const { players, community, death } of scenarios()) {
   bench.add(
@@ -81,5 +87,8 @@ const md = [
 
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, `tinybench-${stamp}.md`), md);
-fs.writeFileSync(path.join(outDir, `tinybench-${stamp}.json`), JSON.stringify({ env, rows }, null, 2));
+fs.writeFileSync(
+  path.join(outDir, `tinybench-${stamp}.json`),
+  JSON.stringify({ env, rows }, null, 2),
+);
 console.log(`results: ${path.join(outDir, `tinybench-${stamp}.md`)}`);

@@ -7,7 +7,7 @@ import { ISerializedBoard, ISerializedPlayer } from '../src/interfaces';
 import { getExampleResults } from './_utils/Utils';
 
 interface ITestContext {
-  app: express.Application
+  app: express.Application;
 }
 
 let context: ITestContext;

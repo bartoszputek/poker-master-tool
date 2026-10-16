@@ -30,7 +30,10 @@ export default class PlayersValidator implements IValidator {
       this.arrayValidator.validate(cards);
 
       if (cards.length !== 2) {
-        throw new ValidationError('Cards property in player object should have exactly two cards', player);
+        throw new ValidationError(
+          'Cards property in player object should have exactly two cards',
+          player,
+        );
       }
 
       cards.forEach((card) => {

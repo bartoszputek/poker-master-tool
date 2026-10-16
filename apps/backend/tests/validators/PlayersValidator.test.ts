@@ -5,7 +5,7 @@ import { ISerializedPlayer } from '../../src/interfaces';
 import ValidationError from '../../src/errors/ValidationError';
 
 interface ITestContext {
-  playersValidator: PlayersValidator
+  playersValidator: PlayersValidator;
 }
 
 let context: ITestContext;
@@ -44,7 +44,10 @@ test('validate(): should throw an error when there is too many players ', async 
     playersValidator.validate(players);
   };
 
-  const expectedError: ValidationError = new ValidationError('Length of players array is too long (9 is maximum)', players);
+  const expectedError: ValidationError = new ValidationError(
+    'Length of players array is too long (9 is maximum)',
+    players,
+  );
 
   assert.throws(response, expectedError);
 });
@@ -58,7 +61,10 @@ test('validate(): should throw an error when players array is empty', async () =
     playersValidator.validate(players);
   };
 
-  const expectedError: ValidationError = new ValidationError('Players array should have at least 1 element', players);
+  const expectedError: ValidationError = new ValidationError(
+    'Players array should have at least 1 element',
+    players,
+  );
 
   assert.throws(response, expectedError);
 });
@@ -77,7 +83,10 @@ test('validate(): should throw an error when player has not cards property ', as
     playersValidator.validate(players);
   };
 
-  const expectedError: ValidationError = new ValidationError('Property cards is missing in player object', players[0]);
+  const expectedError: ValidationError = new ValidationError(
+    'Property cards is missing in player object',
+    players[0],
+  );
 
   assert.throws(response, expectedError);
 });
