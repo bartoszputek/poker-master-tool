@@ -59,7 +59,7 @@ The image contains only the built backend, its production dependencies, the addo
 
 ## Installation
 
-To install the application, you need Node 26, pnpm 12, make and a g++ compiler.
+To install the application, you need Node 26, pnpm 10, make and a g++ compiler.
 
 Next, follow consecutive commands. `pnpm install` also builds the addon, and `pnpm build` builds the addon, the backend and the frontend:
 

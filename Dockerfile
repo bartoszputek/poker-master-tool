@@ -1,6 +1,6 @@
 FROM node:26 AS build
 
-RUN npm install --global pnpm@12.14.0
+RUN npm install --global pnpm@10.34.7
 
 WORKDIR /usr/src/app
 
@@ -17,7 +17,8 @@ COPY . .
 RUN pnpm generate-table && pnpm build
 
 # Copy the backend with only its production dependencies and the built addon.
-RUN pnpm --filter @poker-master-tool/backend deploy --prod /deploy/backend
+# --legacy: pnpm 10 deploys without it only from workspaces with injected workspace packages.
+RUN pnpm --filter @poker-master-tool/backend deploy --prod --legacy /deploy/backend
 
 FROM node:26-slim
 
