@@ -1,5 +1,5 @@
 {
-	"name": "poker-master-tool-frontend",
+	"name": "@poker-master-tool/frontend",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",

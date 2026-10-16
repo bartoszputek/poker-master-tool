@@ -6,12 +6,12 @@
   "scripts": {
     "start": "NODE_ENV=production node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:frontend": "pnpm --filter @poker-master-tool/frontend dev",
     "dev:docker": "docker-compose up --build",
-    "build:all": "npm run build && npm run build:frontend && npm run addon:all",
+    "build:all": "pnpm build && pnpm build:frontend && pnpm addon:all",
     "build": "tsc -p tsconfig.backend.json",
-    "build:frontend": "npm --prefix frontend run build",
-    "addon:all": "npm run addon:configure && npm run addon:build && npm run addon:generate-table",
+    "build:frontend": "pnpm --filter @poker-master-tool/frontend build",
+    "addon:all": "pnpm addon:configure && pnpm addon:build && pnpm addon:generate-table",
     "addon:configure": "node-gyp configure",
     "addon:build": "node-gyp rebuild",
     "addon:generate-table": "cd addon/table_generator && make",
@@ -24,7 +24,6 @@
   "author": "Bartosz Putek",
   "license": "MIT",
   "engines": {
-    "npm": ">=11.0.0",
     "node": ">=26.0.0"
   },
   "dependencies": {
@@ -42,7 +41,7 @@
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.5",
     "@types/supertest": "^7.2.1",
-    "eslint": "^10.13.0",
+    "eslint": "^10.12.0",
     "globals": "^17.13.0",
     "nan": "^2.29.0",
     "node-gyp": "^13.1.0",
@@ -51,5 +50,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.2"
-  }
+  },
+  "packageManager": "pnpm@12.14.0"
 }

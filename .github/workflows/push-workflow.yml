@@ -8,29 +8,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - name: Use pnpm
+        uses: pnpm/action-setup@v6
       - name: Use Node.js
         uses: actions/setup-node@v7
         with:
           node-version: "26.x"
-          cache: "npm"
-          cache-dependency-path: |
-            package-lock.json
-            frontend/package-lock.json
+          cache: "pnpm"
       - name: Install dependencies
-        run: npm ci && npm ci --prefix frontend
+        run: pnpm install --frozen-lockfile
       - name: Generate table for addon
-        run: npm run addon:generate-table
+        run: pnpm addon:generate-table
       - name: Configure addon
-        run: npm run addon:configure
+        run: pnpm addon:configure
       - name: Build addon
-        run: npm run addon:build
+        run: pnpm addon:build
       - name: Build application
-        run: npm run build
+        run: pnpm build
       - name: Run tests
-        run: npm test
+        run: pnpm test
       - name: Check frontend
-        run: npm --prefix frontend run check && npm --prefix frontend run lint
+        run: pnpm --filter @poker-master-tool/frontend check && pnpm --filter @poker-master-tool/frontend lint
       - name: Install Playwright browser
-        run: npx playwright install --with-deps chromium
+        run: pnpm exec playwright install --with-deps chromium
       - name: Run e2e tests
-        run: npm run test:e2e
+        run: pnpm test:e2e

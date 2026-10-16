@@ -1,26 +1,29 @@
 FROM node:26
 
+RUN npm install --global pnpm@12.14.0
+
 WORKDIR /usr/src/app
 
-COPY package*.json ./
-COPY frontend/package*.json ./frontend/
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY frontend/package.json ./frontend/
 
-RUN npm ci && npm ci --prefix frontend
+# The sources are not copied yet, so skip the addon build that the install script starts.
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 
 COPY . .
 
-RUN npm run addon:generate-table
+RUN pnpm addon:generate-table
 
-RUN npm run addon:configure
+RUN pnpm addon:configure
 
-RUN npm run addon:build
+RUN pnpm addon:build
 
-RUN npm run build:frontend
+RUN pnpm build:frontend
 
-RUN npm run build
+RUN pnpm build
 
 EXPOSE 3000
-CMD ["npm", "run", "start"]
+CMD ["pnpm", "start"]

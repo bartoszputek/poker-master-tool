@@ -47,18 +47,16 @@ App will be listening on `http://localhost:3000`.
 
 ## Installation
 
-To install the application you should have installed Node 26 version, make and g++ complier.
+To install the application, you need Node 26, pnpm 12, make and a g++ compiler.
 
 Next, follow consecutive commands:
 
 ```bash
-npm install
+pnpm install
 
-npm install --prefix frontend
+pnpm build:all
 
-npm run build:all
-
-npm run start
+pnpm start
 ```
 
 The app will be listening on `http://localhost:3000`.
@@ -70,23 +68,23 @@ Unit tests are written in Jest testing framework.
 To run unit tests run:
 
 ```bash
-npm run test
+pnpm test
 ```
 
-if you wish to get a coverage report you run `npm run test:coverage`.
+if you wish to get a coverage report you run `pnpm test:coverage`.
 
 The end-to-end test uses Playwright. It builds the application, starts the backend and calculates the odds in the browser. Generate the lookup table and build the addon before you run it:
 
 ```bash
-npx playwright install chromium
+pnpm exec playwright install chromium
 
-npm run test:e2e
+pnpm test:e2e
 ```
 
 To run the performance benchmark for the addon, run:
 
 ```bash
-npm run test:benchmark
+pnpm test:benchmark
 ```
 
 The benchmark uses tinybench. It runs each scenario for a minimum of 2 seconds and 64 iterations. It writes the results to the `benchmark-results` directory:
@@ -126,19 +124,19 @@ The results change with the hardware and the Node version.
 
 ## Development
 
-To serve a frontend by the backend application you should build the frontend first using `npm run build:frontend`. After that you can run the backend development server with:
+To serve a frontend by the backend application you should build the frontend first using `pnpm build:frontend`. After that you can run the backend development server with:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 When you work on the frontend, run the Vite development server. It is available on `http://localhost:8080` and sends the `/compute` requests to the backend on port 3000:
 
 ```bash
-npm run dev:frontend
+pnpm dev:frontend
 ```
 
-To check the frontend types and code style, run `npm --prefix frontend run check` and `npm --prefix frontend run lint`.
+To check the frontend types and code style, run `pnpm --filter @poker-master-tool/frontend check` and `pnpm --filter @poker-master-tool/frontend lint`.
 
 ## License
 

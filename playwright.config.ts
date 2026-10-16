@@ -11,7 +11,7 @@ export default defineConfig({
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   // The addon must be built and the lookup table generated before the tests start.
   webServer: {
-    command: 'npm run build && npm run build:frontend && npm start',
+    command: 'pnpm build && pnpm build:frontend && pnpm start',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
