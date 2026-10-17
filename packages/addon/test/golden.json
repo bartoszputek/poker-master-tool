@@ -1,0 +1,696 @@
+[
+  {
+    "name": "AA vs KK before the flop",
+    "players": [
+      [50, 51],
+      [45, 48]
+    ],
+    "community": [],
+    "death": [],
+    "expected": {
+      "players": [
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 0,
+            "onePair": 599874,
+            "twoPair": 677008,
+            "trips": 207802,
+            "straight": 20116,
+            "flush": 38604,
+            "fullHouse": 153032,
+            "quads": 15664,
+            "straightFlush": 204
+          },
+          "results": {
+            "win": [1388072, 81.07],
+            "draw": [6538, 0.39],
+            "lose": [317694, 18.56]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 0,
+            "onePair": 599874,
+            "twoPair": 677008,
+            "trips": 207802,
+            "straight": 20116,
+            "flush": 38604,
+            "fullHouse": 153032,
+            "quads": 15664,
+            "straightFlush": 204
+          },
+          "results": {
+            "win": [317694, 18.56],
+            "draw": [6538, 0.39],
+            "lose": [1388072, 81.07]
+          }
+        }
+      ],
+      "combinations": 1712304
+    }
+  },
+  {
+    "name": "one player before the flop",
+    "players": [[1, 11]],
+    "community": [],
+    "death": [],
+    "expected": {
+      "players": [
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 397980,
+            "onePair": 944512,
+            "twoPair": 477370,
+            "trips": 93236,
+            "straight": 114092,
+            "flush": 41474,
+            "fullHouse": 47124,
+            "quads": 2668,
+            "straightFlush": 304
+          },
+          "results": {
+            "win": [0, 0],
+            "draw": [2118760, 100],
+            "lose": [0, 0]
+          }
+        }
+      ],
+      "combinations": 2118760
+    }
+  },
+  {
+    "name": "six players, one community card and one death card",
+    "players": [
+      [1, 11],
+      [2, 12],
+      [3, 13],
+      [6, 16],
+      [7, 17],
+      [9, 19]
+    ],
+    "community": [21],
+    "death": [22],
+    "expected": {
+      "players": [
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 24174,
+            "onePair": 35394,
+            "twoPair": 9182,
+            "trips": 1356,
+            "straight": 1600,
+            "flush": 1875,
+            "fullHouse": 226,
+            "quads": 7,
+            "straightFlush": 1
+          },
+          "results": {
+            "win": [9326, 12.64],
+            "draw": [25680, 34.79],
+            "lose": [38809, 52.58]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 24969,
+            "onePair": 35885,
+            "twoPair": 9146,
+            "trips": 1356,
+            "straight": 1616,
+            "flush": 609,
+            "fullHouse": 226,
+            "quads": 7,
+            "straightFlush": 1
+          },
+          "results": {
+            "win": [9326, 12.64],
+            "draw": [25680, 34.79],
+            "lose": [38809, 52.58]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 20493,
+            "onePair": 35820,
+            "twoPair": 11576,
+            "trips": 1780,
+            "straight": 1832,
+            "flush": 1875,
+            "fullHouse": 431,
+            "quads": 7,
+            "straightFlush": 1
+          },
+          "results": {
+            "win": [11317, 15.34],
+            "draw": [25680, 34.79],
+            "lose": [36818, 49.88]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 17652,
+            "onePair": 35999,
+            "twoPair": 14176,
+            "trips": 2137,
+            "straight": 2538,
+            "flush": 608,
+            "fullHouse": 696,
+            "quads": 7,
+            "straightFlush": 2
+          },
+          "results": {
+            "win": [16757, 22.71],
+            "draw": [25680, 34.79],
+            "lose": [31378, 42.51]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 16512,
+            "onePair": 34682,
+            "twoPair": 14002,
+            "trips": 2116,
+            "straight": 3924,
+            "flush": 1841,
+            "fullHouse": 696,
+            "quads": 7,
+            "straightFlush": 35
+          },
+          "results": {
+            "win": [25607, 34.7],
+            "draw": [25680, 34.79],
+            "lose": [22528, 30.52]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 17253,
+            "onePair": 33103,
+            "twoPair": 11394,
+            "trips": 1748,
+            "straight": 8003,
+            "flush": 1873,
+            "fullHouse": 431,
+            "quads": 7,
+            "straightFlush": 3
+          },
+          "results": {
+            "win": [22563, 30.57],
+            "draw": [25680, 34.79],
+            "lose": [25572, 34.65]
+          }
+        }
+      ],
+      "combinations": 73815
+    }
+  },
+  {
+    "name": "two players with the same hand on the flop and a third player",
+    "players": [
+      [45, 49],
+      [46, 50],
+      [1, 6]
+    ],
+    "community": [9, 14, 23],
+    "death": [],
+    "expected": {
+      "players": [
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 337,
+            "onePair": 418,
+            "twoPair": 66,
+            "trips": 11,
+            "straight": 35,
+            "flush": 36,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [480, 53.16],
+            "draw": [25, 2.77],
+            "lose": [398, 44.08]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 336,
+            "onePair": 418,
+            "twoPair": 66,
+            "trips": 11,
+            "straight": 36,
+            "flush": 36,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [480, 53.16],
+            "draw": [25, 2.77],
+            "lose": [398, 44.08]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 200,
+            "onePair": 361,
+            "twoPair": 90,
+            "trips": 15,
+            "straight": 237,
+            "flush": 0,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [362, 40.09],
+            "draw": [25, 2.77],
+            "lose": [516, 57.15]
+          }
+        }
+      ],
+      "combinations": 903
+    }
+  },
+  {
+    "name": "four players on the turn with death cards",
+    "players": [
+      [52, 48],
+      [51, 47],
+      [33, 29],
+      [2, 7]
+    ],
+    "community": [10, 20, 30, 40],
+    "death": [3, 4],
+    "expected": {
+      "players": [
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 17,
+            "onePair": 13,
+            "twoPair": 0,
+            "trips": 0,
+            "straight": 0,
+            "flush": 8,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [12, 31.58],
+            "draw": [0, 0],
+            "lose": [26, 68.43]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 23,
+            "onePair": 15,
+            "twoPair": 0,
+            "trips": 0,
+            "straight": 0,
+            "flush": 0,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [4, 10.53],
+            "draw": [0, 0],
+            "lose": [34, 89.48]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 0,
+            "onePair": 24,
+            "twoPair": 12,
+            "trips": 2,
+            "straight": 0,
+            "flush": 0,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [23, 60.53],
+            "draw": [0, 0],
+            "lose": [15, 39.48]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 19,
+            "onePair": 15,
+            "twoPair": 0,
+            "trips": 0,
+            "straight": 4,
+            "flush": 0,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [3, 7.9],
+            "draw": [0, 0],
+            "lose": [35, 92.11]
+          }
+        }
+      ],
+      "combinations": 38
+    }
+  },
+  {
+    "name": "royal flush on the board",
+    "players": [
+      [1, 2],
+      [3, 4],
+      [5, 6]
+    ],
+    "community": [33, 37, 41, 45, 49],
+    "death": [],
+    "expected": {
+      "players": [
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 0,
+            "onePair": 0,
+            "twoPair": 0,
+            "trips": 0,
+            "straight": 0,
+            "flush": 0,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 1
+          },
+          "results": {
+            "win": [0, 0],
+            "draw": [1, 100],
+            "lose": [0, 0]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 0,
+            "onePair": 0,
+            "twoPair": 0,
+            "trips": 0,
+            "straight": 0,
+            "flush": 0,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 1
+          },
+          "results": {
+            "win": [0, 0],
+            "draw": [1, 100],
+            "lose": [0, 0]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 0,
+            "onePair": 0,
+            "twoPair": 0,
+            "trips": 0,
+            "straight": 0,
+            "flush": 0,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 1
+          },
+          "results": {
+            "win": [0, 0],
+            "draw": [1, 100],
+            "lose": [0, 0]
+          }
+        }
+      ],
+      "combinations": 1
+    }
+  },
+  {
+    "name": "nine players on the flop",
+    "players": [
+      [1, 11],
+      [2, 12],
+      [3, 13],
+      [4, 14],
+      [5, 15],
+      [6, 16],
+      [7, 17],
+      [8, 18],
+      [9, 19]
+    ],
+    "community": [20, 30, 40],
+    "death": [],
+    "expected": {
+      "players": [
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 240,
+            "onePair": 204,
+            "twoPair": 15,
+            "trips": 6,
+            "straight": 0,
+            "flush": 0,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [0, 0],
+            "draw": [9, 1.94],
+            "lose": [456, 98.07]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 225,
+            "onePair": 198,
+            "twoPair": 15,
+            "trips": 6,
+            "straight": 0,
+            "flush": 21,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [0, 0],
+            "draw": [9, 1.94],
+            "lose": [456, 98.07]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 248,
+            "onePair": 186,
+            "twoPair": 9,
+            "trips": 6,
+            "straight": 16,
+            "flush": 0,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [15, 3.23],
+            "draw": [9, 1.94],
+            "lose": [441, 94.84]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 234,
+            "onePair": 180,
+            "twoPair": 9,
+            "trips": 6,
+            "straight": 15,
+            "flush": 21,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [15, 3.23],
+            "draw": [9, 1.94],
+            "lose": [441, 94.84]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 244,
+            "onePair": 186,
+            "twoPair": 9,
+            "trips": 6,
+            "straight": 20,
+            "flush": 0,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [19, 4.09],
+            "draw": [9, 1.94],
+            "lose": [437, 93.98]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 230,
+            "onePair": 180,
+            "twoPair": 9,
+            "trips": 6,
+            "straight": 19,
+            "flush": 21,
+            "fullHouse": 0,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [40, 8.61],
+            "draw": [9, 1.94],
+            "lose": [416, 89.47]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 0,
+            "onePair": 264,
+            "twoPair": 195,
+            "trips": 0,
+            "straight": 0,
+            "flush": 0,
+            "fullHouse": 6,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [396, 85.17],
+            "draw": [9, 1.94],
+            "lose": [60, 12.91]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 0,
+            "onePair": 249,
+            "twoPair": 189,
+            "trips": 0,
+            "straight": 0,
+            "flush": 21,
+            "fullHouse": 6,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [396, 85.17],
+            "draw": [9, 1.94],
+            "lose": [60, 12.91]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 0,
+            "onePair": 240,
+            "twoPair": 219,
+            "trips": 0,
+            "straight": 0,
+            "flush": 0,
+            "fullHouse": 6,
+            "quads": 0,
+            "straightFlush": 0
+          },
+          "results": {
+            "win": [416, 89.47],
+            "draw": [9, 1.94],
+            "lose": [40, 8.61]
+          }
+        }
+      ],
+      "combinations": 465
+    }
+  },
+  {
+    "name": "two players before the flop with death cards",
+    "players": [
+      [25, 26],
+      [33, 38]
+    ],
+    "community": [],
+    "death": [1, 2, 3, 4, 5],
+    "expected": {
+      "players": [
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 0,
+            "onePair": 296812,
+            "twoPair": 388876,
+            "trips": 122976,
+            "straight": 30113,
+            "flush": 12968,
+            "fullHouse": 99673,
+            "quads": 10972,
+            "straightFlush": 208
+          },
+          "results": {
+            "win": [468209, 48.65],
+            "draw": [5574, 0.58],
+            "lose": [488815, 50.79]
+          }
+        },
+        {
+          "handTypes": {
+            "bad": 0,
+            "highCard": 121440,
+            "onePair": 388482,
+            "twoPair": 253815,
+            "trips": 50096,
+            "straight": 102514,
+            "flush": 13005,
+            "fullHouse": 31203,
+            "quads": 1872,
+            "straightFlush": 171
+          },
+          "results": {
+            "win": [488815, 50.79],
+            "draw": [5574, 0.58],
+            "lose": [468209, 48.65]
+          }
+        }
+      ],
+      "combinations": 962598
+    }
+  }
+]

@@ -15,6 +15,7 @@
   "gypfile": true,
   "scripts": {
     "build": "node-gyp rebuild",
+    "test": "node --test \"test/*.test.mjs\"",
     "generate-table": "make -C table-generator",
     "benchmark": "node benchmark/benchmark.mjs"
   },
