@@ -57,11 +57,11 @@ Pointers startPointers(const std::vector<Hand>& players, const std::vector<int>&
     return pointers;
 }
 
-// A board where all players have the best hand is a draw for all of them.
-// Otherwise each player with the best hand gets a win.
+// A player wins a board only when no other player has a hand of the same value.
+// Players who share the best hand get a draw. One player alone always gets a draw.
 void countBoard(const Pointers& handValues, size_t playerCount, std::array<PlayerStats, MAX_PLAYERS>& stats) {
     int best = 0;
-    size_t winners = 0;
+    size_t bestCount = 0;
 
     for (size_t i = 0; i < playerCount; ++i) {
         const int value = handValues[i];
@@ -69,22 +69,16 @@ void countBoard(const Pointers& handValues, size_t playerCount, std::array<Playe
 
         if (value > best) {
             best = value;
-            winners = 1;
+            bestCount = 1;
         } else if (value == best) {
-            ++winners;
+            ++bestCount;
         }
     }
 
-    if (winners == playerCount) {
-        for (size_t i = 0; i < playerCount; ++i) {
-            ++stats[i].draw.count;
-        }
-        return;
-    }
-
+    const bool isWin = bestCount == 1 && playerCount > 1;
     for (size_t i = 0; i < playerCount; ++i) {
         if (handValues[i] == best) {
-            ++stats[i].win.count;
+            ++(isWin ? stats[i].win : stats[i].draw).count;
         }
     }
 }
@@ -111,7 +105,7 @@ int enumerate(const std::vector<int>& deck, size_t start, size_t missingCards, c
 }
 
 double toPercentage(int count, int combinations) {
-    return std::ceil(count / static_cast<double>(combinations) * 10000.0) / 100.0;
+    return std::round(count / static_cast<double>(combinations) * 10000.0) / 100.0;
 }
 
 }  // namespace

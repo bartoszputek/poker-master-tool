@@ -17,6 +17,14 @@ for (const { name, players, community, death, expected } of golden) {
   });
 }
 
+test('calculate(): win, draw and lose of each player cover all combinations', () => {
+  for (const { expected } of golden) {
+    for (const { results } of expected.players) {
+      assert.equal(results.win[0] + results.draw[0] + results.lose[0], expected.combinations);
+    }
+  }
+});
+
 const throwingCard = {
   valueOf() {
     throw new Error('valueOf() was called');
