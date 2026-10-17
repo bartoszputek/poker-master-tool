@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { beforeEach, test } from 'node:test';
+import { before, beforeEach, test } from 'node:test';
+import { initLookUpTable } from '@poker-master-tool/addon';
 import type { ICache, ILogger } from '../../src/interfaces.ts';
 import ComputeHandController, {
   type IComputeHandResponse,
@@ -20,6 +21,8 @@ interface ITestContext {
 
 let context: ITestContext;
 
+before(() => initLookUpTable());
+
 beforeEach(() => {
   const loggerStub: ILogger = createLoggerStub();
 
@@ -39,10 +42,10 @@ beforeEach(() => {
         cards: ['Td', 'As'],
       },
       {
-        cards: ['Td', 'As'],
+        cards: ['Kh', 'Kd'],
       },
     ],
-    communityCards: ['Td', 'As', 'Qc', '2c', '3c'],
+    communityCards: ['Qc', '2c', '3c'],
     deathCards: ['6d'],
   });
 

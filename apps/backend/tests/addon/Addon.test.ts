@@ -40,7 +40,7 @@ test('calculate(): should throw an error if there are more than 9 players', asyn
 
   const testFunction = async () => calculate(playerCards, [], []);
 
-  await assert.rejects(testFunction(), new Error('Maximum length of players array is 9!'));
+  await assert.rejects(testFunction(), new TypeError('Maximum length of players array is 9!'));
 });
 
 test('calculate(): should throw an error if any player has more than 2 cards', async () => {
@@ -58,7 +58,7 @@ test('calculate(): should throw an error if any player has more than 2 cards', a
 
   const testFunction = async () => calculate(playerCards, [], []);
 
-  await assert.rejects(testFunction(), new Error('Player should have two cards!'));
+  await assert.rejects(testFunction(), new TypeError('Player should have two cards!'));
 });
 
 test('calculate(): should throw an error if there is more than 5 community cards', async () => {
@@ -78,7 +78,10 @@ test('calculate(): should throw an error if there is more than 5 community cards
 
   const testFunction = async () => calculate(playerCards, communityCards, []);
 
-  await assert.rejects(testFunction(), new Error('Maximum length of communityCards array is 5!'));
+  await assert.rejects(
+    testFunction(),
+    new TypeError('Maximum length of communityCards array is 5!'),
+  );
 });
 
 test('calculate(): should throw an error if deathCards parameter is not an array', async () => {
@@ -101,5 +104,8 @@ test('calculate(): should throw an error if deathCards parameter is not an array
   const testFunction = async () =>
     calculate(playerCards, communityCards, deathCards as unknown as number[]);
 
-  await assert.rejects(testFunction(), new Error('The argument deathCards should be an array!'));
+  await assert.rejects(
+    testFunction(),
+    new TypeError('The argument deathCards should be an array!'),
+  );
 });

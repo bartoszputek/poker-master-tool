@@ -20,7 +20,7 @@
     "benchmark": "node benchmark/benchmark.mjs"
   },
   "devDependencies": {
-    "nan": "^2.29.0",
+    "node-addon-api": "^8.9.2",
     "node-gyp": "^13.1.0",
     "tinybench": "^6.2.2"
   }
