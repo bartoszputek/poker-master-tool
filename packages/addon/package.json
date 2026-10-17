@@ -17,9 +17,12 @@
     "build": "node-gyp rebuild",
     "test": "node --test \"test/*.test.mjs\"",
     "generate-table": "make -C table-generator",
-    "benchmark": "node benchmark/benchmark.mjs"
+    "benchmark": "node benchmark/benchmark.mjs",
+    "format": "clang-format -i src/*.cpp src/*.hpp",
+    "format:check": "clang-format --dry-run --Werror src/*.cpp src/*.hpp"
   },
   "devDependencies": {
+    "@wasm-fmt/clang-format": "^23.1.1",
     "node-addon-api": "^8.9.2",
     "node-gyp": "^13.1.0",
     "tinybench": "^6.2.2"

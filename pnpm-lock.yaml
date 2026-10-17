@@ -123,6 +123,9 @@ importers:
 
   packages/addon:
     devDependencies:
+      '@wasm-fmt/clang-format':
+        specifier: ^23.1.1
+        version: 23.1.1
       node-addon-api:
         specifier: ^8.9.2
         version: 8.9.2
@@ -534,6 +537,11 @@ packages:
   '@typescript-eslint/visitor-keys@8.71.2':
     resolution: {integrity: sha512-zozlN0UA32bSG2zkKAgQyRYSbEISVoyU6vvkKYo2aSny74D8Jh4e+POkJ6Lk0dlezZi5x7TtD+88Xb06IB8nhg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@wasm-fmt/clang-format@23.1.1':
+    resolution: {integrity: sha512-SPA6H8DI/MOJAr0CfpbFBoqI5sfrimu3SlovuAAy36mq9vs9TOkS48lpUsNaPLeZzeQVEGe+pfbJHXKxiroP/g==}
+    engines: {node: '>=16.17.0'}
+    hasBin: true
 
   abbrev@5.0.0:
     resolution: {integrity: sha512-/XrFJgzQQQHpti1raDJC6m4ws6aNktmjBlhk8Fdlk7LwCEuDoieEJJY9OFHjfiFJFFRM2tK+Ky/IsfbbmlMu1w==}
@@ -2080,6 +2088,8 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.71.2
       eslint-visitor-keys: 5.0.1
+
+  '@wasm-fmt/clang-format@23.1.1': {}
 
   abbrev@5.0.0: {}
 

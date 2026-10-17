@@ -1,209 +1,146 @@
 #include "calculator.hpp"
 
-#include <algorithm>
-#include <array>
 #include <cmath>
-#include <cstring>
-#include <string>
-#include <vector>
+#include <cstdio>
+#include <memory>
 
-using namespace std;
+namespace calculator {
+namespace {
 
-vector<int> FULL_DECK{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-                      28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52};
-array<int, 10> initHand = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-array<std::pair<int, double>, 3> initResult = {std::make_pair(0, 0), std::make_pair(0, 0), std::make_pair(0, 0)};
+constexpr size_t TABLE_SIZE = 32487834;
+// The row of the table for zero cards. Each entry for a card points to the row for one more card.
+// After seven cards, the entry is the hand value.
+constexpr int TABLE_START = 53;
+// A hand value has the hand type above this bit, and the rank inside the hand type below it.
+constexpr int HAND_TYPE_SHIFT = 12;
 
-// The handranks lookup table - loaded from HANDRANKS.DAT.
-int HR[32487834];
+std::array<int, TABLE_SIZE> table;
 
-array<string, 10> getHandNames() {
-    array<string, 10> handNames = {
-        "bad",
-        "highCard",
-        "onePair",
-        "twoPair",
-        "trips",
-        "straight",
-        "flush",
-        "fullHouse",
-        "quads",
-        "straightFlush"};
+using Pointers = std::array<int, MAX_PLAYERS>;
 
-    return handNames;
-}
-
-array<string, 3> getResultNames() {
-    array<string, 3> results = {
-        "win",
-        "draw",
-        "lose"};
-
-    return results;
-}
-
-array<PlayerStats, 9> initStructures() {
-    array<PlayerStats, 9> players;
-
-    for (int i = 0; i < 9; ++i) {
-        players[i].handTypeSum = initHand;
-        players[i].results = initResult;
+std::vector<int> remainingDeck(const std::vector<Hand>& players, const std::vector<int>& communityCards,
+                               const std::vector<int>& deathCards) {
+    std::array<bool, DECK_SIZE + 1> used{};
+    for (const Hand& hand : players) {
+        for (const int card : hand) {
+            used[card] = true;
+        }
+    }
+    for (const int card : communityCards) {
+        used[card] = true;
+    }
+    for (const int card : deathCards) {
+        used[card] = true;
     }
 
-    return players;
-}
-
-vector<int> getDeathCards(const vector<vector<int>>& players, const vector<int>& communityCards,
-                          const vector<int>& deathCards) {
-    vector<int> cardsToRemove = deathCards;
-
-    cardsToRemove.insert(cardsToRemove.end(), communityCards.begin(), communityCards.end());
-
-    for (const vector<int>& playerCards : players) {
-        cardsToRemove.insert(cardsToRemove.end(), playerCards.begin(), playerCards.end());
+    std::vector<int> deck;
+    for (int card = 1; card <= DECK_SIZE; ++card) {
+        if (!used[card]) {
+            deck.push_back(card);
+        }
     }
-
-    return cardsToRemove;
+    return deck;
 }
 
-vector<int> getDeck(vector<int> cardsToRemove) {
-    vector<int> filteredDeck = FULL_DECK;
-
-    sort(begin(cardsToRemove), end(cardsToRemove));
-
-    filteredDeck.erase(remove_if(begin(filteredDeck), end(filteredDeck),
-                                 [&](auto x) { return binary_search(begin(cardsToRemove), end(cardsToRemove), x); }),
-                       end(filteredDeck));
-
-    return filteredDeck;
-}
-
-// Adds the cards from the last to the first, like the previous recursive version.
-int evalPointer(const vector<int>& cards) {
-    int pointer = 53;
-    for (auto card = cards.rbegin(); card != cards.rend(); ++card) {
-        pointer = HR[pointer + *card];
-    }
-    return pointer;
-}
-
-array<int, 9> evalPointers(const vector<vector<int>>& players, const vector<int>& communityCards) {
-    array<int, 9> pointers{};
-
+Pointers startPointers(const std::vector<Hand>& players, const std::vector<int>& communityCards) {
+    Pointers pointers{};
     for (size_t i = 0; i < players.size(); ++i) {
-        vector<int> cards = communityCards;
-        cards.insert(cards.end(), players[i].begin(), players[i].end());
-        pointers[i] = evalPointer(cards);
+        int pointer = TABLE_START;
+        for (const int card : communityCards) {
+            pointer = table[pointer + card];
+        }
+        for (const int card : players[i]) {
+            pointer = table[pointer + card];
+        }
+        pointers[i] = pointer;
     }
-
     return pointers;
 }
 
 // A board where all players have the best hand is a draw for all of them.
 // Otherwise each player with the best hand gets a win.
-void handleBoard(const array<int, 9>& ranks, size_t playerCount, array<PlayerStats, 9>& playersStats) {
-    int max = 0;
+void countBoard(const Pointers& handValues, size_t playerCount, std::array<PlayerStats, MAX_PLAYERS>& stats) {
+    int best = 0;
     size_t winners = 0;
 
     for (size_t i = 0; i < playerCount; ++i) {
-        const int rank = ranks[i];
-        ++playersStats[i].handTypeSum[rank >> 12];
+        const int value = handValues[i];
+        ++stats[i].handTypes[value >> HAND_TYPE_SHIFT];
 
-        if (rank > max) {
-            max = rank;
+        if (value > best) {
+            best = value;
             winners = 1;
-        } else if (rank == max) {
+        } else if (value == best) {
             ++winners;
         }
     }
 
     if (winners == playerCount) {
-        for (PlayerStats& stats : playersStats) {
-            ++stats.results[1].first;
+        for (size_t i = 0; i < playerCount; ++i) {
+            ++stats[i].draw.count;
         }
         return;
     }
 
     for (size_t i = 0; i < playerCount; ++i) {
-        if (ranks[i] == max) {
-            ++playersStats[i].results[0].first;
+        if (handValues[i] == best) {
+            ++stats[i].win.count;
         }
     }
 }
 
-int iterate(
-    size_t start,
-    const array<int, 9>& playerPointers,
-    size_t playerCount,
-    size_t iteration,
-    const vector<int>& deck,
-    array<PlayerStats, 9>& playersStats) {
-    if (iteration == 0) {
-        handleBoard(playerPointers, playerCount, playersStats);
+// Examines each set of missingCards cards from deck[start..], in ascending order. Returns the number of boards.
+int enumerate(const std::vector<int>& deck, size_t start, size_t missingCards, const Pointers& pointers,
+              size_t playerCount, std::array<PlayerStats, MAX_PLAYERS>& stats) {
+    if (missingCards == 0) {
+        countBoard(pointers, playerCount, stats);
         return 1;
     }
 
-    array<int, 9> newPointers;
-    int count = 0;
+    Pointers nextPointers;
+    int boards = 0;
 
-    for (size_t card = start; card + iteration <= deck.size(); ++card) {
+    for (size_t card = start; card + missingCards <= deck.size(); ++card) {
         for (size_t i = 0; i < playerCount; ++i) {
-            newPointers[i] = HR[playerPointers[i] + deck[card]];
+            nextPointers[i] = table[pointers[i] + deck[card]];
         }
-
-        count += iterate(card + 1, newPointers, playerCount, iteration - 1, deck, playersStats);
+        boards += enumerate(deck, card + 1, missingCards - 1, nextPointers, playerCount, stats);
     }
 
-    return count;
+    return boards;
 }
 
-int calculate(
-    const vector<vector<int>>& players,
-    const vector<int>& communityCards,
-    const vector<int>& deathCards,
-    array<PlayerStats, 9>& playersStats) {
-    vector<int> cardsToRemove = getDeathCards(players, communityCards, deathCards);
-    vector<int> deck = getDeck(cardsToRemove);
-    array<int, 9> pointers = evalPointers(players, communityCards);
-
-    return iterate(0, pointers, players.size(), 5 - communityCards.size(), deck, playersStats);
+double toPercentage(int count, int combinations) {
+    return std::ceil(count / static_cast<double>(combinations) * 10000.0) / 100.0;
 }
 
-bool initData(const string& path) {
-    memset(HR, 0, sizeof(HR));
-    FILE* file = fopen(path.c_str(), "rb");
-    if (!file)
+}  // namespace
+
+bool loadTable(const std::string& path) {
+    std::unique_ptr<FILE, decltype(&fclose)> file(fopen(path.c_str(), "rb"), &fclose);
+    if (!file) {
         return false;
-    size_t blocksRead = fread(HR, sizeof(HR), 1, file);
-    fclose(file);
-
-    return blocksRead == 1;
+    }
+    return fread(table.data(), sizeof(table), 1, file.get()) == 1;
 }
 
-Results processResults(int combinations, array<PlayerStats, 9>& playersStats) {
+Results compute(const std::vector<Hand>& players, const std::vector<int>& communityCards,
+                const std::vector<int>& deathCards) {
     Results results;
-    results.combinations = combinations;
+    const std::vector<int> deck = remainingDeck(players, communityCards, deathCards);
 
-    for (int i = 0; i < 9; ++i) {
-        int wins = playersStats[i].results[0].first;
-        int draws = playersStats[i].results[1].first;
-        int loses = combinations - wins - draws;
-        playersStats[i].results[2].first = loses;
+    results.combinations = enumerate(deck, 0, BOARD_SIZE - communityCards.size(),
+                                     startPointers(players, communityCards), players.size(), results.players);
 
-        playersStats[i].results[0].second = std::ceil((wins / (double)combinations) * 10000.0) / 100.0;
-        playersStats[i].results[1].second = std::ceil((draws / (double)combinations) * 10000.0) / 100.0;
-        playersStats[i].results[2].second = std::ceil((loses / (double)combinations) * 10000.0) / 100.0;
+    for (size_t i = 0; i < players.size(); ++i) {
+        PlayerStats& stats = results.players[i];
+        stats.lose.count = results.combinations - stats.win.count - stats.draw.count;
+        stats.win.percentage = toPercentage(stats.win.count, results.combinations);
+        stats.draw.percentage = toPercentage(stats.draw.count, results.combinations);
+        stats.lose.percentage = toPercentage(stats.lose.count, results.combinations);
     }
-
-    results.playerStats = playersStats;
 
     return results;
 }
 
-Results compute(const vector<vector<int>>& players, const vector<int>& communityCards, const vector<int>& deathCards) {
-    array<PlayerStats, 9> playersStats = initStructures();
-
-    int combinations = calculate(players, communityCards, deathCards, playersStats);
-
-    return processResults(combinations, playersStats);
-}
+}  // namespace calculator

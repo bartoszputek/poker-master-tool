@@ -22,8 +22,8 @@
     "test:e2e": "playwright test --config e2e/playwright.config.ts",
     "lint": "eslint .",
     "check": "pnpm --recursive check",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format": "prettier --write . && pnpm --filter @poker-master-tool/addon format",
+    "format:check": "prettier --check . && pnpm --filter @poker-master-tool/addon format:check"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

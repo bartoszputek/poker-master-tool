@@ -12,10 +12,10 @@
 
 namespace {
 
-constexpr uint32_t MAX_PLAYERS = 9;
-constexpr uint32_t CARDS_PER_PLAYER = 2;
-constexpr uint32_t BOARD_SIZE = 5;
-constexpr int DECK_SIZE = 52;
+using calculator::BOARD_SIZE;
+using calculator::CARDS_PER_PLAYER;
+using calculator::DECK_SIZE;
+using calculator::MAX_PLAYERS;
 
 // The table is shared by all threads and all Node.js environments in the process.
 std::mutex tableMutex;
@@ -46,7 +46,7 @@ class InitWorker : public PromiseWorker {
         if (tableLoaded) {
             return;
         }
-        if (!initData(path)) {
+        if (!calculator::loadTable(path)) {
             SetError("Cannot read the lookup table: " + path);
             return;
         }
@@ -61,7 +61,7 @@ class InitWorker : public PromiseWorker {
 
 class CalculateWorker : public PromiseWorker {
    public:
-    CalculateWorker(Napi::Env env, std::vector<std::vector<int>> players, std::vector<int> communityCards,
+    CalculateWorker(Napi::Env env, std::vector<calculator::Hand> players, std::vector<int> communityCards,
                     std::vector<int> deathCards)
         : PromiseWorker(env, "poker-master-tool:calculate"),
           players(std::move(players)),
@@ -69,29 +69,23 @@ class CalculateWorker : public PromiseWorker {
           deathCards(std::move(deathCards)) {}
 
    protected:
-    void Execute() override { result = compute(players, communityCards, deathCards); }
+    void Execute() override { result = calculator::compute(players, communityCards, deathCards); }
 
     void OnOK() override {
         Napi::Env env = Env();
-        const auto handNames = getHandNames();
-        const auto resultNames = getResultNames();
-
         Napi::Array playersArray = Napi::Array::New(env, players.size());
         for (uint32_t i = 0; i < players.size(); ++i) {
-            const PlayerStats& stats = result.playerStats[i];
+            const calculator::PlayerStats& stats = result.players[i];
 
             Napi::Object handTypes = Napi::Object::New(env);
-            for (size_t j = 0; j < handNames.size(); ++j) {
-                handTypes.Set(handNames[j], Napi::Number::New(env, stats.handTypeSum[j]));
+            for (size_t j = 0; j < calculator::HAND_TYPE_NAMES.size(); ++j) {
+                handTypes.Set(calculator::HAND_TYPE_NAMES[j], Napi::Number::New(env, stats.handTypes[j]));
             }
 
             Napi::Object results = Napi::Object::New(env);
-            for (size_t j = 0; j < resultNames.size(); ++j) {
-                Napi::Array pair = Napi::Array::New(env, 2);
-                pair.Set(0u, Napi::Number::New(env, stats.results[j].first));
-                pair.Set(1u, Napi::Number::New(env, stats.results[j].second));
-                results.Set(resultNames[j], pair);
-            }
+            results.Set("win", ToResult(env, stats.win));
+            results.Set("draw", ToResult(env, stats.draw));
+            results.Set("lose", ToResult(env, stats.lose));
 
             Napi::Object player = Napi::Object::New(env);
             player.Set("handTypes", handTypes);
@@ -106,13 +100,20 @@ class CalculateWorker : public PromiseWorker {
     }
 
    private:
-    std::vector<std::vector<int>> players;
+    static Napi::Array ToResult(Napi::Env env, const calculator::Outcome& outcome) {
+        Napi::Array array = Napi::Array::New(env, 2);
+        array.Set(0u, Napi::Number::New(env, outcome.count));
+        array.Set(1u, Napi::Number::New(env, outcome.percentage));
+        return array;
+    }
+
+    std::vector<calculator::Hand> players;
     std::vector<int> communityCards;
     std::vector<int> deathCards;
-    Results result;
+    calculator::Results result;
 };
 
-Napi::Array toArray(const Napi::Value& value, const char* message) {
+Napi::Array asArray(const Napi::Value& value, const char* message) {
     if (!value.IsArray()) {
         throw Napi::TypeError::New(value.Env(), message);
     }
@@ -148,7 +149,7 @@ Napi::Value InitLookUpTable(const Napi::CallbackInfo& info) {
 Napi::Value Calculate(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
-    const Napi::Array playersArray = toArray(info[0], "The argument playersCards should be an array!");
+    const Napi::Array playersArray = asArray(info[0], "The argument playersCards should be an array!");
     if (playersArray.Length() == 0) {
         throw Napi::TypeError::New(env, "Minimum length of players array is 1!");
     }
@@ -156,22 +157,23 @@ Napi::Value Calculate(const Napi::CallbackInfo& info) {
         throw Napi::TypeError::New(env, "Maximum length of players array is 9!");
     }
 
-    std::vector<std::vector<int>> players;
+    std::vector<calculator::Hand> players;
     for (uint32_t i = 0; i < playersArray.Length(); ++i) {
         const Napi::Value value = playersArray.Get(i);
         if (!value.IsArray() || value.As<Napi::Array>().Length() != CARDS_PER_PLAYER) {
             throw Napi::TypeError::New(env, "Player should have two cards!");
         }
-        players.push_back(toCards(value.As<Napi::Array>()));
+        const std::vector<int> cards = toCards(value.As<Napi::Array>());
+        players.push_back({cards[0], cards[1]});
     }
 
-    const Napi::Array communityArray = toArray(info[1], "The argument communityCards should be an array!");
+    const Napi::Array communityArray = asArray(info[1], "The argument communityCards should be an array!");
     if (communityArray.Length() > BOARD_SIZE) {
         throw Napi::TypeError::New(env, "Maximum length of communityCards array is 5!");
     }
     std::vector<int> communityCards = toCards(communityArray);
 
-    std::vector<int> deathCards = toCards(toArray(info[2], "The argument deathCards should be an array!"));
+    std::vector<int> deathCards = toCards(asArray(info[2], "The argument deathCards should be an array!"));
 
     std::set<int> usedCards(communityCards.begin(), communityCards.end());
     usedCards.insert(deathCards.begin(), deathCards.end());
@@ -182,7 +184,7 @@ Napi::Value Calculate(const Napi::CallbackInfo& info) {
     if (usedCards.size() != cardCount) {
         throw Napi::TypeError::New(env, "Each card can be used only one time!");
     }
-    if (DECK_SIZE - cardCount < BOARD_SIZE - communityCards.size()) {
+    if (cardCount + BOARD_SIZE - communityCards.size() > static_cast<size_t>(DECK_SIZE)) {
         throw Napi::TypeError::New(env, "Not enough cards are left in the deck to complete the board!");
     }
 
