@@ -108,31 +108,31 @@ The benchmark uses tinybench. It runs each scenario for a minimum of 2 seconds a
 
 ### Benchmark results
 
-These results are from Node 26.7.0 on an Apple M3 Pro. The full output is in [tinybench-2026-10-16T21-13-31-178Z.md](./packages/addon/benchmark/results/tinybench-2026-10-16T21-13-31-178Z.md) and [tinybench-2026-10-16T21-13-31-178Z.json](./packages/addon/benchmark/results/tinybench-2026-10-16T21-13-31-178Z.json).
+These results are from Node 26.7.0 on an Apple M3 Pro. The full output is in [tinybench-2026-10-17T09-07-31-790Z.md](./packages/addon/benchmark/results/tinybench-2026-10-17T09-07-31-790Z.md) and [tinybench-2026-10-17T09-07-31-790Z.json](./packages/addon/benchmark/results/tinybench-2026-10-17T09-07-31-790Z.json).
 
 Player `n` has the cards `n` and `n + 10`. The community cards and the death cards are the cards 20 to 24. Combinations is the number of boards that the calculator examines.
 
 | Scenario                     | Combinations | Mean (ms) | p99 (ms) | Operations/s |
 | ---------------------------- | -----------: | --------: | -------: | -----------: |
-| 1 player                     |    2,118,760 |     45.58 |    47.59 |         21.9 |
-| 2 players                    |    1,712,304 |     65.22 |    69.35 |         15.3 |
-| 3 players                    |    1,370,754 |     55.09 |    57.39 |         18.2 |
-| 4 players                    |    1,086,008 |     53.86 |    56.05 |         18.6 |
-| 5 players                    |      850,668 |     50.29 |    59.25 |         19.9 |
-| 6 players                    |      658,008 |     44.66 |    48.14 |         22.4 |
-| 7 players                    |      501,942 |     30.70 |    32.23 |         32.6 |
-| 8 players                    |      376,992 |     26.70 |    28.09 |         37.5 |
-| 9 players                    |      278,256 |     26.75 |    28.50 |         37.4 |
-| 9 players, 1 community card  |       40,920 |     2.848 |    2.985 |        351.3 |
-| 9 players, 2 community cards |        4,960 |     0.381 |    0.424 |      2,627.4 |
-| 9 players, 3 community cards |          465 |     0.070 |    0.084 |     14,264.1 |
-| 9 players, 4 community cards |           30 |     0.035 |    0.045 |     28,621.5 |
-| 9 players, 5 community cards |            1 |     0.033 |    0.042 |     31,228.8 |
-| 9 players, 1 death card      |      237,336 |     23.88 |    25.12 |         41.9 |
-| 9 players, 2 death cards     |      201,376 |     19.99 |    21.50 |         50.0 |
-| 9 players, 3 death cards     |      169,911 |     17.33 |    18.39 |         57.8 |
-| 9 players, 4 death cards     |      142,506 |     14.59 |    17.56 |         68.8 |
-| 9 players, 5 death cards     |      118,755 |     12.09 |    12.82 |         82.7 |
+| 1 player                     |    2,118,760 |     5.659 |    6.165 |        177.0 |
+| 2 players                    |    1,712,304 |     7.795 |    8.993 |        128.6 |
+| 3 players                    |    1,370,754 |     9.661 |    10.71 |        103.7 |
+| 4 players                    |    1,086,008 |     8.015 |    8.742 |        124.9 |
+| 5 players                    |      850,668 |     6.375 |    6.770 |        156.9 |
+| 6 players                    |      658,008 |     5.661 |    6.093 |        176.7 |
+| 7 players                    |      501,942 |     5.080 |    5.445 |        196.9 |
+| 8 players                    |      376,992 |     3.428 |    3.843 |        292.1 |
+| 9 players                    |      278,256 |     2.897 |    3.272 |        345.9 |
+| 9 players, 1 community card  |       40,920 |     0.417 |    0.473 |      2,400.1 |
+| 9 players, 2 community cards |        4,960 |     0.081 |    0.097 |     12,471.1 |
+| 9 players, 3 community cards |          465 |     0.034 |    0.048 |     30,391.4 |
+| 9 players, 4 community cards |           30 |     0.028 |    0.039 |     36,073.1 |
+| 9 players, 5 community cards |            1 |     0.027 |    0.037 |     37,479.2 |
+| 9 players, 1 death card      |      237,336 |     2.389 |    2.618 |        418.9 |
+| 9 players, 2 death cards     |      201,376 |     2.055 |    2.280 |        487.2 |
+| 9 players, 3 death cards     |      169,911 |     1.743 |    1.908 |        574.3 |
+| 9 players, 4 death cards     |      142,506 |     1.473 |    1.643 |        679.5 |
+| 9 players, 5 death cards     |      118,755 |     1.227 |    1.332 |        815.3 |
 
 The results change with the hardware and the Node version.
 

@@ -1,0 +1,214 @@
+{
+  "env": "node v26.7.0, Apple M3 Pro, darwin 24.6.0, tinybench time=2000ms minIterations=64",
+  "rows": [
+    {
+      "scenario": "1 players, 0 communityCards, 0 deathCards",
+      "samples": 354,
+      "mean ms": "5.659",
+      "p50 ms": "5.653",
+      "p99 ms": "6.165",
+      "min ms": "5.034",
+      "max ms": "6.503",
+      "rme %": "0.45",
+      "ops/s": "177.0"
+    },
+    {
+      "scenario": "2 players, 0 communityCards, 0 deathCards",
+      "samples": 257,
+      "mean ms": "7.795",
+      "p50 ms": "7.723",
+      "p99 ms": "8.993",
+      "min ms": "6.926",
+      "max ms": "9.046",
+      "rme %": "0.61",
+      "ops/s": "128.6"
+    },
+    {
+      "scenario": "3 players, 0 communityCards, 0 deathCards",
+      "samples": 208,
+      "mean ms": "9.661",
+      "p50 ms": "9.630",
+      "p99 ms": "10.706",
+      "min ms": "8.999",
+      "max ms": "11.370",
+      "rme %": "0.55",
+      "ops/s": "103.7"
+    },
+    {
+      "scenario": "4 players, 0 communityCards, 0 deathCards",
+      "samples": 250,
+      "mean ms": "8.015",
+      "p50 ms": "8.031",
+      "p99 ms": "8.742",
+      "min ms": "7.489",
+      "max ms": "9.311",
+      "rme %": "0.41",
+      "ops/s": "124.9"
+    },
+    {
+      "scenario": "5 players, 0 communityCards, 0 deathCards",
+      "samples": 314,
+      "mean ms": "6.375",
+      "p50 ms": "6.340",
+      "p99 ms": "6.770",
+      "min ms": "5.986",
+      "max ms": "6.921",
+      "rme %": "0.24",
+      "ops/s": "156.9"
+    },
+    {
+      "scenario": "6 players, 0 communityCards, 0 deathCards",
+      "samples": 354,
+      "mean ms": "5.661",
+      "p50 ms": "5.619",
+      "p99 ms": "6.093",
+      "min ms": "5.330",
+      "max ms": "6.401",
+      "rme %": "0.25",
+      "ops/s": "176.7"
+    },
+    {
+      "scenario": "7 players, 0 communityCards, 0 deathCards",
+      "samples": 394,
+      "mean ms": "5.080",
+      "p50 ms": "5.065",
+      "p99 ms": "5.445",
+      "min ms": "4.796",
+      "max ms": "5.654",
+      "rme %": "0.23",
+      "ops/s": "196.9"
+    },
+    {
+      "scenario": "8 players, 0 communityCards, 0 deathCards",
+      "samples": 584,
+      "mean ms": "3.428",
+      "p50 ms": "3.390",
+      "p99 ms": "3.843",
+      "min ms": "3.148",
+      "max ms": "4.662",
+      "rme %": "0.31",
+      "ops/s": "292.1"
+    },
+    {
+      "scenario": "9 players, 0 communityCards, 0 deathCards",
+      "samples": 691,
+      "mean ms": "2.897",
+      "p50 ms": "2.875",
+      "p99 ms": "3.272",
+      "min ms": "2.576",
+      "max ms": "3.370",
+      "rme %": "0.34",
+      "ops/s": "345.9"
+    },
+    {
+      "scenario": "9 players, 1 communityCards, 0 deathCards",
+      "samples": 4793,
+      "mean ms": "0.417",
+      "p50 ms": "0.415",
+      "p99 ms": "0.473",
+      "min ms": "0.379",
+      "max ms": "0.637",
+      "rme %": "0.12",
+      "ops/s": "2400.1"
+    },
+    {
+      "scenario": "9 players, 2 communityCards, 0 deathCards",
+      "samples": 24765,
+      "mean ms": "0.081",
+      "p50 ms": "0.082",
+      "p99 ms": "0.097",
+      "min ms": "0.069",
+      "max ms": "0.515",
+      "rme %": "0.12",
+      "ops/s": "12471.1"
+    },
+    {
+      "scenario": "9 players, 3 communityCards, 0 deathCards",
+      "samples": 59457,
+      "mean ms": "0.034",
+      "p50 ms": "0.034",
+      "p99 ms": "0.048",
+      "min ms": "0.028",
+      "max ms": "0.818",
+      "rme %": "0.20",
+      "ops/s": "30391.4"
+    },
+    {
+      "scenario": "9 players, 4 communityCards, 0 deathCards",
+      "samples": 70533,
+      "mean ms": "0.028",
+      "p50 ms": "0.028",
+      "p99 ms": "0.039",
+      "min ms": "0.023",
+      "max ms": "0.419",
+      "rme %": "0.14",
+      "ops/s": "36073.1"
+    },
+    {
+      "scenario": "9 players, 5 communityCards, 0 deathCards",
+      "samples": 73620,
+      "mean ms": "0.027",
+      "p50 ms": "0.026",
+      "p99 ms": "0.037",
+      "min ms": "0.023",
+      "max ms": "0.412",
+      "rme %": "0.12",
+      "ops/s": "37479.2"
+    },
+    {
+      "scenario": "9 players, 0 communityCards, 1 deathCards",
+      "samples": 838,
+      "mean ms": "2.389",
+      "p50 ms": "2.372",
+      "p99 ms": "2.618",
+      "min ms": "2.239",
+      "max ms": "2.734",
+      "rme %": "0.18",
+      "ops/s": "418.9"
+    },
+    {
+      "scenario": "9 players, 0 communityCards, 2 deathCards",
+      "samples": 974,
+      "mean ms": "2.055",
+      "p50 ms": "2.037",
+      "p99 ms": "2.280",
+      "min ms": "1.900",
+      "max ms": "2.536",
+      "rme %": "0.19",
+      "ops/s": "487.2"
+    },
+    {
+      "scenario": "9 players, 0 communityCards, 3 deathCards",
+      "samples": 1148,
+      "mean ms": "1.743",
+      "p50 ms": "1.729",
+      "p99 ms": "1.908",
+      "min ms": "1.592",
+      "max ms": "2.004",
+      "rme %": "0.17",
+      "ops/s": "574.3"
+    },
+    {
+      "scenario": "9 players, 0 communityCards, 4 deathCards",
+      "samples": 1358,
+      "mean ms": "1.473",
+      "p50 ms": "1.460",
+      "p99 ms": "1.643",
+      "min ms": "1.337",
+      "max ms": "2.276",
+      "rme %": "0.20",
+      "ops/s": "679.5"
+    },
+    {
+      "scenario": "9 players, 0 communityCards, 5 deathCards",
+      "samples": 1630,
+      "mean ms": "1.227",
+      "p50 ms": "1.217",
+      "p99 ms": "1.332",
+      "min ms": "1.124",
+      "max ms": "1.442",
+      "rme %": "0.12",
+      "ops/s": "815.3"
+    }
+  ]
+}
