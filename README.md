@@ -2,11 +2,15 @@
 
 Open-source poker hand calculator.
 
+> [!TIP]
+> **Live demo:** [poker-master-tool-production.up.railway.app](https://poker-master-tool-production.up.railway.app/)
+
 ## Table of contents
 
 - [General info](#general-info)
 - [Architecture](#architecture)
 - [Features](#features)
+- [Configuration](#configuration)
 - [Quick start with Docker](#quick-start-with-docker)
 - [Installation](#installation)
 - [Unit and performance tests](#unit-and-performance-tests)

@@ -21,13 +21,14 @@
     "test:benchmark": "pnpm --filter @poker-master-tool/addon benchmark",
     "test:e2e": "playwright test --config e2e/playwright.config.ts",
     "lint": "eslint .",
-    "check": "pnpm --recursive check",
+    "check": "pnpm --recursive check && tsc -p e2e",
     "format": "prettier --write . && pnpm --filter @poker-master-tool/addon format",
     "format:check": "prettier --check . && pnpm --filter @poker-master-tool/addon format:check"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.64.1",
+    "@types/node": "catalog:",
     "eslint": "^10.12.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.19.0",

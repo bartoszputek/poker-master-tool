@@ -17,6 +17,23 @@ export default defineConfig({
       },
       // The Express backend serves the static build from the build directory.
       adapter: adapter(),
+      // The page is prerendered, so SvelteKit puts this policy in a <meta> tag
+      // and adds the hash of its inline start-up script to script-src.
+      csp: {
+        mode: 'hash',
+        directives: {
+          'default-src': ['self'],
+          'base-uri': ['self'],
+          'font-src': ['self'],
+          'form-action': ['self'],
+          'img-src': ['self', 'data:'],
+          'object-src': ['none'],
+          'script-src': ['self'],
+          'script-src-attr': ['none'],
+          // Svelte sets inline style attributes, for example the card backgrounds.
+          'style-src': ['self', 'unsafe-inline'],
+        },
+      },
     }),
   ],
   define: {

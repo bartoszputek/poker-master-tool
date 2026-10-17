@@ -1,3 +1,5 @@
+export const SECONDS_IN_HOUR: number = 60 * 60;
+export const SECONDS_IN_YEAR: number = 60 * 60 * 24 * 365;
 export const CACHE_TTL_IN_MS: number = 1000 * 60 * 10;
 export const CARD_SUITS: string[] = ['s', 'd', 'h', 'c'];
 export const CARD_RANKS: string[] = [

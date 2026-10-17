@@ -1,7 +1,17 @@
 import { expect, test } from '@playwright/test';
 
 test('calculates the odds of two players with the native addon', async ({ page }) => {
-  await page.goto('/');
+  // The browser reports CSP violations as console errors.
+  const consoleErrors: string[] = [];
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      consoleErrors.push(message.text());
+    }
+  });
+
+  // The page is prerendered, so the buttons show before Svelte can handle clicks.
+  // The Vite dev server loads many modules, so wait until the browser loads all of them.
+  await page.goto('/', { waitUntil: 'networkidle' });
 
   const combinations = page.locator('.combinations');
   const player1Results = page.locator('.player-1 .player-results');
@@ -36,4 +46,6 @@ test('calculates the odds of two players with the native addon', async ({ page }
   await expect(player1Results).toBeHidden();
   await expect(onePairRow.getByRole('cell').nth(0)).toHaveText('0.00%');
   await expect(page.getByRole('button', { name: 'Ah', exact: true })).toBeVisible();
+
+  expect(consoleErrors).toEqual([]);
 });
