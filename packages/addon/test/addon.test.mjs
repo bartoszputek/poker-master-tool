@@ -1,110 +1,192 @@
 import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
 import { before, test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { Worker } from 'node:worker_threads';
 import addon from '../index.js';
 import golden from './golden.json' with { type: 'json' };
 
+const binding = createRequire(import.meta.url)('../build/Release/addon.node');
+
 before(() => addon.initLookUpTable());
 
-test('initLookUpTable(): resolves again without a new read of the table', async () => {
-  await Promise.all([addon.initLookUpTable(), addon.calculate([[1, 2]], [3, 4, 5], [])]);
+test('initLookUpTable(): does not read the table again after it is loaded', async () => {
+  // Given: the table is loaded by before()
+  const { players, community, death, expected } = golden[0];
+
+  // When: the table is loaded again from a file that does not exist
+  await binding.initLookUpTable('/no/such/HandRanks.dat');
+
+  // Then: the call resolves, because the file is not read, and the table is unchanged
+  assert.deepStrictEqual(await addon.calculate(players, community, death), expected);
 });
 
 for (const { name, players, community, death, expected } of golden) {
   test(`calculate(): ${name}`, async () => {
-    assert.deepStrictEqual(await addon.calculate(players, community, death), expected);
+    // Given: a board with known results
+
+    // When
+    const result = await addon.calculate(players, community, death);
+
+    // Then
+    assert.deepStrictEqual(result, expected);
   });
 }
 
-test('calculate(): win, draw and lose of each player cover all combinations', () => {
-  for (const { expected } of golden) {
-    for (const { results } of expected.players) {
-      assert.equal(results.win[0] + results.draw[0] + results.lose[0], expected.combinations);
+for (const { name, players, community, death } of golden) {
+  test(`calculate(): results are consistent for ${name}`, async () => {
+    // Given: a board
+
+    // When
+    const result = await addon.calculate(players, community, death);
+
+    // Then: each board gives each player exactly one hand type
+    for (const { handTypes } of result.players) {
+      const handTypeTotal = Object.values(handTypes).reduce((sum, count) => sum + count, 0);
+      assert.equal(handTypeTotal, result.combinations);
     }
-  }
-});
+
+    // Then: lose is derived from win and draw, so it is negative if they are counted twice
+    for (const { results } of result.players) {
+      assert.ok(results.lose[0] >= 0);
+    }
+
+    // Then: only one player can win a board alone
+    const wins = result.players.reduce((sum, { results }) => sum + results.win[0], 0);
+    assert.ok(wins <= result.combinations);
+  });
+}
 
 const throwingCard = {
   valueOf() {
     throw new Error('valueOf() was called');
   },
 };
-const duplicatedCards = [
-  [1, 2],
-  [2, 3],
-];
+
+const validInput = { players: [[1, 2]], communityCards: [], deathCards: [] };
 
 const invalidInputs = [
-  ['players that are not an array', [{}, [], []], 'The argument playersCards should be an array!'],
-  ['no players', [[], [], []], 'Minimum length of players array is 1!'],
-  [
-    'more than 9 players',
-    [Array.from({ length: 10 }, (_, i) => [i + 1, i + 11]), [], []],
-    'Maximum length of players array is 9!',
-  ],
-  ['a player with three cards', [[[1, 2, 3]], [], []], 'Player should have two cards!'],
-  ['a player that is a string', [['ab'], [], []], 'Player should have two cards!'],
-  [
-    'community cards that are not an array',
-    [[[1, 2]], 3, []],
-    'The argument communityCards should be an array!',
-  ],
-  [
-    'more than 5 community cards',
-    [[[1, 2]], [3, 4, 5, 6, 7, 8], []],
-    'Maximum length of communityCards array is 5!',
-  ],
-  [
-    'death cards that are not an array',
-    [[[1, 2]], [], 1],
-    'The argument deathCards should be an array!',
-  ],
-  ['card 0', [[[0, 2]], [], []], 'Card should be an integer from 1 to 52!'],
-  ['card 53', [[[1, 2]], [53], []], 'Card should be an integer from 1 to 52!'],
-  [
-    'a card that is not an integer',
-    [[[1, 2.5]], [], []],
-    'Card should be an integer from 1 to 52!',
-  ],
-  ['a card that is a string', [[[1, 2]], [], ['3']], 'Card should be an integer from 1 to 52!'],
-  [
-    'a card with a valueOf() that throws',
-    [[[1, throwingCard]], [], []],
-    'Card should be an integer from 1 to 52!',
-  ],
-  ['a duplicated card', [duplicatedCards, [], []], 'Each card can be used only one time!'],
-  [
-    'too few cards to complete the board',
-    [[[1, 2]], [], Array.from({ length: 46 }, (_, i) => i + 3)],
-    'Not enough cards are left in the deck to complete the board!',
-  ],
+  {
+    name: 'players that are not an array',
+    input: { players: {} },
+    message: 'The argument playersCards should be an array!',
+  },
+  {
+    name: 'no players',
+    input: { players: [] },
+    message: 'Minimum length of players array is 1!',
+  },
+  {
+    name: 'more than 9 players',
+    input: { players: Array.from({ length: 10 }, (_, i) => [i + 1, i + 11]) },
+    message: 'Maximum length of players array is 9!',
+  },
+  {
+    name: 'a player with three cards',
+    input: { players: [[1, 2, 3]] },
+    message: 'Player should have two cards!',
+  },
+  {
+    name: 'a player that is a string',
+    input: { players: ['ab'] },
+    message: 'Player should have two cards!',
+  },
+  {
+    name: 'community cards that are not an array',
+    input: { communityCards: 3 },
+    message: 'The argument communityCards should be an array!',
+  },
+  {
+    name: 'more than 5 community cards',
+    input: { communityCards: [3, 4, 5, 6, 7, 8] },
+    message: 'Maximum length of communityCards array is 5!',
+  },
+  {
+    name: 'death cards that are not an array',
+    input: { deathCards: 1 },
+    message: 'The argument deathCards should be an array!',
+  },
+  {
+    name: 'card 0',
+    input: { players: [[0, 2]] },
+    message: 'Card should be an integer from 1 to 52!',
+  },
+  {
+    name: 'card 53',
+    input: { communityCards: [53] },
+    message: 'Card should be an integer from 1 to 52!',
+  },
+  {
+    name: 'a card that is not an integer',
+    input: { players: [[1, 2.5]] },
+    message: 'Card should be an integer from 1 to 52!',
+  },
+  {
+    name: 'a card that is a string',
+    input: { deathCards: ['3'] },
+    message: 'Card should be an integer from 1 to 52!',
+  },
+  {
+    name: 'a card with a valueOf() that throws',
+    input: { players: [[1, throwingCard]] },
+    message: 'Card should be an integer from 1 to 52!',
+  },
+  {
+    name: 'a duplicated card',
+    input: {
+      players: [
+        [1, 2],
+        [2, 3],
+      ],
+    },
+    message: 'Each card can be used only one time!',
+  },
+  {
+    name: 'too few cards to complete the board',
+    input: { deathCards: Array.from({ length: 46 }, (_, i) => i + 3) },
+    message: 'Not enough cards are left in the deck to complete the board!',
+  },
 ];
 
-for (const [name, args, message] of invalidInputs) {
+for (const { name, input, message } of invalidInputs) {
   test(`calculate(): rejects ${name}`, async () => {
-    await assert.rejects(addon.calculate(...args), new TypeError(message));
+    // Given
+    const { players, communityCards, deathCards } = { ...validInput, ...input };
+
+    // When
+    const result = addon.calculate(players, communityCards, deathCards);
+
+    // Then
+    await assert.rejects(result, new TypeError(message));
   });
 }
 
 test('calculate(): works in a worker thread', async () => {
+  // Given: a worker thread that loads the addon and calculates a board
   const players = [
     [50, 51],
     [45, 48],
   ];
+  const communityCards = [1, 2, 3];
   const code = `
     const { parentPort, workerData } = require('node:worker_threads');
     const addon = require(workerData.addonPath);
     addon.initLookUpTable()
-      .then(() => addon.calculate(workerData.players, [1, 2, 3], []))
+      .then(() => addon.calculate(workerData.players, workerData.communityCards, []))
       .then((result) => parentPort.postMessage(result));
   `;
   const addonPath = fileURLToPath(new URL('../index.js', import.meta.url));
-  const worker = new Worker(code, { eval: true, workerData: { addonPath, players } });
+
+  // When
+  const worker = new Worker(code, {
+    eval: true,
+    workerData: { addonPath, players, communityCards },
+  });
   const result = await new Promise((resolve, reject) => {
     worker.once('message', resolve).once('error', reject);
   });
   await worker.terminate();
 
-  assert.deepStrictEqual(result, await addon.calculate(players, [1, 2, 3], []));
+  // Then: the result is the same as in the main thread
+  assert.deepStrictEqual(result, await addon.calculate(players, communityCards, []));
 });
