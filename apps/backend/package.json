@@ -1,6 +1,6 @@
 {
   "name": "@poker-master-tool/backend",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "private": true,
   "description": "Express API for the poker hand calculator",
   "license": "MIT",
@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "start": "NODE_ENV=production node dist/index.js",
-    "dev": "node --watch src/index.ts",
+    "dev": "LOG_FORMAT=pretty node --watch src/index.ts",
     "build": "tsc -p tsconfig.build.json",
     "test": "node --test --test-concurrency=1 \"tests/**/*.test.ts\"",
     "test:coverage": "node --test --test-concurrency=1 --experimental-test-coverage --test-coverage-exclude=\"tests/**\" \"tests/**/*.test.ts\"",

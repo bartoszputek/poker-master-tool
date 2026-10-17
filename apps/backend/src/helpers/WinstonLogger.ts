@@ -1,5 +1,6 @@
 import winston, { format } from 'winston';
 import 'winston-daily-rotate-file';
+import { LOG_FORMAT, LOG_TO_FILE } from '../config.ts';
 
 function createTransport(name: string): winston.transport {
   return new winston.transports.DailyRotateFile({
@@ -38,6 +39,24 @@ const logLevels = {
 
 winston.addColors(logLevels.colors);
 
+function createConsoleTransport(): winston.transport {
+  return new winston.transports.Console({
+    stderrLevels: ['fatal', 'error'],
+    handleExceptions: true,
+    handleRejections: true,
+    format:
+      LOG_FORMAT === 'pretty'
+        ? format.combine(
+            format.colorize(),
+            format.printf((info) => {
+              const { timestamp, level, ...content } = info;
+              return `${level} ${timestamp}: ${JSON.stringify(content, null, 4)}`;
+            }),
+          )
+        : undefined,
+  });
+}
+
 const winstonLogger = winston.createLogger({
   level: 'trace',
   levels: logLevels.levels,
@@ -48,26 +67,14 @@ const winstonLogger = winston.createLogger({
       return JSON.stringify({ timestamp, level, ...content });
     }),
   ),
-  transports: [createErrorTransport(), createTransport('logs')],
+  transports: [createConsoleTransport()],
 });
 
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
-  winstonLogger.add(
-    new winston.transports.Console({
-      format: format.combine(
-        format.colorize(),
-        format.printf((info) => {
-          const { timestamp, level, ...content } = info;
-          return `${level} ${timestamp}: ${JSON.stringify(content, null, 4)}`;
-        }),
-      ),
-    }),
-  );
-}
-
-if (process.env.NODE_ENV === 'production') {
-  winstonLogger.rejections.handle(createTransport('rejections'));
+if (LOG_TO_FILE) {
+  winstonLogger.add(createTransport('logs'));
+  winstonLogger.add(createErrorTransport());
   winstonLogger.exceptions.handle(createTransport('exceptions'));
+  winstonLogger.rejections.handle(createTransport('rejections'));
 }
 
 export default winstonLogger;

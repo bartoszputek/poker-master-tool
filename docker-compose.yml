@@ -6,5 +6,7 @@ services:
     restart: always
     ports:
       - '3000:3000'
+    environment:
+      LOG_TO_FILE: 'true'
     volumes:
       - ./apps/backend/logs:/app/logs

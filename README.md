@@ -34,7 +34,7 @@ docs/          Images for this README
 ```
 
 - The backend uses the addon as the workspace dependency `@poker-master-tool/addon`.
-- The frontend build writes static files to `apps/frontend/build`. The backend serves them. To use a different directory, set the `STATIC_DIRECTORY` environment variable.
+- The frontend build writes static files to `apps/frontend/build`. The backend serves them.
 - The addon reads the lookup table from `packages/addon/data/HandRanks.dat`.
 
 ## Features
@@ -43,7 +43,27 @@ docs/          Images for this README
 - Displaying the number of enumerated combinations and hand rank probability for each player
 - Support for Death Cards
 - Request caching on the backend side
-- Logging requests with log retention politics stored inside the `apps/backend/logs` directory
+- Logging requests to stdout and stderr, with optional log files that rotate daily
+
+## Configuration
+
+The backend reads these environment variables:
+
+| Variable           | Default               | Description                                                                                                |
+| ------------------ | --------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `LOG_FORMAT`       | `json`                | The format of the console logs. Set `pretty` for colored, indented logs. `pnpm dev` sets `pretty`.         |
+| `LOG_TO_FILE`      | `false`               | Set `true` to also write the logs to the `logs` directory. Each file type rotates daily and stays 14 days. |
+| `CORS_ORIGIN`      | not set               | The origin that can send cross-origin requests. CORS is off when the variable is not set.                  |
+| `STATIC_DIRECTORY` | `apps/frontend/build` | The directory with the static frontend build.                                                              |
+
+The console logs go to stdout. The `error` and `fatal` logs go to stderr. When `LOG_TO_FILE` is `true`, the backend writes 4 file types:
+
+- `logs-<date>.log` - all logs.
+- `error-<date>.log` - the `error` and `fatal` logs.
+- `exceptions-<date>.log` - uncaught exceptions.
+- `rejections-<date>.log` - unhandled promise rejections.
+
+The Docker Compose file sets `LOG_TO_FILE` to `true` and mounts `apps/backend/logs` into the container.
 
 ## Quick start with Docker
 

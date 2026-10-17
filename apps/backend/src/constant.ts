@@ -1,9 +1,3 @@
-import path from 'node:path';
-
-export const FRONTEND_DEV_SERVER_URL: string = 'http://localhost:8080';
-// The static build of the frontend. The default works for both src and dist.
-export const STATIC_DIRECTORY: string =
-  process.env.STATIC_DIRECTORY ?? path.resolve(import.meta.dirname, '../../frontend/build');
 export const CACHE_TTL_IN_MS: number = 1000 * 60 * 10;
 export const CARD_SUITS: string[] = ['s', 'd', 'h', 'c'];
 export const CARD_RANKS: string[] = [

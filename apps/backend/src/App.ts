@@ -9,7 +9,8 @@ import ComputeHandHandler from './handlers/ComputeHandHandler.ts';
 import ErrorHandler from './handlers/ErrorHandler.ts';
 import LoggerHandler from './handlers/LoggerHandler.ts';
 import CacheInMemory from './helpers/CacheInMemory.ts';
-import { CACHE_TTL_IN_MS, FRONTEND_DEV_SERVER_URL, STATIC_DIRECTORY } from './constant.ts';
+import { CACHE_TTL_IN_MS } from './constant.ts';
+import { CORS_ORIGIN, STATIC_DIRECTORY } from './config.ts';
 import { initLookUpTable } from '@poker-master-tool/addon';
 
 class App {
@@ -26,12 +27,8 @@ class App {
 
     this.express.use(helmet());
 
-    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
-      this.express.use(
-        cors({
-          origin: FRONTEND_DEV_SERVER_URL,
-        }),
-      );
+    if (CORS_ORIGIN !== undefined) {
+      this.express.use(cors({ origin: CORS_ORIGIN }));
     }
 
     this.loggerHandler = new LoggerHandler();
