@@ -12,7 +12,8 @@ struct Results {
     int combinations;
 };
 
-Results compute(std::vector<std::vector<int>> players, std::vector<int> communityCards, std::vector<int> deathCards);
+Results compute(const std::vector<std::vector<int>>& players, const std::vector<int>& communityCards,
+                const std::vector<int>& deathCards);
 bool initData(const std::string& path);
 std::array<std::string, 10> getHandNames();
 std::array<std::string, 3> getResultNames();

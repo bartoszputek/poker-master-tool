@@ -53,13 +53,13 @@ array<PlayerStats, 9> initStructures() {
     return players;
 }
 
-vector<int> getDeathCards(vector<vector<int>> players, vector<int> communityCards, vector<int> deathCards) {
+vector<int> getDeathCards(const vector<vector<int>>& players, const vector<int>& communityCards,
+                          const vector<int>& deathCards) {
     vector<int> cardsToRemove = deathCards;
 
     cardsToRemove.insert(cardsToRemove.end(), communityCards.begin(), communityCards.end());
 
-    for (vector<vector<int>>::iterator playerIterator = players.begin(); playerIterator != players.end(); ++playerIterator) {
-        vector<int> playerCards = *playerIterator;
+    for (const vector<int>& playerCards : players) {
         cardsToRemove.insert(cardsToRemove.end(), playerCards.begin(), playerCards.end());
     }
 
@@ -78,124 +78,95 @@ vector<int> getDeck(vector<int> cardsToRemove) {
     return filteredDeck;
 }
 
-int evalPointer(vector<int> cards, int pointer = 53) {
-    int length = cards.size();
-
-    if (length == 1) {
-        return HR[pointer + cards[0]];
+// Adds the cards from the last to the first, like the previous recursive version.
+int evalPointer(const vector<int>& cards) {
+    int pointer = 53;
+    for (auto card = cards.rbegin(); card != cards.rend(); ++card) {
+        pointer = HR[pointer + *card];
     }
-
-    int card = cards[length - 1];
-    cards.pop_back();
-
-    return evalPointer(cards, HR[pointer + card]);
+    return pointer;
 }
 
-vector<int> evalPointers(vector<vector<int>> players, vector<int> communityCards) {
-    vector<int> pointers;
+array<int, 9> evalPointers(const vector<vector<int>>& players, const vector<int>& communityCards) {
+    array<int, 9> pointers{};
 
-    for (vector<vector<int>>::iterator playerIterator = players.begin(); playerIterator != players.end(); ++playerIterator) {
+    for (size_t i = 0; i < players.size(); ++i) {
         vector<int> cards = communityCards;
-        vector<int> playerCards = *playerIterator;
-
-        cards.insert(cards.end(), playerCards.begin(), playerCards.end());
-
-        int pointer = evalPointer(cards);
-        pointers.push_back(pointer);
+        cards.insert(cards.end(), players[i].begin(), players[i].end());
+        pointers[i] = evalPointer(cards);
     }
 
     return pointers;
 }
 
-vector<int> determineWinner(int max, vector<int>& ranks) {
-    vector<int> winnerIndexes;
-    for (vector<int>::iterator it = ranks.begin(); it != ranks.end(); ++it) {
-        int index = it - ranks.begin();
+// A board where all players have the best hand is a draw for all of them.
+// Otherwise each player with the best hand gets a win.
+void handleBoard(const array<int, 9>& ranks, size_t playerCount, array<PlayerStats, 9>& playersStats) {
+    int max = 0;
+    size_t winners = 0;
 
-        if (*it == max) {
-            winnerIndexes.push_back(index);
+    for (size_t i = 0; i < playerCount; ++i) {
+        const int rank = ranks[i];
+        ++playersStats[i].handTypeSum[rank >> 12];
+
+        if (rank > max) {
+            max = rank;
+            winners = 1;
+        } else if (rank == max) {
+            ++winners;
         }
     }
 
-    if (winnerIndexes.size() == ranks.size()) {
-        return {};
-    }
-
-    return winnerIndexes;
-}
-
-void handleResults(vector<int>& results, array<PlayerStats, 9>& players) {
-    if (results.size() == 0) {
-        for (array<PlayerStats, 9>::iterator it = players.begin(); it != players.end(); ++it) {
-            ++(*it).results[1].first;
+    if (winners == playerCount) {
+        for (PlayerStats& stats : playersStats) {
+            ++stats.results[1].first;
         }
         return;
     }
 
-    for (vector<int>::iterator it = results.begin(); it != results.end(); ++it) {
-        ++players[(*it)].results[0].first;
+    for (size_t i = 0; i < playerCount; ++i) {
+        if (ranks[i] == max) {
+            ++playersStats[i].results[0].first;
+        }
     }
 }
 
 int iterate(
-    vector<int>::iterator it,
-    vector<int>& playerPointers,
-    int iteration,
-    vector<int>& deck,
-    vector<int>& ranks,
-    array<PlayerStats, 9>& playersStats,
-    int count = 0) {
+    size_t start,
+    const array<int, 9>& playerPointers,
+    size_t playerCount,
+    size_t iteration,
+    const vector<int>& deck,
+    array<PlayerStats, 9>& playersStats) {
     if (iteration == 0) {
-        int max = 0;
-
-        for (vector<int>::iterator p_iterator = playerPointers.begin(); p_iterator != playerPointers.end(); ++p_iterator) {
-            int index = p_iterator - playerPointers.begin();
-            array<int, 10>& handSum = playersStats[index].handTypeSum;
-            int handRank = *p_iterator >> 12;
-            handSum[handRank] += 1;
-            ranks.push_back(*p_iterator);
-
-            if (*p_iterator > max) {
-                max = *p_iterator;
-            }
-        }
-
-        vector<int> results = determineWinner(max, ranks);
-        handleResults(results, playersStats);
-        ranks.clear();
-
+        handleBoard(playerPointers, playerCount, playersStats);
         return 1;
     }
 
-    vector<int> newPointers;
-    newPointers.reserve(playerPointers.size());
+    array<int, 9> newPointers;
+    int count = 0;
 
-    for (vector<int>::iterator it1 = it; it1 != deck.end() - iteration + 1; ++it1) {
-        for (vector<int>::iterator p_iterator = playerPointers.begin(); p_iterator != playerPointers.end(); ++p_iterator) {
-            newPointers.push_back(HR[*p_iterator + *it1]);
+    for (size_t card = start; card + iteration <= deck.size(); ++card) {
+        for (size_t i = 0; i < playerCount; ++i) {
+            newPointers[i] = HR[playerPointers[i] + deck[card]];
         }
 
-        count += iterate(it1 + 1, newPointers, iteration - 1, deck, ranks, playersStats);
-
-        newPointers.clear();
+        count += iterate(card + 1, newPointers, playerCount, iteration - 1, deck, playersStats);
     }
 
     return count;
 }
 
 int calculate(
-    vector<vector<int>> players,
-    vector<int> communityCards,
-    vector<int> deathCards,
+    const vector<vector<int>>& players,
+    const vector<int>& communityCards,
+    const vector<int>& deathCards,
     array<PlayerStats, 9>& playersStats) {
     vector<int> cardsToRemove = getDeathCards(players, communityCards, deathCards);
     vector<int> deck = getDeck(cardsToRemove);
-    vector<int> pointers = evalPointers(players, communityCards);
-    vector<int> ranks;
+    array<int, 9> pointers = evalPointers(players, communityCards);
 
-    int combinations = iterate(deck.begin(), pointers, 5 - communityCards.size(), deck, ranks, playersStats);
-
-    return combinations;
+    return iterate(0, pointers, players.size(), 5 - communityCards.size(), deck, playersStats);
 }
 
 bool initData(const string& path) {
@@ -229,7 +200,7 @@ Results processResults(int combinations, array<PlayerStats, 9>& playersStats) {
     return results;
 }
 
-Results compute(vector<vector<int>> players, vector<int> communityCards, vector<int> deathCards) {
+Results compute(const vector<vector<int>>& players, const vector<int>& communityCards, const vector<int>& deathCards) {
     array<PlayerStats, 9> playersStats = initStructures();
 
     int combinations = calculate(players, communityCards, deathCards, playersStats);
