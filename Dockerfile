@@ -1,25 +1,34 @@
-FROM node:16
+FROM node:26 AS build
+
+RUN npm install --global pnpm@10.34.7
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/backend/package.json ./apps/backend/
+COPY apps/frontend/package.json ./apps/frontend/
+COPY packages/addon/package.json ./packages/addon/
 
-RUN npm ci
-
-ARG NODE_ENV
-ENV NODE_ENV $NODE_ENV
+# The sources are not copied yet, so skip the addon build that the install starts.
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 COPY . .
 
-RUN npm run addon:generate-table
+RUN pnpm generate-table && pnpm build
 
-RUN npm run addon:configure
+# Copy the backend with only its production dependencies and the built addon.
+# --legacy: pnpm 10 deploys without it only from workspaces with injected workspace packages.
+RUN pnpm --filter @poker-master-tool/backend deploy --prod --legacy /deploy/backend
 
-RUN npm run addon:build
+FROM node:26-slim
 
-RUN npm run build:frontend
+WORKDIR /app
 
-RUN npm run build
+COPY --from=build /deploy/backend ./
+COPY --from=build /usr/src/app/apps/frontend/build ./public
+
+ENV NODE_ENV=production
+ENV STATIC_DIRECTORY=/app/public
 
 EXPOSE 3000
-CMD ["npm", "run", "start"]
+CMD ["node", "dist/index.js"]

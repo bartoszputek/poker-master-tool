@@ -1,0 +1,59 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('/assets/fonts/Roboto-Regular.ttf');
+  font-display: swap;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+body {
+  font-family: 'Roboto';
+  display: flex;
+  justify-content: center;
+  background-color: #e8e8e8;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.display-none {
+  display: none;
+}
+
+.selected {
+  outline: 2px solid black;
+}
+
+.death-cards-container {
+  margin-top: 10px;
+}
+
+.version {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 900px) {
+  body {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .app {
+    padding: 5px;
+  }
+}

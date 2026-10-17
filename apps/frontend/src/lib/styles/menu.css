@@ -1,0 +1,78 @@
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-picker {
+  margin: 5px 0px 0px 0px;
+}
+
+.card-picker-row {
+  margin-left: 5px;
+}
+
+.card-picker-row:first-child {
+  margin-left: 0px;
+}
+
+.card-picker-column {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.card-icon {
+  box-sizing: border-box;
+  height: 46px;
+  width: 22px;
+  background-size: 78px;
+  background-position: -1px -3px;
+  margin: 1px;
+  border: 1px solid black;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.card-icon:focus {
+  outline: 3px solid #9ecaed;
+  box-shadow: 0 0 10px 1px #9ecaed;
+}
+
+.reset-button {
+  display: inline-block;
+  outline: 0;
+  text-align: center;
+  cursor: pointer;
+  padding: 0px 16px;
+  border-radius: 2px;
+  min-width: 70px;
+  height: 26px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(50, 49, 48);
+  font-size: 14px;
+  font-weight: 400;
+  box-sizing: border-box;
+  border: 1px solid rgb(138, 136, 134);
+}
+
+.reset-button:hover {
+  background-color: rgb(243, 242, 241);
+  color: rgb(32, 31, 30);
+}
+
+.reset-button:focus {
+  outline: 3px solid #9ecaed;
+  box-shadow: 0 0 10px 1px #9ecaed;
+}
+
+@media screen and (max-width: 768px) {
+  .reset-button {
+    width: 100%;
+    height: 30px;
+    margin: 10px 0;
+  }
+
+  .menu {
+    flex-direction: column;
+  }
+}

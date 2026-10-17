@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+  - packages/*
+
+# Versions that more than one package uses. Packages refer to them with "catalog:".
+catalog:
+  '@types/node': ^26.6.5
+  svelte: ^5.57.1
+  typescript: ^6.0.3
+
+# Do not install releases that are younger than 1 day (in minutes). This lowers the risk of supply-chain attacks.
+minimumReleaseAge: 1440
