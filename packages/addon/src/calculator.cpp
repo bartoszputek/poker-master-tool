@@ -98,7 +98,13 @@ int enumerate(const std::vector<int>& deck, size_t start, size_t missingCards, c
         for (size_t i = 0; i < playerCount; ++i) {
             nextPointers[i] = table[pointers[i] + deck[card]];
         }
-        boards += enumerate(deck, card + 1, missingCards - 1, nextPointers, playerCount, stats);
+        // The last card completes the board, so count it here and save one call for each board.
+        if (missingCards == 1) {
+            countBoard(nextPointers, playerCount, stats);
+            ++boards;
+        } else {
+            boards += enumerate(deck, card + 1, missingCards - 1, nextPointers, playerCount, stats);
+        }
     }
 
     return boards;
